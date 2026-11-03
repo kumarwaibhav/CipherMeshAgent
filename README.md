@@ -172,16 +172,6 @@ CipherMeshAgent/
 
 Each assignment folder has its own `README.md`, the files **as submitted** in `submission/`, and a standalone `report/` where one was submitted. The unified product source for 5.2 is maintained privately and can be demonstrated live on request.
 
----
-
-## ◆ Brand
-
-<p align="center"><img src="assets/readme/palette.png" alt="CipherMesh brand palette: Tint, Safe, Cleaned, Waiting, Blocked, Core red, Ink, Paper" width="100%"></p>
-
-The mark is an open hexagon of six mesh nodes (every model) around a red core (the protected prompt), with one path leaving through the open side (the inspected gate). Type is **Inter** for interface text and **JetBrains Mono** for machine output. Full rules are in **[BRAND.md](BRAND.md)**.
-
----
-
 <div align="center">
 
 <img src="assets/brand/app-icon.svg" alt="CipherMesh app icon" width="72">

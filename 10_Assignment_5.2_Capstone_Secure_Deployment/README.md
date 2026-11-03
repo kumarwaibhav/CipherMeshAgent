@@ -1,3 +1,5 @@
+<p align="left"><img src="../assets/brand/app-icon.svg" alt="CipherMesh" width="56"></p>
+
 # Assignment 5.2: Capstone Project Consolidation and Secure Deployment
 
 **Objective.** Consolidate Units 1–5 into one system with a live UI and a full production execution cycle.
@@ -22,6 +24,8 @@
 | Test results | [`logs/pytest_results.txt`](logs/pytest_results.txt) |
 
 The unified product source code is maintained in a private repository and can be demonstrated live on request.
+
+[← Back to all assignments](../README.md#-assignments)
 
 ---
 Kumar Waibhav Akshat (RA2212704010027) · 21CSE525T Agent Technology

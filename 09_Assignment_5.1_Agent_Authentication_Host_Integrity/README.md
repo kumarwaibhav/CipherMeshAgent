@@ -1,3 +1,5 @@
+<p align="left"><img src="../assets/brand/app-icon.svg" alt="CipherMesh" width="56"></p>
+
 # Assignment 5.1: Agent Authentication and Host Integrity Verification
 
 **Objective.** Protect the agent with cryptographic checks and show it rejecting unauthorized commands.
@@ -17,6 +19,8 @@
 | Runtime log with blocked requests | [`submission/logs/security_runtime.log`](submission/logs/security_runtime.log) |
 | Code | [`submission/ciphermesh/trust/`](submission/ciphermesh/trust/) |
 | Tests | [`submission/logs/pytest_results.txt`](submission/logs/pytest_results.txt) |
+
+[← Back to all assignments](../README.md#-assignments)
 
 ---
 Kumar Waibhav Akshat (RA2212704010027) · 21CSE525T Agent Technology

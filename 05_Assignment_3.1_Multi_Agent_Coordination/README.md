@@ -1,3 +1,5 @@
+<p align="left"><img src="../assets/brand/app-icon.svg" alt="CipherMesh" width="56"></p>
+
 # Assignment 3.1: Multi-Agent Coordination Protocol Execution
 
 **Objective.** Run a controlled negotiation where agent instances exchange proposals and reach consensus.
@@ -16,6 +18,8 @@
 | Negotiation timeline | [`submission/docs/examples/multi_agent_negotiation_timeline.txt`](submission/docs/examples/multi_agent_negotiation_timeline.txt) |
 | Result | [`submission/docs/examples/negotiation_result.json`](submission/docs/examples/negotiation_result.json) |
 | Code | [`submission/ciphermesh/negotiation/`](submission/ciphermesh/negotiation/) |
+
+[← Back to all assignments](../README.md#-assignments)
 
 ---
 Kumar Waibhav Akshat (RA2212704010027) · 21CSE525T Agent Technology

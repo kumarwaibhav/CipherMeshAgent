@@ -1,3 +1,5 @@
+<p align="left"><img src="../assets/brand/app-icon.svg" alt="CipherMesh" width="56"></p>
+
 # Assignment 3.2: Self-Interested Agent Utility Optimization for E-Commerce
 
 **Objective.** Formulate an explicit utility function and choose the optimal option under constraints.
@@ -16,6 +18,8 @@
 | Ranking of all 10 options | [`report/CipherMesh_Utility_Options_Ranking.csv`](report/CipherMesh_Utility_Options_Ranking.csv) |
 | Terminal timeline | [`submission/docs/examples/utility_optimization_terminal_timeline.txt`](submission/docs/examples/utility_optimization_terminal_timeline.txt) |
 | Code | [`submission/ciphermesh/optimization/`](submission/ciphermesh/optimization/) |
+
+[← Back to all assignments](../README.md#-assignments)
 
 ---
 Kumar Waibhav Akshat (RA2212704010027) · 21CSE525T Agent Technology

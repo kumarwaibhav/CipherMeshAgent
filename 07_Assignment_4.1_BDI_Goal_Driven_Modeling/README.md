@@ -1,3 +1,5 @@
+<p align="left"><img src="../assets/brand/app-icon.svg" alt="CipherMesh" width="56"></p>
+
 # Assignment 4.1: Belief-Desire-Intention (BDI) Goal-Driven Modeling
 
 **Objective.** Build a cognitive layer that tracks beliefs, desires and intentions, and re-plans when beliefs change.
@@ -17,6 +19,8 @@
 | Verification run log | [`submission/logs/bdi_verification_run.log`](submission/logs/bdi_verification_run.log) |
 | Code | [`submission/ciphermesh/bdi/`](submission/ciphermesh/bdi/) |
 | Tests | [`submission/logs/pytest_results.txt`](submission/logs/pytest_results.txt) |
+
+[← Back to all assignments](../README.md#-assignments)
 
 ---
 Kumar Waibhav Akshat (RA2212704010027) · 21CSE525T Agent Technology

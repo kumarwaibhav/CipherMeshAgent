@@ -1,3 +1,5 @@
+<p align="left"><img src="../assets/brand/app-icon.svg" alt="CipherMesh" width="56"></p>
+
 # Assignment 2.2: Distributed Agent Messaging using Sockets/RPC Communication
 
 **Objective.** Let agents send and receive typed messages over the network.
@@ -16,6 +18,8 @@
 | Code | [`submission/ciphermesh/`](submission/ciphermesh/) |
 | Tests | [`submission/tests/`](submission/tests/) |
 | How to run | [`submission/README.md`](submission/README.md) |
+
+[← Back to all assignments](../README.md#-assignments)
 
 ---
 Kumar Waibhav Akshat (RA2212704010027) · 21CSE525T Agent Technology

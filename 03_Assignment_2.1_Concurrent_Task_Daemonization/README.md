@@ -1,3 +1,5 @@
+<p align="left"><img src="../assets/brand/app-icon.svg" alt="CipherMesh" width="56"></p>
+
 # Assignment 2.1: Concurrent Task Daemonization using Threads and Workers
 
 **Objective.** Run background processing so the agent never blocks its core loop.
@@ -17,6 +19,8 @@
 | Latency and benchmark logs | [`submission/logs/`](submission/logs/) |
 | Code | [`submission/ciphermesh_concurrent_agent.py`](submission/ciphermesh_concurrent_agent.py) |
 | Tests | [`submission/tests/`](submission/tests/) |
+
+[← Back to all assignments](../README.md#-assignments)
 
 ---
 Kumar Waibhav Akshat (RA2212704010027) · 21CSE525T Agent Technology

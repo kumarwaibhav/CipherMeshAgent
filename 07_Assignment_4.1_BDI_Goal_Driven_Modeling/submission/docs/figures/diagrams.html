@@ -1,0 +1,171 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>BDI Diagrams</title>
+<!-- Diagram source for the Assignment 4.1 report. Author: Kumar Waibhav Akshat (RA2212704010027) -->
+<link rel="stylesheet" href="diagram_base.css">
+<style>
+.d{position:relative}
+.abs{position:absolute}
+.card h4{font-size:17px}
+.chip{font-size:15px}
+.card p,.card li{font-size:15px;color:var(--ink2);line-height:1.42}
+.card ul{margin:4px 0 0 17px}
+.tag{font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.blueC{border-color:#9ec3ea;background:var(--blueF)} .blueC .tag{color:var(--blue)}
+.greenC{border-color:#9fd0ab;background:var(--greenF)} .greenC .tag{color:var(--green)}
+.purpleC{border-color:#b9b7ee;background:var(--purpleF)} .purpleC .tag{color:var(--purple)}
+.orangeC{border-color:#e7bf98;background:var(--orangeF)} .orangeC .tag{color:var(--orange)}
+.redC{border-color:#ecaab0;background:var(--redF)} .redC .tag{color:var(--red)}
+.greyC{background:var(--soft)} .greyC .tag{color:var(--ink3)}
+.mono{font-size:15px;color:var(--ink)}
+.row2{display:flex;gap:6px;align-items:baseline;font-size:15px;color:var(--ink2);line-height:1.45}
+.pr{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:700;color:var(--ink);min-width:78px}
+svg.ov{position:absolute;left:0;top:0;overflow:visible}
+.lbl{position:absolute;font-size:15px;color:var(--ink3);font-weight:600;white-space:nowrap}
+.step{text-align:left}
+.step .n{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:700;color:var(--ink3)}
+.step h4{font-size:17px;margin:2px 0 6px}
+.st{display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;letter-spacing:.04em}
+.st small{display:block;font-weight:500;font-size:15px;letter-spacing:0;color:var(--ink2);margin-top:3px}
+</style></head><body>
+
+<!-- ============================================================ 1. ARCHITECTURE -->
+<div class="d" id="fig_bdi_architecture" style="width:1100px;height:930px">
+  <div class="t">CipherMesh cognitive layer &middot; ciphermesh/bdi</div>
+  <svg class="ov" width="1100" height="930">
+    <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8E8E93"/></marker></defs>
+    <g stroke="#8E8E93" stroke-width="2.2" fill="none" marker-end="url(#ah)">
+      <line x1="300" y1="175" x2="362" y2="175"/>
+      <line x1="800" y1="175" x2="738" y2="175"/>
+      <line x1="950" y1="350" x2="950" y2="292"/>
+      <line x1="550" y1="290" x2="550" y2="342"/>
+      <line x1="300" y1="465" x2="362" y2="465"/>
+      <line x1="550" y1="580" x2="550" y2="632"/>
+      <line x1="300" y1="760" x2="362" y2="760"/>
+      <line x1="730" y1="760" x2="792" y2="760"/>
+    </g>
+  </svg>
+  <div class="lbl" style="left:302px;top:148px">input</div>
+  <div class="lbl" style="left:742px;top:148px">results</div>
+  <div class="lbl" style="left:562px;top:302px">read / subscribe</div>
+  <div class="lbl" style="left:302px;top:438px">options</div>
+  <div class="lbl" style="left:562px;top:592px">adopt / drop / suspend</div>
+  <div class="lbl" style="left:306px;top:733px">plans</div>
+  <div class="lbl" style="left:740px;top:733px">calls</div>
+
+  <div class="abs card greyC" style="left:0;top:50px;width:300px;height:240px">
+    <div class="tag">Environment &amp; sensors</div>
+    <ul><li>user prompt and amendments</li><li>detector + policy (prompt sensor)</li>
+    <li>provider status feed</li><li>SOC lockdown command</li><li>finance budget and price feed</li>
+    <li>review-queue monitor</li></ul>
+  </div>
+  <div class="abs card blueC" style="left:370px;top:50px;width:360px;height:240px">
+    <div class="tag">Beliefs &middot; beliefs.py</div>
+    <p><b>BeliefBase</b>: thread-safe; set() reports change; subscribe(); append-only history.</p>
+    <div class="mono" style="margin-top:8px;line-height:1.5">prompt.decision = REDACT<br>provider.gcp-vertex.status<br>&nbsp;&nbsp;= major_outage<br>policy.lockdown = false</div>
+  </div>
+  <div class="abs card greyC" style="left:800px;top:50px;width:300px;height:240px">
+    <div class="tag">Belief updates from steps</div>
+    <div class="mono" style="line-height:1.55">payload.sha256<br>route.selected<br>dispatch.sent_to<br>dispatch.residency<br>response.findings<br>request.status</div>
+  </div>
+
+  <div class="abs card orangeC" style="left:0;top:350px;width:300px;height:230px">
+    <div class="tag">Desires &middot; desires.py</div>
+    <div class="row2"><span class="pr">D1 p100</span>Never transmit a secret</div>
+    <div class="row2"><span class="pr">D2 p90</span>Indian data stays in India</div>
+    <div class="row2"><span class="pr">D3 p60</span>Deliver a useful answer</div>
+    <div class="row2"><span class="pr">D4 p40</span>Lowest cost in bounds</div>
+    <div class="row2"><span class="pr">D5 p30</span>Review backlog in limit</div>
+  </div>
+  <div class="abs card purpleC" style="left:370px;top:350px;width:360px;height:230px">
+    <div class="tag">Deliberation cycle &middot; engine.py</div>
+    <p><b>BDIAgent.run()</b>: perceive, revise beliefs, options, filter (priority, conflicts), means-ends, execute ONE step, reconsider.</p>
+    <p style="margin-top:8px">Commitment <b>OPEN_MINDED</b>, event-driven: HOLDS keep, UNCERTAIN suspend, VIOLATED drop and re-plan.</p>
+  </div>
+  <div class="abs card" style="left:800px;top:350px;width:300px;height:530px">
+    <div class="tag" style="color:var(--ink3)">Engine actions (services.py)</div>
+    <ul>
+      <li><b>inspect_text</b>: policy R1&ndash;R5</li>
+      <li><b>ContractBook.ensure</b>: Contract-Net price (3.1)</li>
+      <li><b>routing.route</b>: utility router (3.2)</li>
+      <li><b>provider adapters</b>: Bedrock, Azure, Vertex, Ollama</li>
+      <li><b>inspect_response</b>: reply scanning</li>
+      <li><b>ReviewQueue</b>: approval (R3)</li>
+      <li><b>EvidenceLedger</b>: HMAC chain</li>
+      <li><b>AuditLog</b>: SQLite, metadata only</li>
+    </ul>
+  </div>
+
+  <div class="abs card greenC" style="left:0;top:640px;width:300px;height:240px">
+    <div class="tag">Plan library &middot; plans.py</div>
+    <div class="mono" style="line-height:1.4">allow_then_dispatch(p)<br>redact_then_dispatch(p)<br>dispatch_local_only<br>hold_for_review<br>block_and_advise_rotation<br>enforce_lockdown_block<br>withhold_reply_and_alert<br>decline_review_overflow</div>
+  </div>
+  <div class="abs card redC" style="left:370px;top:640px;width:360px;height:240px">
+    <div class="tag">Intentions &middot; intentions.py</div>
+    <p><b>IntentionStack</b>: one live intention per desire, run by priority; each has a bound plan, a step cursor, a status and a reason history.</p>
+    <div class="mono" style="margin-top:8px;line-height:1.9">I1 &middot; gcp-vertex &nbsp;<span class="chip block">DROPPED</span><br>I2 &middot; aws-bedrock <span class="chip allow">ACTIVE</span></div>
+  </div>
+</div>
+
+<!-- ============================================================ 2. DELIBERATION CYCLE -->
+<div class="d" id="fig_cycle" style="width:1100px;height:620px">
+  <div class="t">One deliberation cycle of BDIAgent.run()</div>
+  <svg class="ov" width="1100" height="620">
+    <defs><marker id="ah2" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8E8E93"/></marker>
+    <marker id="ah3" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#B0101A"/></marker></defs>
+    <g stroke="#8E8E93" stroke-width="2.2" fill="none" marker-end="url(#ah2)">
+      <line x1="255" y1="150" x2="301" y2="150"/>
+      <line x1="525" y1="150" x2="571" y2="150"/>
+      <line x1="795" y1="150" x2="841" y2="150"/>
+      <line x1="955" y1="230" x2="955" y2="326"/>
+      <line x1="845" y1="410" x2="799" y2="410"/>
+      <line x1="575" y1="410" x2="529" y2="410"/>
+      <polyline points="305,410 145,410 145,234"/>
+    </g>
+    <g stroke="#B0101A" stroke-width="2.2" fill="none" marker-end="url(#ah3)" stroke-dasharray="7 5">
+      <polyline points="415,490 415,545 955,545 955,494"/>
+    </g>
+  </svg>
+  <div class="lbl" style="left:160px;top:418px">next cycle</div>
+  <div class="lbl" style="left:440px;top:556px;color:#B0101A">DROP or SUSPEND: re-plan on the next cycle</div>
+  
+
+  <div class="abs card step greyC" style="left:35px;top:70px;width:220px;height:160px"><div class="n">1</div><h4>Perceive</h4><p>environment events and prompt amendments</p></div>
+  <div class="abs card step blueC" style="left:305px;top:70px;width:220px;height:160px"><div class="n">2</div><h4>Revise beliefs</h4><p>BeliefBase.set(); changes queued by the subscription</p></div>
+  <div class="abs card step orangeC" style="left:575px;top:70px;width:220px;height:160px"><div class="n">3</div><h4>Options</h4><p>desires that are active and not yet satisfied</p></div>
+  <div class="abs card step orangeC" style="left:845px;top:70px;width:220px;height:160px"><div class="n">4</div><h4>Filter</h4><p>priority and conflicts; pre-empt lower desires</p></div>
+  <div class="abs card step greenC" style="left:845px;top:330px;width:220px;height:160px"><div class="n">5</div><h4>Means-ends</h4><p>best plan and binding by router utility</p></div>
+  <div class="abs card step redC" style="left:575px;top:330px;width:220px;height:160px"><div class="n">6</div><h4>Act</h4><p>revise beliefs again, check step guard, run ONE step</p></div>
+  <div class="abs card step purpleC" style="left:305px;top:330px;width:220px;height:160px"><div class="n">7</div><h4>Reconsider</h4><p>relevant change? keep, suspend or drop</p></div>
+</div>
+
+<!-- ============================================================ 3. INTENTION STATES -->
+<div class="d" id="fig_states" style="width:1000px;height:420px">
+  <div class="t">Intention life cycle (intentions.py)</div>
+  <svg class="ov" width="1000" height="420">
+    <defs><marker id="ah4" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8E8E93"/></marker></defs>
+    <circle cx="60" cy="165" r="11" fill="#1D1D1F"/>
+    <g stroke="#8E8E93" stroke-width="2.2" fill="none" marker-end="url(#ah4)">
+      <line x1="72" y1="165" x2="190" y2="165"/>
+      <polyline points="400,135 520,135 520,95 690,95"/>
+      <line x1="400" y1="180" x2="690" y2="180"/>
+      <polyline points="400,200 470,200 470,300 690,300"/>
+      <line x1="270" y1="212" x2="270" y2="276"/>
+      <line x1="330" y1="280" x2="330" y2="216"/>
+      <line x1="400" y1="350" x2="690" y2="350"/>
+    </g>
+  </svg>
+  <div class="lbl" style="left:84px;top:138px">INTEND</div>
+  <div class="lbl" style="left:532px;top:68px">last step done</div>
+  <div class="lbl" style="left:532px;top:153px">step error</div>
+  <div class="lbl" style="left:484px;top:273px">VIOLATED or pre-empted</div>
+  <div class="lbl" style="left:440px;top:357px">wait timeout or VIOLATED</div>
+  <div class="lbl" style="left:150px;top:232px">UNCERTAIN</div>
+  <div class="lbl" style="left:342px;top:232px">HOLDS again</div>
+
+  <div class="abs card st blueC" style="left:200px;top:120px;width:200px;height:92px"><div style="text-align:center">ACTIVE<small>cursor advances one step per cycle</small></div></div>
+  <div class="abs card st orangeC" style="left:200px;top:280px;width:200px;height:100px"><div style="text-align:center">SUSPENDED<small>waits, bounded cycles</small></div></div>
+  <div class="abs card st greenC" style="left:700px;top:62px;width:240px;height:66px"><div style="text-align:center">SUCCEEDED</div></div>
+  <div class="abs card st redC" style="left:700px;top:148px;width:240px;height:66px"><div style="text-align:center">FAILED<small>replan next cycle</small></div></div>
+  <div class="abs card st redC" style="left:700px;top:270px;width:240px;height:110px"><div style="text-align:center">DROPPED<small>reason recorded,<br>replan next cycle</small></div></div>
+</div>
+</body></html>

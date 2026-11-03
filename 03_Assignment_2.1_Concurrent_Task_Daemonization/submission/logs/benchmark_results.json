@@ -1,0 +1,67 @@
+[
+  {
+    "mode": "sequential",
+    "workers": 0,
+    "requests": 80,
+    "simulated_io_ms": 25.0,
+    "wall_ms": 2014.735,
+    "throughput_req_s": 39.707,
+    "avg_service_ms": 25.14,
+    "p95_service_ms": 25.178,
+    "avg_end_to_end_ms": 25.14,
+    "p95_end_to_end_ms": 25.179,
+    "speedup_vs_sequential": 1.0
+  },
+  {
+    "mode": "threaded",
+    "workers": 1,
+    "requests": 80,
+    "simulated_io_ms": 25.0,
+    "wall_ms": 2025.889,
+    "throughput_req_s": 39.489,
+    "avg_service_ms": 25.121,
+    "p95_service_ms": 25.141,
+    "avg_end_to_end_ms": 1020.45,
+    "p95_end_to_end_ms": 1915.182,
+    "speedup_vs_sequential": 0.994
+  },
+  {
+    "mode": "threaded",
+    "workers": 2,
+    "requests": 80,
+    "simulated_io_ms": 25.0,
+    "wall_ms": 1014.51,
+    "throughput_req_s": 78.856,
+    "avg_service_ms": 25.178,
+    "p95_service_ms": 25.467,
+    "avg_end_to_end_ms": 518.108,
+    "p95_end_to_end_ms": 960.834,
+    "speedup_vs_sequential": 1.986
+  },
+  {
+    "mode": "threaded",
+    "workers": 4,
+    "requests": 80,
+    "simulated_io_ms": 25.0,
+    "wall_ms": 506.423,
+    "throughput_req_s": 157.971,
+    "avg_service_ms": 25.135,
+    "p95_service_ms": 25.248,
+    "avg_end_to_end_ms": 264.639,
+    "p95_end_to_end_ms": 478.811,
+    "speedup_vs_sequential": 3.978
+  },
+  {
+    "mode": "threaded",
+    "workers": 8,
+    "requests": 80,
+    "simulated_io_ms": 25.0,
+    "wall_ms": 264.657,
+    "throughput_req_s": 302.278,
+    "avg_service_ms": 25.19,
+    "p95_service_ms": 25.378,
+    "avg_end_to_end_ms": 139.147,
+    "p95_end_to_end_ms": 252.357,
+    "speedup_vs_sequential": 7.613
+  }
+]

@@ -1,0 +1,43 @@
+CipherMesh Assignment 5.1 - cryptographic micro-benchmark
+generated 2026-11-02T16:27:19Z | Python 3.13.17 | cryptography 50.0.1 | OpenSSL 4.0.2 25 Aug 2026
+platform Linux-6.18.44-fc-v185-x86_64-with-glibc2.39 | iterations 3000 | signed input 564 bytes | frame 639 bytes
+
+Operation                                           n   mean us    p50 us    p95 us    p99 us
+--------------------------------------------------------------------------------------------
+Ed25519 key generation                            300      51.9      49.2      68.0      95.5
+Ed25519 sign (command signing input)             3000      53.4      50.2      72.4     102.8
+Ed25519 verify                                   3000     170.8     162.2     207.7     354.2
+HMAC-SHA256 sign (Unit 2.2 baseline)             3000       2.3       2.2       2.3       4.0
+HMAC-SHA256 verify (Unit 2.2 baseline)           3000       2.4       2.2       2.4       5.9
+Canonical JSON (RFC 8785 style)                  3000      78.1      72.3     104.1     141.2
+Strict parse + schema (C2 work)                  3000      38.1      32.9      60.1     122.2
+Client: build + sign SignedCommand               3000     178.2     167.1     239.6     463.4
+CommandVerifier.verify (accepted, 13/13)         3000     331.0     301.4     496.2     859.2
+Reject at C1 (oversized frame)                   3000      11.3       5.0      16.2      66.4
+Reject at C2 (malformed JSON)                    3000      23.8      12.3      37.8     391.7
+Reject at C7 (untrusted origin)                  3000      92.4      61.4     173.9     571.8
+Reject at C8 (forged signature)                  3000     394.8     344.6     634.3    1037.9
+Attestation digest (hash all sources)              50    3059.6    2735.2    4681.6    5345.9
+Self-attestation (manifest sig + files)            50    5251.6    4882.0    7716.1    8113.2
+TCP round trip, signed cmd + signed reply         300    3100.3    2924.7    4204.8    6756.9
+
+Verifier throughput (single thread, accepted path): 3,021 commands/s
+
+Per-checkpoint cost on the accepted path (mean of all iterations):
+Checkpoint     mean us    p95 us   share
+-----------------------------------------
+L0                1.92      3.08    0.6%
+C1                2.24      4.28    0.7%
+C2               54.79    101.90   16.7%
+C3                0.73      1.17    0.2%
+C4                0.92      1.26    0.3%
+C5                1.11      1.50    0.3%
+C6                1.41      2.09    0.4%
+C7                8.45     15.71    2.6%
+C8              222.78    295.92   67.9%
+C9               13.73     24.02    4.2%
+C10               8.35     13.54    2.5%
+C11               6.84      9.76    2.1%
+C12               1.96      3.19    0.6%
+C13               2.79      5.94    0.9%
+sum             328.02

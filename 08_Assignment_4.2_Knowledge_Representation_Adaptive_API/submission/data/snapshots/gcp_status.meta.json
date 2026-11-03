@@ -1,0 +1,15 @@
+{
+ "feed": "gcp_status",
+ "url": "https://status.cloud.google.com/incidents.json",
+ "final_url": "https://status.cloud.google.com/incidents.json",
+ "http_status": 200,
+ "original_bytes": 251117,
+ "original_sha256": "5e979a2555c2cf1adacb3da57cf2e35ee54bc7ff72ea6b436dba8db507c43f9d",
+ "fetched_at": "2026-11-02T21:42:15.104+00:00",
+ "content_type": "application/json",
+ "raw_redistributed": false,
+ "note": "raw payload not redistributed (third-party content); re-fetch to reproduce",
+ "file": "gcp_status.derived.json",
+ "sha256": "ae9f37988620d718e2907a68f20408efca256d54b6db88ea5b5b2b8de6af2c9a",
+ "bytes": 10059
+}

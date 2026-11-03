@@ -1,0 +1,15 @@
+{
+ "feed": "azure_status",
+ "url": "https://azure.status.microsoft/en-us/status/feed/",
+ "final_url": "https://azure.status.microsoft/en-us/status/feed/",
+ "http_status": 200,
+ "original_bytes": 577,
+ "original_sha256": "439d001adcddd9e4b18b6daa63d4b5dfcba93f1463708b63832343812956939c",
+ "fetched_at": "2026-11-02T21:42:15.397+00:00",
+ "content_type": "text/xml; charset=utf-8",
+ "raw_redistributed": false,
+ "note": "raw payload not redistributed (third-party content); re-fetch to reproduce",
+ "file": "azure_status.derived.xml",
+ "sha256": "be2407973f84ad7a23c5268a62423e68a4d591bd2d84c67f7b88b9922581e5b5",
+ "bytes": 244
+}

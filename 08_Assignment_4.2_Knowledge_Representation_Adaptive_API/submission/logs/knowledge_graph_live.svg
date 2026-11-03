@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1150" height="468" viewBox="0 0 1150 468" font-family="Inter, Arial, sans-serif">
+<rect width="1150" height="468" fill="#ffffff"/>
+<text x="30" y="32" font-size="17" font-weight="700" fill="#1D1D1F">CipherMesh knowledge graph: provider placement and live status</text>
+<text x="30" y="58" font-size="15" font-weight="700" fill="#636369" letter-spacing="1">PROVIDER</text>
+<text x="320" y="58" font-size="15" font-weight="700" fill="#636369" letter-spacing="1">HOSTEDIN  CLOUDREGION</text>
+<text x="630" y="58" font-size="15" font-weight="700" fill="#636369" letter-spacing="1">LOCATEDIN  JURISDICTION</text>
+<text x="910" y="58" font-size="15" font-weight="700" fill="#636369" letter-spacing="1">HASSTATUS  (FROM FEED)</text>
+<rect x="30" y="78" width="240" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="44" y="105" font-size="16.0" font-weight="700" fill="#1D1D1F">AWS Bedrock</text>
+<text x="44" y="128" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">aws-bedrock</text>
+<line x1="274" y1="110" x2="310" y2="110" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M310,105 L318,110 L310,115 Z" fill="#8E8E93"/>
+<rect x="320" y="78" width="260" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="334" y="105" font-size="15.6" font-weight="700" fill="#1D1D1F">AWS Asia Pacific (Mumbai)</text>
+<line x1="584" y1="110" x2="620" y2="110" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M620,105 L628,110 L620,115 Z" fill="#8E8E93"/>
+<rect x="630" y="78" width="230" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="644" y="105" font-size="16.0" font-weight="700" fill="#1D1D1F">India</text>
+<text x="644" y="128" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">IN</text>
+<line x1="864" y1="110" x2="900" y2="110" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M900,105 L908,110 L900,115 Z" fill="#8E8E93"/>
+<rect x="910" y="78" width="225" height="64" rx="10" fill="#FFFFFF" stroke="#176A2E" stroke-width="2.2"/>
+<text x="924" y="105" font-size="16.0" font-weight="700" fill="#176A2E">operational</text>
+<text x="924" y="128" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">cm:feed/aws-health</text>
+<rect x="30" y="170" width="240" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="44" y="197" font-size="16.0" font-weight="700" fill="#1D1D1F">Azure AI Foundry</text>
+<text x="44" y="220" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">azure-ai</text>
+<line x1="274" y1="202" x2="310" y2="202" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M310,197 L318,202 L310,207 Z" fill="#8E8E93"/>
+<rect x="320" y="170" width="260" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="334" y="197" font-size="15.0" font-weight="700" fill="#1D1D1F">Azure Central India (Pune)</text>
+<line x1="584" y1="202" x2="620" y2="202" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M620,197 L628,202 L620,207 Z" fill="#8E8E93"/>
+<rect x="630" y="170" width="230" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="644" y="197" font-size="16.0" font-weight="700" fill="#1D1D1F">India</text>
+<text x="644" y="220" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">IN</text>
+<line x1="864" y1="202" x2="900" y2="202" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M900,197 L908,202 L900,207 Z" fill="#8E8E93"/>
+<rect x="910" y="170" width="225" height="64" rx="10" fill="#FFFFFF" stroke="#176A2E" stroke-width="2.2"/>
+<text x="924" y="197" font-size="16.0" font-weight="700" fill="#176A2E">operational</text>
+<text x="924" y="220" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">cm:feed/azure-status</text>
+<rect x="30" y="262" width="240" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="44" y="289" font-size="16.0" font-weight="700" fill="#1D1D1F">Ollama (local)</text>
+<text x="44" y="312" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">local</text>
+<line x1="274" y1="294" x2="310" y2="294" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M310,289 L318,294 L310,299 Z" fill="#8E8E93"/>
+<rect x="320" y="262" width="260" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="334" y="289" font-size="16.0" font-weight="700" fill="#1D1D1F">On-host runtime</text>
+<line x1="584" y1="294" x2="620" y2="294" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M620,289 L628,294 L620,299 Z" fill="#8E8E93"/>
+<rect x="630" y="262" width="230" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="644" y="289" font-size="12.6" font-weight="700" fill="#1D1D1F">On-host (no network egress)</text>
+<text x="644" y="312" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">LOCAL</text>
+<line x1="864" y1="294" x2="900" y2="294" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M900,289 L908,294 L900,299 Z" fill="#8E8E93"/>
+<rect x="910" y="262" width="225" height="64" rx="10" fill="#FFFFFF" stroke="#176A2E" stroke-width="2.2"/>
+<text x="924" y="289" font-size="16.0" font-weight="700" fill="#176A2E">operational</text>
+<text x="924" y="312" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">ontology.json</text>
+<rect x="30" y="354" width="240" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="44" y="381" font-size="16.0" font-weight="700" fill="#1D1D1F">GCP Vertex AI</text>
+<text x="44" y="404" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">gcp-vertex</text>
+<line x1="274" y1="386" x2="310" y2="386" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M310,381 L318,386 L310,391 Z" fill="#8E8E93"/>
+<rect x="320" y="354" width="260" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="334" y="381" font-size="16.0" font-weight="700" fill="#1D1D1F">GCP Iowa (us-central1)</text>
+<line x1="584" y1="386" x2="620" y2="386" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M620,381 L628,386 L620,391 Z" fill="#8E8E93"/>
+<rect x="630" y="354" width="230" height="64" rx="10" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1.5"/>
+<text x="644" y="381" font-size="16.0" font-weight="700" fill="#1D1D1F">United States</text>
+<text x="644" y="404" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">US</text>
+<line x1="864" y1="386" x2="900" y2="386" stroke="#8E8E93" stroke-width="1.6"/>
+<path d="M900,381 L908,386 L900,391 Z" fill="#8E8E93"/>
+<rect x="910" y="354" width="225" height="64" rx="10" fill="#FFFFFF" stroke="#176A2E" stroke-width="2.2"/>
+<text x="924" y="381" font-size="16.0" font-weight="700" fill="#176A2E">operational</text>
+<text x="924" y="404" font-size="15" fill="#636369" font-family="JetBrains Mono, monospace">cm:feed/gcp-status</text>
+</svg>

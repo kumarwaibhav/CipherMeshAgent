@@ -1,0 +1,181 @@
+{
+  "schema_version": "cm-trust/1",
+  "issuer": "CipherMesh Security Engineering - Kumar Waibhav Akshat",
+  "generated_at": "2026-11-02T16:27:07Z",
+  "agent_id": "ciphermesh-node-01",
+  "roles": {
+    "security-admin": [
+      "PING",
+      "RELEASE_LOCKDOWN",
+      "REQUEST_TELEMETRY_DUMP",
+      "STATE_SYNC",
+      "TRIGGER_EMERGENCY_LOCKDOWN",
+      "UPDATE_REDACTION_PATTERNS"
+    ],
+    "observer": [
+      "PING",
+      "REQUEST_TELEMETRY_DUMP"
+    ],
+    "peer-gateway": [
+      "INSPECT",
+      "PING",
+      "STATE_SYNC"
+    ],
+    "agent": []
+  },
+  "hosts": [
+    {
+      "host_id": "ciphermesh-node-01",
+      "display_name": "CipherMesh agent node 01 (this gateway)",
+      "roles": [
+        "agent"
+      ],
+      "allowed_sources": [
+        "127.0.0.1/32",
+        "local"
+      ],
+      "keys": [
+        {
+          "key_id": "9f4c3fe21207b40a",
+          "algorithm": "Ed25519",
+          "public_key": "0xmA4lsm5usWFs+gM3IIMmg4/iK06B/+z7DKudbutyU=",
+          "valid_from": "2026-11-01T16:27:07Z",
+          "valid_until": "2027-11-02T16:27:07Z",
+          "revoked": false,
+          "note": "current signing key"
+        }
+      ],
+      "trusted_release_digests": [
+        "8de694812c7eade89c7d1ff2e76e8eb556cada2c9c0997c5befc1ba27e7ef410"
+      ],
+      "valid_from": "2026-11-01T16:27:07Z",
+      "valid_until": "2027-11-02T16:27:07Z",
+      "revoked": false
+    },
+    {
+      "host_id": "sec-console-01",
+      "display_name": "Security operations console (SOC)",
+      "roles": [
+        "security-admin"
+      ],
+      "allowed_sources": [
+        "127.0.0.8/29",
+        "local"
+      ],
+      "keys": [
+        {
+          "key_id": "9ddbfb298cae94a6",
+          "algorithm": "Ed25519",
+          "public_key": "0C50GwFwfBZa7O2KmBS5c2XXVt67/lNLphT64ePcp0E=",
+          "valid_from": "2026-05-06T16:27:07Z",
+          "valid_until": "2027-05-06T16:27:07Z",
+          "revoked": true,
+          "note": "rotated out; superseded by current console key"
+        },
+        {
+          "key_id": "98417bb2a3867e6c",
+          "algorithm": "Ed25519",
+          "public_key": "+xzDxiyDimRlmkqMUFjoC3YAeDElYT7aMlZLeK678gE=",
+          "valid_from": "2026-11-01T16:27:07Z",
+          "valid_until": "2027-11-02T16:27:07Z",
+          "revoked": false,
+          "note": "current signing key"
+        }
+      ],
+      "trusted_release_digests": [
+        "8de694812c7eade89c7d1ff2e76e8eb556cada2c9c0997c5befc1ba27e7ef410"
+      ],
+      "valid_from": "2026-11-01T16:27:07Z",
+      "valid_until": "2027-11-02T16:27:07Z",
+      "revoked": false
+    },
+    {
+      "host_id": "observer-01",
+      "display_name": "Monitoring / observability host",
+      "roles": [
+        "observer"
+      ],
+      "allowed_sources": [
+        "127.0.0.20/32"
+      ],
+      "keys": [
+        {
+          "key_id": "928ea43425c5ec32",
+          "algorithm": "Ed25519",
+          "public_key": "Afz2zEry6SmVbwrsVWWiGx7FRTxo2ZEQI+iFd1OyCYg=",
+          "valid_from": "2026-11-01T16:27:07Z",
+          "valid_until": "2027-11-02T16:27:07Z",
+          "revoked": false,
+          "note": "current signing key"
+        }
+      ],
+      "trusted_release_digests": [
+        "8de694812c7eade89c7d1ff2e76e8eb556cada2c9c0997c5befc1ba27e7ef410"
+      ],
+      "valid_from": "2026-11-01T16:27:07Z",
+      "valid_until": "2027-11-02T16:27:07Z",
+      "revoked": false
+    },
+    {
+      "host_id": "peer-gateway-01",
+      "display_name": "Peer CipherMesh gateway (Mumbai)",
+      "roles": [
+        "peer-gateway"
+      ],
+      "allowed_sources": [
+        "127.0.0.30/32"
+      ],
+      "keys": [
+        {
+          "key_id": "98c816a937bd200f",
+          "algorithm": "Ed25519",
+          "public_key": "sVWHkd2WdZXGk/Zf8lU39yFoCkiLsVW/gI9R5URYk5U=",
+          "valid_from": "2026-11-01T16:27:07Z",
+          "valid_until": "2027-11-02T16:27:07Z",
+          "revoked": false,
+          "note": "current signing key"
+        }
+      ],
+      "trusted_release_digests": [
+        "8de694812c7eade89c7d1ff2e76e8eb556cada2c9c0997c5befc1ba27e7ef410"
+      ],
+      "valid_from": "2026-11-01T16:27:07Z",
+      "valid_until": "2027-11-02T16:27:07Z",
+      "revoked": false
+    },
+    {
+      "host_id": "legacy-console-02",
+      "display_name": "Decommissioned admin console",
+      "roles": [
+        "security-admin"
+      ],
+      "allowed_sources": [
+        "127.0.0.40/32"
+      ],
+      "keys": [
+        {
+          "key_id": "7e52486981f53bf7",
+          "algorithm": "Ed25519",
+          "public_key": "QVZO60y0PFZsbOVMnT4//UrtXOvhTF5L02b/oEFEKzA=",
+          "valid_from": "2026-11-01T16:27:07Z",
+          "valid_until": "2027-11-02T16:27:07Z",
+          "revoked": false,
+          "note": "current signing key"
+        }
+      ],
+      "trusted_release_digests": [
+        "8de694812c7eade89c7d1ff2e76e8eb556cada2c9c0997c5befc1ba27e7ef410"
+      ],
+      "valid_from": "2026-11-01T16:27:07Z",
+      "valid_until": "2027-11-02T16:27:07Z",
+      "revoked": true
+    }
+  ],
+  "revocation_list": [
+    {
+      "key_id": "9ddbfb298cae94a6",
+      "revoked_at": "2026-11-02T15:27:07Z",
+      "reason": "scheduled key rotation (NIST SP 800-57 cryptoperiod)"
+    }
+  ]
+}

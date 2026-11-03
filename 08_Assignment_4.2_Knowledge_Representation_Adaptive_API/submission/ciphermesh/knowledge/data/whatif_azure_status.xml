@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:a10="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Azure Status</title>
+    <link>https://azure.status.microsoft/en-us/status/</link>
+    <description>WHAT-IF FIXTURE for CipherMesh Assignment 4.2 replay (Kumar Waibhav Akshat, RA2212704010027). Hand-written in the format of the live Azure status RSS feed. Not a real Microsoft incident.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 12:45:00 Z</lastBuildDate>
+    <item>
+      <guid isPermaLink="false">WHATIF-AZ-FOUNDRY-CIN-0001</guid>
+      <link>https://azure.status.microsoft/en-us/status/</link>
+      <title>[WHAT-IF] Azure AI Foundry - Central India - Service unavailable</title>
+      <description>&lt;p&gt;&lt;strong&gt;Impact Statement:&lt;/strong&gt; Starting at 12:05 UTC on 27 Feb 2026, customers using Azure AI Foundry model deployments in &lt;b&gt;Central India&lt;/b&gt; may be unable to access model deployments and may receive HTTP 503 errors.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Current Status:&lt;/strong&gt; Engineers are investigating. The next update will be provided within 60 minutes.&lt;/p&gt;</description>
+      <pubDate>Fri, 27 Feb 2026 12:20:00 Z</pubDate>
+    </item>
+    <item>
+      <guid isPermaLink="false">WHATIF-AZ-STORAGE-WEU-0002</guid>
+      <link>https://azure.status.microsoft/en-us/status/</link>
+      <title>[WHAT-IF] Azure Storage - West Europe - Elevated latency</title>
+      <description>&lt;p&gt;Customers in West Europe may experience elevated latency for blob uploads.&lt;/p&gt;</description>
+      <pubDate>Fri, 27 Feb 2026 11:10:00 Z</pubDate>
+    </item>
+  </channel>
+</rss>

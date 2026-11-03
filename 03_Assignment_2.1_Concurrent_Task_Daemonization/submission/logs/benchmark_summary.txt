@@ -1,0 +1,11 @@
+CipherMesh Assignment 2.1 - Concurrency Benchmark
+requests=80 simulated_io_ms=25
+
+sequential workers=0  wall_ms=2014.735 throughput=  39.707 req/s avg_e2e_ms=  25.140 p95_e2e_ms=  25.179 speedup=1.000x
+threaded   workers=1  wall_ms=2025.889 throughput=  39.489 req/s avg_e2e_ms=1020.450 p95_e2e_ms=1915.182 speedup=0.994x
+threaded   workers=2  wall_ms=1014.510 throughput=  78.856 req/s avg_e2e_ms= 518.108 p95_e2e_ms= 960.834 speedup=1.986x
+threaded   workers=4  wall_ms= 506.423 throughput= 157.971 req/s avg_e2e_ms= 264.639 p95_e2e_ms= 478.811 speedup=3.978x
+threaded   workers=8  wall_ms= 264.657 throughput= 302.278 req/s avg_e2e_ms= 139.147 p95_e2e_ms= 252.357 speedup=7.613x
+
+Interpretation: the mock wait is I/O-bound; worker threads overlap waiting time.
+The benchmark does not claim speedup for CPU-bound regex execution under the CPython GIL.

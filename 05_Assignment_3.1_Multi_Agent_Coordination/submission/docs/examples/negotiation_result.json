@@ -1,0 +1,214 @@
+{
+  "negotiation_id": "7dbbaf8d-1917-42f0-a903-c2807bcfacbe",
+  "status": "AGREED",
+  "rounds_completed": 5,
+  "agreed_terms": {
+    "service_name": "CipherMesh privacy-inspection capacity",
+    "price_per_1000_requests": 143.28,
+    "capacity_rps": 600,
+    "p95_latency_ms": 18.0,
+    "estimated_recall": 0.97,
+    "contract_duration_hours": 24,
+    "metrics_source": "illustrative_demo_profile"
+  },
+  "contract_digest": "a614db66778190572585821716ad920f753fcd9815efa88bb00227a9d7dd4a74",
+  "buyer_utility": 54.0,
+  "supplier_utility": 56.95,
+  "message_count": 20,
+  "timeline": [
+    {
+      "sequence": 1,
+      "turn": 0,
+      "sender": "WORKLOAD_BUYER",
+      "recipient": "INSPECTION_SUPPLIER",
+      "stage": "CALL_FOR_PROPOSAL",
+      "summary": "CFP carries buyer budget/SLO constraints",
+      "message_bytes": 511
+    },
+    {
+      "sequence": 2,
+      "turn": 0,
+      "sender": "INSPECTION_SUPPLIER",
+      "recipient": "WORKLOAD_BUYER",
+      "stage": "PROPOSAL",
+      "summary": "price=$176.00/1k; supplier U=100.0; illustrative configured profile; not a benchmark result",
+      "message_bytes": 663
+    },
+    {
+      "sequence": 3,
+      "turn": 1,
+      "sender": "WORKLOAD_BUYER",
+      "recipient": "INSPECTION_SUPPLIER",
+      "stage": "COUNTEROFFER",
+      "summary": "price=$121.92/1k; buyer U=85.4; aspiration=83.0; counteroffer: utility below current aspiration",
+      "message_bytes": 730
+    },
+    {
+      "sequence": 4,
+      "turn": 1,
+      "sender": "INSPECTION_SUPPLIER",
+      "recipient": "WORKLOAD_BUYER",
+      "stage": "COUNTEROFFER",
+      "summary": "price=$166.27/1k; supplier U=87.2; aspiration=83.0; counteroffer: offer below current aspiration",
+      "message_bytes": 730
+    },
+    {
+      "sequence": 5,
+      "turn": 2,
+      "sender": "WORKLOAD_BUYER",
+      "recipient": "INSPECTION_SUPPLIER",
+      "stage": "COUNTEROFFER",
+      "summary": "price=$130.35/1k; buyer U=73.0; aspiration=74.0; counteroffer: utility below current aspiration",
+      "message_bytes": 730
+    },
+    {
+      "sequence": 6,
+      "turn": 2,
+      "sender": "INSPECTION_SUPPLIER",
+      "recipient": "WORKLOAD_BUYER",
+      "stage": "COUNTEROFFER",
+      "summary": "price=$158.37/1k; supplier U=76.8; aspiration=74.0; counteroffer: offer below current aspiration",
+      "message_bytes": 730
+    },
+    {
+      "sequence": 7,
+      "turn": 3,
+      "sender": "WORKLOAD_BUYER",
+      "recipient": "INSPECTION_SUPPLIER",
+      "stage": "COUNTEROFFER",
+      "summary": "price=$136.65/1k; buyer U=63.8; aspiration=65.0; counteroffer: utility below current aspiration",
+      "message_bytes": 731
+    },
+    {
+      "sequence": 8,
+      "turn": 3,
+      "sender": "INSPECTION_SUPPLIER",
+      "recipient": "WORKLOAD_BUYER",
+      "stage": "COUNTEROFFER",
+      "summary": "price=$152.72/1k; supplier U=69.4; aspiration=65.0; counteroffer: offer below current aspiration",
+      "message_bytes": 731
+    },
+    {
+      "sequence": 9,
+      "turn": 4,
+      "sender": "WORKLOAD_BUYER",
+      "recipient": "INSPECTION_SUPPLIER",
+      "stage": "COUNTEROFFER",
+      "summary": "price=$140.83/1k; buyer U=57.6; aspiration=56.0; counteroffer: utility below current aspiration",
+      "message_bytes": 729
+    },
+    {
+      "sequence": 10,
+      "turn": 4,
+      "sender": "INSPECTION_SUPPLIER",
+      "recipient": "WORKLOAD_BUYER",
+      "stage": "COUNTEROFFER",
+      "summary": "price=$149.15/1k; supplier U=64.7; aspiration=56.0; counteroffer: offer below current aspiration",
+      "message_bytes": 730
+    },
+    {
+      "sequence": 11,
+      "turn": 5,
+      "sender": "WORKLOAD_BUYER",
+      "recipient": "INSPECTION_SUPPLIER",
+      "stage": "COUNTEROFFER",
+      "summary": "price=$143.28/1k; buyer U=54.0; aspiration=47.0; counteroffer: utility below current aspiration",
+      "message_bytes": 730
+    },
+    {
+      "sequence": 12,
+      "turn": 5,
+      "sender": "INSPECTION_SUPPLIER",
+      "recipient": "WORKLOAD_BUYER",
+      "stage": "ACCEPT",
+      "summary": "price=$143.28/1k; supplier U=57.0; aspiration=47.0; buyer offer meets supplier aspiration and reservation utility",
+      "message_bytes": 688
+    },
+    {
+      "sequence": 13,
+      "turn": 6,
+      "sender": "NEGOTIATION_COORDINATOR",
+      "recipient": "WORKLOAD_BUYER",
+      "stage": "PREPARE",
+      "summary": "price=$143.28/1k; digest=a614db667781…",
+      "message_bytes": 620
+    },
+    {
+      "sequence": 14,
+      "turn": 6,
+      "sender": "WORKLOAD_BUYER",
+      "recipient": "NEGOTIATION_COORDINATOR",
+      "stage": "READY",
+      "summary": "utility=54.0; digest=a614db667781…",
+      "message_bytes": 456
+    },
+    {
+      "sequence": 15,
+      "turn": 6,
+      "sender": "NEGOTIATION_COORDINATOR",
+      "recipient": "INSPECTION_SUPPLIER",
+      "stage": "PREPARE",
+      "summary": "price=$143.28/1k; digest=a614db667781…",
+      "message_bytes": 625
+    },
+    {
+      "sequence": 16,
+      "turn": 6,
+      "sender": "INSPECTION_SUPPLIER",
+      "recipient": "NEGOTIATION_COORDINATOR",
+      "stage": "READY",
+      "summary": "utility=57.0; digest=a614db667781…",
+      "message_bytes": 462
+    },
+    {
+      "sequence": 17,
+      "turn": 6,
+      "sender": "NEGOTIATION_COORDINATOR",
+      "recipient": "WORKLOAD_BUYER",
+      "stage": "COMMIT",
+      "summary": "digest=a614db667781…",
+      "message_bytes": 381
+    },
+    {
+      "sequence": 18,
+      "turn": 6,
+      "sender": "WORKLOAD_BUYER",
+      "recipient": "NEGOTIATION_COORDINATOR",
+      "stage": "COMMIT_ACK",
+      "summary": "digest=a614db667781…; status=committed",
+      "message_bytes": 440
+    },
+    {
+      "sequence": 19,
+      "turn": 6,
+      "sender": "NEGOTIATION_COORDINATOR",
+      "recipient": "INSPECTION_SUPPLIER",
+      "stage": "COMMIT",
+      "summary": "digest=a614db667781…",
+      "message_bytes": 386
+    },
+    {
+      "sequence": 20,
+      "turn": 6,
+      "sender": "INSPECTION_SUPPLIER",
+      "recipient": "NEGOTIATION_COORDINATOR",
+      "stage": "COMMIT_ACK",
+      "summary": "digest=a614db667781…; status=committed",
+      "message_bytes": 445
+    },
+    {
+      "sequence": 21,
+      "turn": 6,
+      "sender": "NEGOTIATION_COORDINATOR",
+      "recipient": "LOCAL_RUNTIME",
+      "stage": "CONSENSUS_CONFIRMED",
+      "summary": "CONSENSUS CONFIRMED: both COMMIT_ACK responses matched the canonical contract digest.",
+      "message_bytes": 0
+    }
+  ],
+  "termination_reason": "consensus handshake completed: READY and COMMIT_ACK received from both agents",
+  "notes": [
+    "supplier accepted buyer counteroffer",
+    "Utilities are scenario-model outputs, not measured production outcomes."
+  ]
+}

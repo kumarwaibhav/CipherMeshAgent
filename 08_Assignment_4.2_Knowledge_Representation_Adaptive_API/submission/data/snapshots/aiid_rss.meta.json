@@ -1,0 +1,15 @@
+{
+ "feed": "aiid_rss",
+ "url": "https://incidentdatabase.ai/rss.xml",
+ "final_url": "https://incidentdatabase.ai/rss.xml",
+ "http_status": 200,
+ "original_bytes": 88482,
+ "original_sha256": "6e40f9f733b405cb5f9f36118ebb0536533ffc8ee8c8a78bda217279c4e0bf45",
+ "fetched_at": "2026-11-02T21:42:17.195+00:00",
+ "content_type": "application/xml",
+ "raw_redistributed": false,
+ "note": "raw payload not redistributed (third-party content); re-fetch to reproduce",
+ "file": "aiid_rss.derived.xml",
+ "sha256": "1dd2be0a29df47a3c39b773a8a83ff2c8cacac5ed6fd0bf31db3ca64bb8176c6",
+ "bytes": 11343
+}

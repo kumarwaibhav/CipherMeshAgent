@@ -1,0 +1,932 @@
+====================================================================================================
+CipherMesh - Assignment 4.1 - Belief-Desire-Intention (BDI) Goal-Driven Modeling
+Verification run: intention shift when an unexpected environmental belief update arrives
+====================================================================================================
+Student      : Kumar Waibhav Akshat (RA2212704010027)
+Course       : 21CSE525T Agent Technology, SRM Institute of Science and Technology
+Started (UTC): 2026-10-31T05:12:27.503+00:00
+Python       : 3.13.17 on Linux x86_64
+Command      : python demo/bdi_verification_run.py --latency-scale 0.05 --idle-wait 0.02
+Commitment   : OPEN_MINDED, event-driven reconsideration (BLIND used only for the ablation)
+Engine calls : policy.inspect_text (R1-R5), ContractBook.ensure (Contract-Net), routing.route +
+               derive_constraints (U=0.30Q+0.25C+0.20L+0.15A+0.10P), MockProviderAdapter.complete,
+               CipherMeshAgent.inspect_response, ReviewQueue.submit, HMAC evidence ledger, AuditLog
+Privacy      : raw prompt text is never written here; prompts are shown as the policy's masked view
+----------------------------------------------------------------------------------------------------
+DESIRES (higher priority constrains lower)
+  D1  p100  achieve  Never transmit a secret  -> no dispatch or delivery while a secret risk is believed  [conflicts: D3, D4]
+  D2  p90   maintain Keep Indian personal data in India  -> dispatch only to providers with residency IN or LOCAL
+  D3  p60   achieve  Deliver a useful answer to the user
+  D4  p40   maintain Lowest cost within quality bounds  -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  D5  p30   achieve  Keep the human-review backlog under its limit  -> hold_for_review is applicable only while the backlog has capacity
+----------------------------------------------------------------------------------------------------
+PLAN LIBRARY
+  allow_then_dispatch        achieves D3  steps: prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver
+  redact_then_dispatch       achieves D3  steps: prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver
+  dispatch_local_only        achieves D3  steps: prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver
+  hold_for_review            achieves D3  steps: open_review_ticket -> notify_user
+  block_and_advise_rotation  achieves D1  steps: seal_evidence -> advise_rotation -> notify_user
+  enforce_lockdown_block     achieves D1  steps: apply_lockdown -> seal_evidence -> notify_user
+  withhold_reply_and_alert   achieves D1  steps: discard_reply -> seal_evidence -> raise_alert -> notify_user
+  decline_review_overflow    achieves D5  steps: seal_evidence -> notify_user
+====================================================================================================
+
+====================================================================================================
+SCENARIO S0 - Baseline: no disturbance
+====================================================================================================
+Commitment   : OPEN_MINDED
+Prompt (safe): Summarise the main drivers of Q3 cloud spend for the leadership review in five bullet points.
+Disturbances : none
+Expected     : start allow_then_dispatch(provider=gcp-vertex); finish allow_then_dispatch(provider=gcp-vertex); status COMPLETED (control run: the same pipeline completes unchanged when no belief changes)
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.512  +    6.80 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.512  +    7.25 ms  c00  PERCEIVE   request req-s0 received: 93 bytes, policy ALLOW
+  2026-10-31 05:12:27.512  +    7.31 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.512  +    7.33 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.512  +    7.34 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.512  +    7.36 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.512  +    7.37 ms  c01  BELIEF     request.id: None -> req-s0 (source gateway)
+  2026-10-31 05:12:27.512  +    7.38 ms  c01  BELIEF     prompt.sha256: None -> ee8351f9d3ec9b20 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.512  +    7.39 ms  c01  BELIEF     prompt.bytes: None -> 93 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.512  +    7.48 ms  c01  BELIEF     prompt.categories: None -> [] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.512  +    7.49 ms  c01  BELIEF     prompt.decision: None -> ALLOW (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.512  +    7.50 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.513  +    7.55 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.513  +    7.58 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.513  +    7.66 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.513  +    8.17 ms  c01  DELIBERATE means-ends for D3: 4 applicable option(s): allow_then_dispatch(provider=gcp-vertex) U=77.93, allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.513  +    8.24 ms  c01  INTEND     I1 adopted for D3: allow_then_dispatch(provider=gcp-vertex) U=77.93 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.514  +    8.64 ms  c01  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=ee8351f9d3ec9b20
+  2026-10-31 05:12:27.514  +    8.67 ms  c01  BELIEF     payload.sha256: None -> ee8351f9d3ec9b20 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.514  +    8.68 ms  c01  BELIEF     payload.redacted: None -> False (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.514  +    8.69 ms  c01  BELIEF     payload.prompt_sha256: None -> ee8351f9d3ec9b20 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.514  +    9.34 ms  c02  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [2/7] procure_contract -> OK: contract AGREED with gcp-vertex: effective $1.79/1k (list $2.20, 5 rounds)
+  2026-10-31 05:12:27.514  +    9.38 ms  c02  BELIEF     provider.gcp-vertex.contract_digest: None -> 7270393b8298bff6 (source intention:I1/procure_contract)
+  2026-10-31 05:12:27.515  +    9.84 ms  c03  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [3/7] route_and_verify -> OK: router: gcp-vertex feasible, U=77.93, rank 1/4 [gcp-vertex > aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.515  +    9.87 ms  c03  BELIEF     route.selected: None -> gcp-vertex (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.515  +    9.88 ms  c03  BELIEF     route.utility: None -> 77.9333 (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.515  +    9.89 ms  c03  BELIEF     route.ranking: None -> ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.515  +   10.27 ms  c04  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [4/7] seal_dispatch_record -> OK: evidence record #0 sealed (hmac 6e94d9f87d55)
+  2026-10-31 05:12:27.545  +   39.94 ms  c05  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [5/7] dispatch -> OK: transmitted to gcp-vertex (US); reply in 29.2 ms
+  2026-10-31 05:12:27.545  +   40.01 ms  c05  BELIEF     dispatch.sent_to: None -> gcp-vertex (source intention:I1/dispatch)
+  2026-10-31 05:12:27.545  +   40.07 ms  c05  BELIEF     dispatch.residency: None -> US (source intention:I1/dispatch)
+  2026-10-31 05:12:27.545  +   40.09 ms  c05  BELIEF     dispatch.effective_cost: None -> 1.79 (source intention:I1/dispatch)
+  2026-10-31 05:12:27.545  +   40.10 ms  c05  BELIEF     response.received: None -> True (source intention:I1/dispatch)
+  2026-10-31 05:12:27.545  +   40.26 ms  c05  RECONSIDER I1 kept after ['response.received']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.546  +   40.67 ms  c06  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [6/7] inspect_response -> OK: reply inspected: ALLOW (clean)
+  2026-10-31 05:12:27.546  +   40.70 ms  c06  BELIEF     response.decision: None -> ALLOW (source intention:I1/inspect_response)
+  2026-10-31 05:12:27.546  +   40.80 ms  c06  RECONSIDER I1 kept after ['response.decision']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.546  +   41.19 ms  c07  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [7/7] deliver -> OK: answer delivered to user (26 words)
+  2026-10-31 05:12:27.546  +   41.26 ms  c07  COMPLETE   I1 allow_then_dispatch(provider=gcp-vertex) succeeded (7 steps) for D3
+  2026-10-31 05:12:27.546  +   41.28 ms  c07  BELIEF     response.delivered: False -> True (source intention:I1/deliver)
+  2026-10-31 05:12:27.546  +   41.29 ms  c07  BELIEF     request.status: PENDING -> COMPLETED (source intention:I1/deliver)
+  2026-10-31 05:12:27.546  +   41.31 ms  c07  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.546  +   41.33 ms  c07  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.546  +   41.38 ms  c07  FINISH     request req-s0 finished: COMPLETED after 7 cycles, 7 steps, 0 intention shift(s), 1 transmission(s)
+----------------------------------------------------------------------------------------------------
+  NO INTENTION SHIFT: the initial intention ran to completion unchanged.
+  OUTCOME  status=COMPLETED  delivered=True  cycles=7  steps=7  elapsed=34.11 ms
+           transmissions: gcp-vertex(US, ok)
+           evidence ledger: 2 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 6, 'kept': 6, 'dropped': 0, 'suspended': 0, 'resumed': 0, 'failed': 0, 'belief_changes': 53, 'ignored_changes': 10}
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SCENARIO S1 - Provider outage mid-dispatch
+====================================================================================================
+Commitment   : OPEN_MINDED
+Prompt (safe): Draft a customer FAQ that explains our new UPI refund timelines in plain language.
+Disturbances : status feed reports GCP Vertex AI us-central1 major outage [before step 'seal_dispatch_record' on gcp-vertex]
+Expected     : start allow_then_dispatch(provider=gcp-vertex); finish allow_then_dispatch(provider=aws-bedrock); status COMPLETED
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.552  +    4.03 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.552  +    4.35 ms  c00  PERCEIVE   request req-s1 received: 82 bytes, policy ALLOW
+  2026-10-31 05:12:27.552  +    4.39 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.552  +    4.41 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.552  +    4.42 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.552  +    4.43 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.552  +    4.48 ms  c01  BELIEF     request.id: None -> req-s1 (source gateway)
+  2026-10-31 05:12:27.552  +    4.50 ms  c01  BELIEF     prompt.sha256: None -> cc9ec8198d585d36 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.552  +    4.51 ms  c01  BELIEF     prompt.bytes: None -> 82 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.552  +    4.52 ms  c01  BELIEF     prompt.categories: None -> [] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.552  +    4.53 ms  c01  BELIEF     prompt.decision: None -> ALLOW (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.552  +    4.54 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.552  +    4.58 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.552  +    4.60 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.552  +    4.68 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.553  +    5.14 ms  c01  DELIBERATE means-ends for D3: 4 applicable option(s): allow_then_dispatch(provider=gcp-vertex) U=77.93, allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.553  +    5.19 ms  c01  INTEND     I1 adopted for D3: allow_then_dispatch(provider=gcp-vertex) U=77.93 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.553  +    5.56 ms  c01  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=cc9ec8198d585d36
+  2026-10-31 05:12:27.553  +    5.59 ms  c01  BELIEF     payload.sha256: None -> cc9ec8198d585d36 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.553  +    5.61 ms  c01  BELIEF     payload.redacted: None -> False (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.553  +    5.62 ms  c01  BELIEF     payload.prompt_sha256: None -> cc9ec8198d585d36 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.554  +    5.97 ms  c02  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [2/7] procure_contract -> OK: contract AGREED with gcp-vertex: effective $1.79/1k (list $2.20, 5 rounds)
+  2026-10-31 05:12:27.554  +    6.01 ms  c02  BELIEF     provider.gcp-vertex.contract_digest: None -> 7270393b8298bff6 (source intention:I1/procure_contract)
+  2026-10-31 05:12:27.554  +    6.50 ms  c03  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [3/7] route_and_verify -> OK: router: gcp-vertex feasible, U=77.93, rank 1/4 [gcp-vertex > aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.554  +    6.53 ms  c03  BELIEF     route.selected: None -> gcp-vertex (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.554  +    6.54 ms  c03  BELIEF     route.utility: None -> 77.9333 (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.554  +    6.55 ms  c03  BELIEF     route.ranking: None -> ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.554  +    6.78 ms  c04  PERCEIVE   environment: status feed reports GCP Vertex AI us-central1 major outage
+  2026-10-31 05:12:27.554  +    6.81 ms  c04  BELIEF     provider.gcp-vertex.status: operational -> major_outage (source status-feed:gcp-vertex)
+  2026-10-31 05:12:27.555  +    6.96 ms  c04  RECONSIDER I1 invalidated by ['provider.gcp-vertex.status']
+  2026-10-31 05:12:27.555  +    6.98 ms  c04  DROP       I1 allow_then_dispatch(provider=gcp-vertex) dropped before 'seal_dispatch_record' (3/7 done): requires 'provider gcp-vertex is usable' but believed provider.gcp-vertex.status=major_outage
+  2026-10-31 05:12:27.555  +    7.71 ms  c05  DELIBERATE means-ends for D3: 3 applicable option(s): allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.555  +    7.75 ms  c05  INTEND     I2 adopted for D3: allow_then_dispatch(provider=aws-bedrock) U=77.28 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.555  +    7.82 ms  c05  REPLAN     I1 allow_then_dispatch(provider=gcp-vertex) [DROPPED] -> I2 allow_then_dispatch(provider=aws-bedrock)
+  2026-10-31 05:12:27.556  +    8.06 ms  c05  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=cc9ec8198d585d36
+  2026-10-31 05:12:27.556  +    8.41 ms  c06  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [2/7] procure_contract -> OK: contract AGREED with aws-bedrock: effective $2.28/1k (list $2.80, 5 rounds)
+  2026-10-31 05:12:27.556  +    8.43 ms  c06  BELIEF     provider.aws-bedrock.contract_digest: None -> 7735ba3a2d12bf12 (source intention:I2/procure_contract)
+  2026-10-31 05:12:27.557  +    8.96 ms  c07  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [3/7] route_and_verify -> OK: router: aws-bedrock feasible, U=77.28, rank 1/3 [aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.557  +    9.00 ms  c07  BELIEF     route.selected: gcp-vertex -> aws-bedrock (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.557  +    9.01 ms  c07  BELIEF     route.utility: 77.9333 -> 77.2833 (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.557  +    9.02 ms  c07  BELIEF     route.ranking: ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] -> ['aws-bedrock', 'azure-ai', 'local'] (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.557  +    9.33 ms  c08  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [4/7] seal_dispatch_record -> OK: evidence record #0 sealed (hmac 1fd97d43105a)
+  2026-10-31 05:12:27.590  +   42.53 ms  c09  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [5/7] dispatch -> OK: transmitted to aws-bedrock (IN); reply in 32.7 ms
+  2026-10-31 05:12:27.590  +   42.61 ms  c09  BELIEF     dispatch.sent_to: None -> aws-bedrock (source intention:I2/dispatch)
+  2026-10-31 05:12:27.590  +   42.63 ms  c09  BELIEF     dispatch.residency: None -> IN (source intention:I2/dispatch)
+  2026-10-31 05:12:27.590  +   42.65 ms  c09  BELIEF     dispatch.effective_cost: None -> 2.28 (source intention:I2/dispatch)
+  2026-10-31 05:12:27.590  +   42.66 ms  c09  BELIEF     response.received: None -> True (source intention:I2/dispatch)
+  2026-10-31 05:12:27.590  +   42.82 ms  c09  RECONSIDER I2 kept after ['response.received']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.591  +   43.22 ms  c10  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [6/7] inspect_response -> OK: reply inspected: ALLOW (clean)
+  2026-10-31 05:12:27.591  +   43.25 ms  c10  BELIEF     response.decision: None -> ALLOW (source intention:I2/inspect_response)
+  2026-10-31 05:12:27.591  +   43.34 ms  c10  RECONSIDER I2 kept after ['response.decision']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.591  +   43.74 ms  c11  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [7/7] deliver -> OK: answer delivered to user (23 words)
+  2026-10-31 05:12:27.591  +   43.78 ms  c11  COMPLETE   I2 allow_then_dispatch(provider=aws-bedrock) succeeded (7 steps) for D3
+  2026-10-31 05:12:27.591  +   43.80 ms  c11  BELIEF     response.delivered: False -> True (source intention:I2/deliver)
+  2026-10-31 05:12:27.591  +   43.81 ms  c11  BELIEF     request.status: PENDING -> COMPLETED (source intention:I2/deliver)
+  2026-10-31 05:12:27.591  +   43.84 ms  c11  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.591  +   43.85 ms  c11  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.591  +   43.89 ms  c11  FINISH     request req-s1 finished: COMPLETED after 11 cycles, 10 steps, 1 intention shift(s), 1 transmission(s)
+----------------------------------------------------------------------------------------------------
+  ====================== INTENTION SHIFT 1/1 (cycle 4, +7.04 ms) =======================
+  BEFORE   I1 allow_then_dispatch(provider=gcp-vertex)  desire D3  U=77.93  progress
+           3/7  next step 'seal_dispatch_record'
+  TRIGGER  provider.gcp-vertex.status: operational -> major_outage  [source
+           status-feed:gcp-vertex, confidence 0.98]
+  DROPPED  I1: requires 'provider gcp-vertex is usable' but believed
+           provider.gcp-vertex.status=major_outage
+  AFTER    I2 allow_then_dispatch(provider=aws-bedrock)  desire D3  U=77.28  adopted at
+           cycle 5 (+7.81 ms, reaction 0.77 ms)
+  ======================================================================================
+  OUTCOME  status=COMPLETED  delivered=True  cycles=11  steps=10  elapsed=39.54 ms
+           transmissions: aws-bedrock(IN, ok)
+           evidence ledger: 2 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 10, 'kept': 9, 'dropped': 1, 'suspended': 0, 'resumed': 0, 'failed': 0, 'belief_changes': 58, 'ignored_changes': 14}
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SCENARIO S2 - Emergency lockdown mid-execution
+====================================================================================================
+Commitment   : OPEN_MINDED
+Prompt (safe): Compare three approaches to rate-limiting a public REST API and list their trade-offs.
+Disturbances : security operations declares an emergency lockdown [before step 'dispatch']
+Expected     : start allow_then_dispatch(provider=gcp-vertex); finish enforce_lockdown_block; status BLOCKED
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.598  +    4.63 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.598  +    4.98 ms  c00  PERCEIVE   request req-s2 received: 86 bytes, policy ALLOW
+  2026-10-31 05:12:27.598  +    5.02 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.598  +    5.04 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.598  +    5.05 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.598  +    5.07 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.598  +    5.08 ms  c01  BELIEF     request.id: None -> req-s2 (source gateway)
+  2026-10-31 05:12:27.598  +    5.09 ms  c01  BELIEF     prompt.sha256: None -> 5e182e381a7e57c1 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.598  +    5.10 ms  c01  BELIEF     prompt.bytes: None -> 86 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.598  +    5.11 ms  c01  BELIEF     prompt.categories: None -> [] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.598  +    5.12 ms  c01  BELIEF     prompt.decision: None -> ALLOW (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.598  +    5.13 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.598  +    5.17 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.598  +    5.19 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.598  +    5.26 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.599  +    5.64 ms  c01  DELIBERATE means-ends for D3: 4 applicable option(s): allow_then_dispatch(provider=gcp-vertex) U=77.93, allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.599  +    5.69 ms  c01  INTEND     I1 adopted for D3: allow_then_dispatch(provider=gcp-vertex) U=77.93 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.599  +    6.07 ms  c01  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=5e182e381a7e57c1
+  2026-10-31 05:12:27.599  +    6.10 ms  c01  BELIEF     payload.sha256: None -> 5e182e381a7e57c1 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.599  +    6.11 ms  c01  BELIEF     payload.redacted: None -> False (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.599  +    6.13 ms  c01  BELIEF     payload.prompt_sha256: None -> 5e182e381a7e57c1 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.600  +    6.48 ms  c02  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [2/7] procure_contract -> OK: contract AGREED with gcp-vertex: effective $1.79/1k (list $2.20, 5 rounds)
+  2026-10-31 05:12:27.600  +    6.51 ms  c02  BELIEF     provider.gcp-vertex.contract_digest: None -> 7270393b8298bff6 (source intention:I1/procure_contract)
+  2026-10-31 05:12:27.600  +    6.93 ms  c03  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [3/7] route_and_verify -> OK: router: gcp-vertex feasible, U=77.93, rank 1/4 [gcp-vertex > aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.600  +    7.00 ms  c03  BELIEF     route.selected: None -> gcp-vertex (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.600  +    7.02 ms  c03  BELIEF     route.utility: None -> 77.9333 (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.600  +    8.23 ms  c03  BELIEF     route.ranking: None -> ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.602  +    8.67 ms  c04  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [4/7] seal_dispatch_record -> OK: evidence record #0 sealed (hmac 28a050fbc719)
+  2026-10-31 05:12:27.602  +    8.85 ms  c05  PERCEIVE   environment: security operations declares an emergency lockdown
+  2026-10-31 05:12:27.602  +    8.89 ms  c05  BELIEF     policy.lockdown: False -> True (source soc:command_instruction)
+  2026-10-31 05:12:27.602  +    8.91 ms  c05  DESIRE     D1 'Never transmit a secret' (p100, achieve): inactive -> option
+  2026-10-31 05:12:27.602  +    9.10 ms  c05  RECONSIDER I1 invalidated by ['policy.lockdown']
+  2026-10-31 05:12:27.602  +    9.13 ms  c05  DROP       I1 allow_then_dispatch(provider=gcp-vertex) dropped before 'dispatch' (4/7 done): pre-empted by D1 'Never transmit a secret' (priority 100); requires 'policy lockdown is off' but believed policy.lockdown=True
+  2026-10-31 05:12:27.602  +    9.37 ms  c06  DELIBERATE options ['D1', 'D3']; pursue ['D1']; pre-empted: D3 by D1; constraints ['D4']
+  2026-10-31 05:12:27.602  +    9.42 ms  c06  DELIBERATE means-ends for D1: 1 applicable option(s): enforce_lockdown_block U=100.00
+  2026-10-31 05:12:27.602  +    9.45 ms  c06  INTEND     I2 adopted for D1: enforce_lockdown_block U=100.00 [apply_lockdown -> seal_evidence -> notify_user]
+  2026-10-31 05:12:27.603  +    9.51 ms  c06  REPLAN     I1 allow_then_dispatch(provider=gcp-vertex) [DROPPED] -> I2 enforce_lockdown_block
+  2026-10-31 05:12:27.603  +    9.65 ms  c06  STEP       I2 enforce_lockdown_block [1/3] apply_lockdown -> OK: engine force_block_all=True; policy re-inspection -> BLOCK: Emergency lockdown active: all outbound content is blocked
+  2026-10-31 05:12:27.603  +    9.68 ms  c06  BELIEF     prompt.decision: ALLOW -> BLOCK (source intention:I2/apply_lockdown)
+  2026-10-31 05:12:27.603  +    9.75 ms  c06  RECONSIDER I2 kept after ['prompt.decision']: no remaining step depends on these beliefs
+  2026-10-31 05:12:27.603  +    9.88 ms  c07  STEP       I2 enforce_lockdown_block [2/3] seal_evidence -> OK: evidence 'enforce_lockdown_block' sealed as record #1 (hmac abc23b029d45)
+  2026-10-31 05:12:27.603  +   10.07 ms  c08  STEP       I2 enforce_lockdown_block [3/3] notify_user -> OK: user notified; request.status=BLOCKED
+  2026-10-31 05:12:27.603  +   10.10 ms  c08  COMPLETE   I2 enforce_lockdown_block succeeded (3 steps) for D1
+  2026-10-31 05:12:27.603  +   10.12 ms  c08  BELIEF     guard.secret_contained: False -> True (source intention:I2/notify_user)
+  2026-10-31 05:12:27.603  +   10.13 ms  c08  BELIEF     request.status: PENDING -> BLOCKED (source intention:I2/notify_user)
+  2026-10-31 05:12:27.603  +   10.15 ms  c08  DESIRE     D1 'Never transmit a secret' (p100, achieve): option -> inactive
+  2026-10-31 05:12:27.603  +   10.16 ms  c08  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.603  +   10.17 ms  c08  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.603  +   10.21 ms  c08  FINISH     request req-s2 finished: BLOCKED after 8 cycles, 7 steps, 1 intention shift(s), 0 transmission(s)
+----------------------------------------------------------------------------------------------------
+  ====================== INTENTION SHIFT 1/1 (cycle 5, +9.22 ms) =======================
+  BEFORE   I1 allow_then_dispatch(provider=gcp-vertex)  desire D3  U=77.93  progress
+           4/7  next step 'dispatch'
+  TRIGGER  policy.lockdown: false -> true  [source soc:command_instruction, confidence
+           1.00]
+  DROPPED  I1: pre-empted by D1 'Never transmit a secret' (priority 100)
+           I1: requires 'policy lockdown is off' but believed policy.lockdown=True
+  AFTER    I2 enforce_lockdown_block  desire D1  U=100.00  adopted at cycle 6 (+9.51
+           ms, reaction 0.29 ms)
+  ======================================================================================
+  OUTCOME  status=BLOCKED  delivered=False  cycles=8  steps=7  elapsed=5.22 ms
+           transmissions: none
+           evidence ledger: 2 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 7, 'kept': 6, 'dropped': 1, 'suspended': 0, 'resumed': 0, 'failed': 0, 'belief_changes': 50, 'ignored_changes': 7}
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SCENARIO S3 - Provider reply leaks a secret
+====================================================================================================
+Commitment   : OPEN_MINDED
+Prompt (safe): Explain how to rotate cloud access keys safely inside a CI pipeline.
+Disturbances : GCP Vertex starts echoing a cached staging credential in replies [before step 'dispatch' on gcp-vertex]
+Expected     : start allow_then_dispatch(provider=gcp-vertex); finish withhold_reply_and_alert; status RESPONSE_WITHHELD
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.608  +    3.96 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.609  +    4.27 ms  c00  PERCEIVE   request req-s3 received: 68 bytes, policy ALLOW
+  2026-10-31 05:12:27.609  +    4.30 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.609  +    4.32 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.609  +    4.33 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.609  +    4.34 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.609  +    4.35 ms  c01  BELIEF     request.id: None -> req-s3 (source gateway)
+  2026-10-31 05:12:27.609  +    4.37 ms  c01  BELIEF     prompt.sha256: None -> 6e2785e7202bc204 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.609  +    4.38 ms  c01  BELIEF     prompt.bytes: None -> 68 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.609  +    4.39 ms  c01  BELIEF     prompt.categories: None -> [] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.609  +    4.39 ms  c01  BELIEF     prompt.decision: None -> ALLOW (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.609  +    4.41 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.609  +    4.44 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.609  +    4.46 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.609  +    4.56 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.609  +    4.95 ms  c01  DELIBERATE means-ends for D3: 4 applicable option(s): allow_then_dispatch(provider=gcp-vertex) U=77.93, allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.610  +    4.99 ms  c01  INTEND     I1 adopted for D3: allow_then_dispatch(provider=gcp-vertex) U=77.93 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.610  +    5.31 ms  c01  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=6e2785e7202bc204
+  2026-10-31 05:12:27.610  +    5.34 ms  c01  BELIEF     payload.sha256: None -> 6e2785e7202bc204 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.610  +    5.35 ms  c01  BELIEF     payload.redacted: None -> False (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.610  +    5.36 ms  c01  BELIEF     payload.prompt_sha256: None -> 6e2785e7202bc204 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.610  +    5.75 ms  c02  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [2/7] procure_contract -> OK: contract AGREED with gcp-vertex: effective $1.79/1k (list $2.20, 5 rounds)
+  2026-10-31 05:12:27.610  +    5.78 ms  c02  BELIEF     provider.gcp-vertex.contract_digest: None -> 7270393b8298bff6 (source intention:I1/procure_contract)
+  2026-10-31 05:12:27.611  +    6.25 ms  c03  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [3/7] route_and_verify -> OK: router: gcp-vertex feasible, U=77.93, rank 1/4 [gcp-vertex > aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.611  +    6.28 ms  c03  BELIEF     route.selected: None -> gcp-vertex (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.611  +    6.29 ms  c03  BELIEF     route.utility: None -> 77.9333 (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.611  +    6.30 ms  c03  BELIEF     route.ranking: None -> ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.611  +    6.65 ms  c04  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [4/7] seal_dispatch_record -> OK: evidence record #0 sealed (hmac 28a11da1ecca)
+  2026-10-31 05:12:27.611  +    6.82 ms  c05  PERCEIVE   environment: GCP Vertex starts echoing a cached staging credential in replies
+  2026-10-31 05:12:27.641  +   36.25 ms  c05  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [5/7] dispatch -> OK: transmitted to gcp-vertex (US); reply in 29.2 ms
+  2026-10-31 05:12:27.641  +   36.32 ms  c05  BELIEF     dispatch.sent_to: None -> gcp-vertex (source intention:I1/dispatch)
+  2026-10-31 05:12:27.641  +   36.34 ms  c05  BELIEF     dispatch.residency: None -> US (source intention:I1/dispatch)
+  2026-10-31 05:12:27.641  +   36.35 ms  c05  BELIEF     dispatch.effective_cost: None -> 1.79 (source intention:I1/dispatch)
+  2026-10-31 05:12:27.641  +   36.36 ms  c05  BELIEF     response.received: None -> True (source intention:I1/dispatch)
+  2026-10-31 05:12:27.641  +   36.57 ms  c05  RECONSIDER I1 kept after ['response.received']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.642  +   37.05 ms  c06  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [6/7] inspect_response -> OK: reply inspected: BLOCK ['aws_access_key']
+  2026-10-31 05:12:27.642  +   37.09 ms  c06  BELIEF     response.findings: [] -> [{'category': 'aws_access_key', 'severity': 'CRITICAL', 'rule': 'D1'}] (source intention:I1/inspect_response)
+  2026-10-31 05:12:27.642  +   37.11 ms  c06  BELIEF     response.decision: None -> BLOCK (source intention:I1/inspect_response)
+  2026-10-31 05:12:27.642  +   37.14 ms  c06  DESIRE     D1 'Never transmit a secret' (p100, achieve): inactive -> option
+  2026-10-31 05:12:27.642  +   37.26 ms  c06  RECONSIDER I1 invalidated by ['response.findings', 'response.decision']
+  2026-10-31 05:12:27.642  +   37.28 ms  c06  DROP       I1 allow_then_dispatch(provider=gcp-vertex) dropped before 'deliver' (6/7 done): pre-empted by D1 'Never transmit a secret' (priority 100); requires 'reply contains no critical secret (D1)' but believed response.findings=[{'category': 'aws_access_key', 'severity': 'CRITICAL', 'rule': 'D1'}]
+  2026-10-31 05:12:27.642  +   37.55 ms  c07  DELIBERATE options ['D1', 'D3']; pursue ['D1']; pre-empted: D3 by D1; constraints ['D4']
+  2026-10-31 05:12:27.642  +   37.60 ms  c07  DELIBERATE means-ends for D1: 1 applicable option(s): withhold_reply_and_alert U=100.00
+  2026-10-31 05:12:27.642  +   37.63 ms  c07  INTEND     I2 adopted for D1: withhold_reply_and_alert U=100.00 [discard_reply -> seal_evidence -> raise_alert -> notify_user]
+  2026-10-31 05:12:27.642  +   37.70 ms  c07  REPLAN     I1 allow_then_dispatch(provider=gcp-vertex) [DROPPED] -> I2 withhold_reply_and_alert
+  2026-10-31 05:12:27.642  +   37.76 ms  c07  STEP       I2 withhold_reply_and_alert [1/4] discard_reply -> OK: provider reply discarded from memory
+  2026-10-31 05:12:27.642  +   37.79 ms  c07  BELIEF     response.discarded: None -> True (source intention:I2/discard_reply)
+  2026-10-31 05:12:27.643  +   38.03 ms  c08  STEP       I2 withhold_reply_and_alert [2/4] seal_evidence -> OK: evidence 'withhold_reply_and_alert' sealed as record #1 (hmac 2863f90003d0)
+  2026-10-31 05:12:27.643  +   38.24 ms  c09  STEP       I2 withhold_reply_and_alert [3/4] raise_alert -> OK: security alert raised: provider gcp-vertex returned critical secret material ['aws_access_key']; threat.level=high
+  2026-10-31 05:12:27.643  +   38.27 ms  c09  BELIEF     threat.level: normal -> high (source intention:I2/raise_alert)
+  2026-10-31 05:12:27.643  +   38.45 ms  c10  STEP       I2 withhold_reply_and_alert [4/4] notify_user -> OK: user notified; request.status=RESPONSE_WITHHELD
+  2026-10-31 05:12:27.643  +   38.50 ms  c10  COMPLETE   I2 withhold_reply_and_alert succeeded (4 steps) for D1
+  2026-10-31 05:12:27.643  +   38.53 ms  c10  BELIEF     guard.secret_contained: False -> True (source intention:I2/notify_user)
+  2026-10-31 05:12:27.643  +   38.54 ms  c10  BELIEF     request.status: PENDING -> RESPONSE_WITHHELD (source intention:I2/notify_user)
+  2026-10-31 05:12:27.643  +   38.56 ms  c10  DESIRE     D1 'Never transmit a secret' (p100, achieve): option -> inactive
+  2026-10-31 05:12:27.643  +   38.58 ms  c10  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.643  +   38.59 ms  c10  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.643  +   38.63 ms  c10  FINISH     request req-s3 finished: RESPONSE_WITHHELD after 10 cycles, 10 steps, 1 intention shift(s), 1 transmission(s)
+----------------------------------------------------------------------------------------------------
+  ====================== INTENTION SHIFT 1/1 (cycle 6, +37.34 ms) ======================
+  BEFORE   I1 allow_then_dispatch(provider=gcp-vertex)  desire D3  U=77.93  progress
+           6/7  next step 'deliver'
+  TRIGGER  response.findings: [] -> [{"category": "aws_access_key", "severity":
+           "CRITICAL", "rule": "D1"}]  [source intention:I1/inspect_response,
+           confidence 1.00]
+  TRIGGER  response.decision: null -> BLOCK  [source intention:I1/inspect_response,
+           confidence 1.00]
+  DROPPED  I1: pre-empted by D1 'Never transmit a secret' (priority 100)
+           I1: requires 'reply contains no critical secret (D1)' but believed
+           response.findings=[{'category': 'aws_access_key', 'severity': 'CRITICAL',
+           'rule': 'D1'}]
+  AFTER    I2 withhold_reply_and_alert  desire D1  U=100.00  adopted at cycle 7 (+37.70
+           ms, reaction 0.35 ms)
+  ======================================================================================
+  OUTCOME  status=RESPONSE_WITHHELD  delivered=False  cycles=10  steps=10  elapsed=34.36 ms
+           transmissions: gcp-vertex(US, ok)
+           evidence ledger: 2 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 9, 'kept': 8, 'dropped': 1, 'suspended': 0, 'resumed': 0, 'failed': 0, 'belief_changes': 56, 'ignored_changes': 12}
+           alerts: ["provider gcp-vertex returned critical secret material ['aws_access_key']"]
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SCENARIO S4 - Price spike, then budget cut
+====================================================================================================
+Commitment   : OPEN_MINDED
+Prompt (safe): Write a short product description for an ergonomic mesh office chair.
+Disturbances : GCP re-prices capacity: contract lapses, on-demand $6.80/1k [before step 'seal_dispatch_record' on gcp-vertex]; finance lowers the AI budget to $1.00 per 1k requests [before step 'dispatch' on aws-bedrock]
+Expected     : start allow_then_dispatch(provider=gcp-vertex); finish dispatch_local_only(provider=local); status COMPLETED
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.649  +    4.00 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.649  +    4.33 ms  c00  PERCEIVE   request req-s4 received: 69 bytes, policy ALLOW
+  2026-10-31 05:12:27.649  +    4.36 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.649  +    4.38 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.649  +    4.39 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.649  +    4.40 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.649  +    4.45 ms  c01  BELIEF     request.id: None -> req-s4 (source gateway)
+  2026-10-31 05:12:27.649  +    4.46 ms  c01  BELIEF     prompt.sha256: None -> a827facdc4c9bbb1 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.649  +    4.48 ms  c01  BELIEF     prompt.bytes: None -> 69 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.649  +    4.49 ms  c01  BELIEF     prompt.categories: None -> [] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.649  +    4.50 ms  c01  BELIEF     prompt.decision: None -> ALLOW (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.649  +    4.51 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.650  +    4.97 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.650  +    5.01 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.650  +    5.09 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.650  +    5.53 ms  c01  DELIBERATE means-ends for D3: 4 applicable option(s): allow_then_dispatch(provider=gcp-vertex) U=77.93, allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.650  +    5.58 ms  c01  INTEND     I1 adopted for D3: allow_then_dispatch(provider=gcp-vertex) U=77.93 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.650  +    5.92 ms  c01  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=a827facdc4c9bbb1
+  2026-10-31 05:12:27.651  +    5.96 ms  c01  BELIEF     payload.sha256: None -> a827facdc4c9bbb1 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.651  +    5.97 ms  c01  BELIEF     payload.redacted: None -> False (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.651  +    5.99 ms  c01  BELIEF     payload.prompt_sha256: None -> a827facdc4c9bbb1 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.651  +    6.33 ms  c02  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [2/7] procure_contract -> OK: contract AGREED with gcp-vertex: effective $1.79/1k (list $2.20, 5 rounds)
+  2026-10-31 05:12:27.651  +    6.36 ms  c02  BELIEF     provider.gcp-vertex.contract_digest: None -> 7270393b8298bff6 (source intention:I1/procure_contract)
+  2026-10-31 05:12:27.651  +    6.83 ms  c03  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [3/7] route_and_verify -> OK: router: gcp-vertex feasible, U=77.93, rank 1/4 [gcp-vertex > aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.651  +    6.86 ms  c03  BELIEF     route.selected: None -> gcp-vertex (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.651  +    6.88 ms  c03  BELIEF     route.utility: None -> 77.9333 (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.651  +    6.89 ms  c03  BELIEF     route.ranking: None -> ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.652  +    7.12 ms  c04  PERCEIVE   environment: GCP re-prices capacity: contract lapses, on-demand $6.80/1k
+  2026-10-31 05:12:27.652  +    7.16 ms  c04  BELIEF     provider.gcp-vertex.price_per_1k: 1.79 -> 6.8 (source procurement:price-feed)
+  2026-10-31 05:12:27.652  +    7.17 ms  c04  BELIEF     provider.gcp-vertex.price_source: negotiated_contract -> on_demand_spike (source procurement:price-feed)
+  2026-10-31 05:12:27.652  +    7.32 ms  c04  RECONSIDER I1 invalidated by ['provider.gcp-vertex.price_per_1k']
+  2026-10-31 05:12:27.652  +    7.35 ms  c04  DROP       I1 allow_then_dispatch(provider=gcp-vertex) dropped before 'seal_dispatch_record' (3/7 done): requires 'provider gcp-vertex price within budget (D4)' but believed budget.max_cost_per_1k=6.0, provider.gcp-vertex.price_per_1k=6.8
+  2026-10-31 05:12:27.653  +    8.13 ms  c05  DELIBERATE means-ends for D3: 3 applicable option(s): allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.653  +    8.18 ms  c05  INTEND     I2 adopted for D3: allow_then_dispatch(provider=aws-bedrock) U=77.28 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.653  +    8.25 ms  c05  REPLAN     I1 allow_then_dispatch(provider=gcp-vertex) [DROPPED] -> I2 allow_then_dispatch(provider=aws-bedrock)
+  2026-10-31 05:12:27.653  +    8.52 ms  c05  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=a827facdc4c9bbb1
+  2026-10-31 05:12:27.653  +    8.84 ms  c06  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [2/7] procure_contract -> OK: contract AGREED with aws-bedrock: effective $2.28/1k (list $2.80, 5 rounds)
+  2026-10-31 05:12:27.653  +    8.87 ms  c06  BELIEF     provider.aws-bedrock.contract_digest: None -> 7735ba3a2d12bf12 (source intention:I2/procure_contract)
+  2026-10-31 05:12:27.654  +    9.31 ms  c07  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [3/7] route_and_verify -> OK: router: aws-bedrock feasible, U=77.28, rank 1/3 [aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.654  +    9.34 ms  c07  BELIEF     route.selected: gcp-vertex -> aws-bedrock (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.654  +    9.35 ms  c07  BELIEF     route.utility: 77.9333 -> 77.2833 (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.654  +    9.37 ms  c07  BELIEF     route.ranking: ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] -> ['aws-bedrock', 'azure-ai', 'local'] (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.654  +    9.72 ms  c08  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [4/7] seal_dispatch_record -> OK: evidence record #0 sealed (hmac 0b50ee922389)
+  2026-10-31 05:12:27.654  +    9.89 ms  c09  PERCEIVE   environment: finance lowers the AI budget to $1.00 per 1k requests
+  2026-10-31 05:12:27.654  +    9.91 ms  c09  BELIEF     budget.max_cost_per_1k: 6.0 -> 1.0 (source finance:budget-policy)
+  2026-10-31 05:12:27.655  +   10.05 ms  c09  RECONSIDER I2 invalidated by ['budget.max_cost_per_1k']
+  2026-10-31 05:12:27.655  +   10.07 ms  c09  DROP       I2 allow_then_dispatch(provider=aws-bedrock) dropped before 'dispatch' (4/7 done): requires 'provider aws-bedrock price within budget (D4)' but believed budget.max_cost_per_1k=1.0, provider.aws-bedrock.price_per_1k=2.28
+  2026-10-31 05:12:27.655  +   10.70 ms  c10  DELIBERATE means-ends for D3: 1 applicable option(s): dispatch_local_only(provider=local) U=64.65
+  2026-10-31 05:12:27.655  +   10.74 ms  c10  INTEND     I3 adopted for D3: dispatch_local_only(provider=local) U=64.65 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.655  +   10.81 ms  c10  REPLAN     I2 allow_then_dispatch(provider=aws-bedrock) [DROPPED] -> I3 dispatch_local_only(provider=local)
+  2026-10-31 05:12:27.656  +   11.05 ms  c10  STEP       I3 dispatch_local_only(provider=local) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=a827facdc4c9bbb1
+  2026-10-31 05:12:27.656  +   11.39 ms  c11  STEP       I3 dispatch_local_only(provider=local) [2/7] procure_contract -> OK: contract AGREED with local: effective $0.33/1k (list $0.40, 5 rounds)
+  2026-10-31 05:12:27.656  +   11.45 ms  c11  BELIEF     provider.local.contract_digest: None -> 208bd8d3447f0cf3 (source intention:I3/procure_contract)
+  2026-10-31 05:12:27.657  +   11.98 ms  c12  STEP       I3 dispatch_local_only(provider=local) [3/7] route_and_verify -> OK: router: local feasible, U=64.65, rank 1/1 [local]
+  2026-10-31 05:12:27.657  +   12.01 ms  c12  BELIEF     route.selected: aws-bedrock -> local (source intention:I3/route_and_verify)
+  2026-10-31 05:12:27.657  +   12.03 ms  c12  BELIEF     route.utility: 77.2833 -> 64.65 (source intention:I3/route_and_verify)
+  2026-10-31 05:12:27.657  +   12.04 ms  c12  BELIEF     route.ranking: ['aws-bedrock', 'azure-ai', 'local'] -> ['local'] (source intention:I3/route_and_verify)
+  2026-10-31 05:12:27.657  +   12.35 ms  c13  STEP       I3 dispatch_local_only(provider=local) [4/7] seal_dispatch_record -> OK: evidence record #1 sealed (hmac f037ef21a9e3)
+  2026-10-31 05:12:27.718  +   72.97 ms  c14  STEP       I3 dispatch_local_only(provider=local) [5/7] dispatch -> OK: transmitted to local (LOCAL); reply in 60.2 ms
+  2026-10-31 05:12:27.718  +   73.07 ms  c14  BELIEF     dispatch.sent_to: None -> local (source intention:I3/dispatch)
+  2026-10-31 05:12:27.718  +   73.09 ms  c14  BELIEF     dispatch.residency: None -> LOCAL (source intention:I3/dispatch)
+  2026-10-31 05:12:27.718  +   73.11 ms  c14  BELIEF     dispatch.effective_cost: None -> 0.33 (source intention:I3/dispatch)
+  2026-10-31 05:12:27.718  +   73.12 ms  c14  BELIEF     response.received: None -> True (source intention:I3/dispatch)
+  2026-10-31 05:12:27.718  +   73.28 ms  c14  RECONSIDER I3 kept after ['response.received']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.718  +   73.74 ms  c15  STEP       I3 dispatch_local_only(provider=local) [6/7] inspect_response -> OK: reply inspected: ALLOW (clean)
+  2026-10-31 05:12:27.718  +   73.78 ms  c15  BELIEF     response.decision: None -> ALLOW (source intention:I3/inspect_response)
+  2026-10-31 05:12:27.718  +   73.88 ms  c15  RECONSIDER I3 kept after ['response.decision']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.719  +   74.27 ms  c16  STEP       I3 dispatch_local_only(provider=local) [7/7] deliver -> OK: answer delivered to user (20 words)
+  2026-10-31 05:12:27.719  +   74.32 ms  c16  COMPLETE   I3 dispatch_local_only(provider=local) succeeded (7 steps) for D3
+  2026-10-31 05:12:27.719  +   74.35 ms  c16  BELIEF     response.delivered: False -> True (source intention:I3/deliver)
+  2026-10-31 05:12:27.719  +   74.36 ms  c16  BELIEF     request.status: PENDING -> COMPLETED (source intention:I3/deliver)
+  2026-10-31 05:12:27.719  +   74.39 ms  c16  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.719  +   74.45 ms  c16  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.719  +   74.53 ms  c16  FINISH     request req-s4 finished: COMPLETED after 16 cycles, 14 steps, 2 intention shift(s), 1 transmission(s)
+----------------------------------------------------------------------------------------------------
+  ====================== INTENTION SHIFT 1/2 (cycle 4, +7.40 ms) =======================
+  BEFORE   I1 allow_then_dispatch(provider=gcp-vertex)  desire D3  U=77.93  progress
+           3/7  next step 'seal_dispatch_record'
+  TRIGGER  provider.gcp-vertex.price_per_1k: 1.79 -> 6.8  [source
+           procurement:price-feed, confidence 0.95]
+  DROPPED  I1: requires 'provider gcp-vertex price within budget (D4)' but believed
+           budget.max_cost_per_1k=6.0, provider.gcp-vertex.price_per_1k=6.8
+  AFTER    I2 allow_then_dispatch(provider=aws-bedrock)  desire D3  U=77.28  adopted at
+           cycle 5 (+8.24 ms, reaction 0.84 ms)
+  ======================================================================================
+  ====================== INTENTION SHIFT 2/2 (cycle 9, +10.12 ms) ======================
+  BEFORE   I2 allow_then_dispatch(provider=aws-bedrock)  desire D3  U=77.28  progress
+           4/7  next step 'dispatch'
+  TRIGGER  budget.max_cost_per_1k: 6.0 -> 1.0  [source finance:budget-policy,
+           confidence 1.00]
+  DROPPED  I2: requires 'provider aws-bedrock price within budget (D4)' but believed
+           budget.max_cost_per_1k=1.0, provider.aws-bedrock.price_per_1k=2.28
+  AFTER    I3 dispatch_local_only(provider=local)  desire D3  U=64.65  adopted at cycle
+           10 (+10.81 ms, reaction 0.68 ms)
+  ======================================================================================
+  OUTCOME  status=COMPLETED  delivered=True  cycles=16  steps=14  elapsed=70.21 ms
+           transmissions: local(LOCAL, ok)
+           evidence ledger: 3 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 15, 'kept': 13, 'dropped': 2, 'suspended': 0, 'resumed': 0, 'failed': 0, 'belief_changes': 64, 'ignored_changes': 19}
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SCENARIO S5 - Indian data residency: provider region changes
+====================================================================================================
+Commitment   : OPEN_MINDED
+Prompt (safe): Update KYC for the customer with Aadhaar [REDACTED:AADHAAR] and email the confirmation to [REDACTED:EMAIL].
+Disturbances : AWS enables a cross-region inference profile: Bedrock now serves from us-east-1 [before step 'dispatch' on aws-bedrock]
+Expected     : start redact_then_dispatch(provider=aws-bedrock); finish redact_then_dispatch(provider=azure-ai); status COMPLETED
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.725  +    4.46 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.726  +    4.94 ms  c00  PERCEIVE   request req-s5 received: 110 bytes, policy REDACT ['aadhaar', 'email']
+  2026-10-31 05:12:27.726  +    5.00 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.726  +    5.02 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.726  +    5.04 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.726  +    5.05 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.726  +    5.06 ms  c01  BELIEF     request.id: None -> req-s5 (source gateway)
+  2026-10-31 05:12:27.726  +    5.08 ms  c01  BELIEF     prompt.sha256: None -> 724425188b6da1a1 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.726  +    5.09 ms  c01  BELIEF     prompt.bytes: None -> 110 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.726  +    5.10 ms  c01  BELIEF     prompt.categories: None -> ['aadhaar', 'email'] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.726  +    5.12 ms  c01  BELIEF     prompt.decision: None -> REDACT (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.726  +    5.12 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.726  +    5.17 ms  c01  DESIRE     D2 'Keep Indian personal data in India' (p90, maintain): new -> constraining -> dispatch only to providers with residency IN or LOCAL
+  2026-10-31 05:12:27.726  +    5.22 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.726  +    5.25 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.726  +    5.34 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D2', 'D4']
+  2026-10-31 05:12:27.727  +    5.73 ms  c01  DELIBERATE means-ends for D3: 3 applicable option(s): redact_then_dispatch(provider=aws-bedrock) U=77.28, redact_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.727  +    5.79 ms  c01  INTEND     I1 adopted for D3: redact_then_dispatch(provider=aws-bedrock) U=77.28 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.727  +    6.16 ms  c01  STEP       I1 redact_then_dispatch(provider=aws-bedrock) [1/7] prepare_payload -> OK: policy REDACT; payload sanitized (2 spans masked), sha256=df3aaae53411de19
+  2026-10-31 05:12:27.727  +    6.23 ms  c01  BELIEF     payload.sha256: None -> df3aaae53411de19 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.727  +    6.25 ms  c01  BELIEF     payload.redacted: None -> True (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.727  +    6.26 ms  c01  BELIEF     payload.prompt_sha256: None -> 724425188b6da1a1 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.727  +    6.64 ms  c02  STEP       I1 redact_then_dispatch(provider=aws-bedrock) [2/7] procure_contract -> OK: contract AGREED with aws-bedrock: effective $2.28/1k (list $2.80, 5 rounds)
+  2026-10-31 05:12:27.727  +    6.66 ms  c02  BELIEF     provider.aws-bedrock.contract_digest: None -> 7735ba3a2d12bf12 (source intention:I1/procure_contract)
+  2026-10-31 05:12:27.728  +    7.14 ms  c03  STEP       I1 redact_then_dispatch(provider=aws-bedrock) [3/7] route_and_verify -> OK: router: aws-bedrock feasible, U=77.28, rank 1/3 [aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.728  +    7.16 ms  c03  BELIEF     route.selected: None -> aws-bedrock (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.728  +    7.18 ms  c03  BELIEF     route.utility: None -> 77.2833 (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.728  +    7.22 ms  c03  BELIEF     route.ranking: None -> ['aws-bedrock', 'azure-ai', 'local'] (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.728  +    7.60 ms  c04  STEP       I1 redact_then_dispatch(provider=aws-bedrock) [4/7] seal_dispatch_record -> OK: evidence record #0 sealed (hmac 134246075b28)
+  2026-10-31 05:12:27.729  +    7.80 ms  c05  PERCEIVE   environment: AWS enables a cross-region inference profile: Bedrock now serves from us-east-1
+  2026-10-31 05:12:27.729  +    7.85 ms  c05  BELIEF     provider.aws-bedrock.residency: IN -> US (source aws-health:inference-profile)
+  2026-10-31 05:12:27.729  +    7.86 ms  c05  BELIEF     provider.aws-bedrock.region: ap-south-1 -> us-east-1 (source aws-health:inference-profile)
+  2026-10-31 05:12:27.729  +    8.01 ms  c05  RECONSIDER I1 invalidated by ['provider.aws-bedrock.residency']
+  2026-10-31 05:12:27.729  +    8.03 ms  c05  DROP       I1 redact_then_dispatch(provider=aws-bedrock) dropped before 'dispatch' (4/7 done): requires 'provider aws-bedrock residency allowed for this prompt (D2)' but believed prompt.categories=['aadhaar', 'email'], provider.aws-bedrock.residency=US
+  2026-10-31 05:12:27.730  +    8.78 ms  c06  DELIBERATE means-ends for D3: 2 applicable option(s): redact_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.730  +    8.82 ms  c06  INTEND     I2 adopted for D3: redact_then_dispatch(provider=azure-ai) U=76.84 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.730  +    8.89 ms  c06  REPLAN     I1 redact_then_dispatch(provider=aws-bedrock) [DROPPED] -> I2 redact_then_dispatch(provider=azure-ai)
+  2026-10-31 05:12:27.730  +    9.17 ms  c06  STEP       I2 redact_then_dispatch(provider=azure-ai) [1/7] prepare_payload -> OK: policy REDACT; payload sanitized (2 spans masked), sha256=df3aaae53411de19
+  2026-10-31 05:12:27.730  +    9.54 ms  c07  STEP       I2 redact_then_dispatch(provider=azure-ai) [2/7] procure_contract -> OK: contract AGREED with azure-ai: effective $2.69/1k (list $3.30, 5 rounds)
+  2026-10-31 05:12:27.730  +    9.57 ms  c07  BELIEF     provider.azure-ai.contract_digest: None -> 30850ec19ecf2613 (source intention:I2/procure_contract)
+  2026-10-31 05:12:27.731  +   10.03 ms  c08  STEP       I2 redact_then_dispatch(provider=azure-ai) [3/7] route_and_verify -> OK: router: azure-ai feasible, U=76.84, rank 1/2 [azure-ai > local]
+  2026-10-31 05:12:27.731  +   10.06 ms  c08  BELIEF     route.selected: aws-bedrock -> azure-ai (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.731  +   10.07 ms  c08  BELIEF     route.utility: 77.2833 -> 76.8417 (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.731  +   10.09 ms  c08  BELIEF     route.ranking: ['aws-bedrock', 'azure-ai', 'local'] -> ['azure-ai', 'local'] (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.731  +   10.44 ms  c09  STEP       I2 redact_then_dispatch(provider=azure-ai) [4/7] seal_dispatch_record -> OK: evidence record #1 sealed (hmac 9f9de4408b3d)
+  2026-10-31 05:12:27.762  +   41.06 ms  c10  STEP       I2 redact_then_dispatch(provider=azure-ai) [5/7] dispatch -> OK: transmitted to azure-ai (IN); reply in 30.2 ms
+  2026-10-31 05:12:27.762  +   41.14 ms  c10  BELIEF     dispatch.sent_to: None -> azure-ai (source intention:I2/dispatch)
+  2026-10-31 05:12:27.762  +   41.16 ms  c10  BELIEF     dispatch.residency: None -> IN (source intention:I2/dispatch)
+  2026-10-31 05:12:27.762  +   41.17 ms  c10  BELIEF     dispatch.effective_cost: None -> 2.69 (source intention:I2/dispatch)
+  2026-10-31 05:12:27.762  +   41.22 ms  c10  BELIEF     response.received: None -> True (source intention:I2/dispatch)
+  2026-10-31 05:12:27.762  +   41.42 ms  c10  RECONSIDER I2 kept after ['response.received']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.763  +   41.86 ms  c11  STEP       I2 redact_then_dispatch(provider=azure-ai) [6/7] inspect_response -> OK: reply inspected: ALLOW (clean)
+  2026-10-31 05:12:27.763  +   41.89 ms  c11  BELIEF     response.decision: None -> ALLOW (source intention:I2/inspect_response)
+  2026-10-31 05:12:27.763  +   42.01 ms  c11  RECONSIDER I2 kept after ['response.decision']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.763  +   42.44 ms  c12  STEP       I2 redact_then_dispatch(provider=azure-ai) [7/7] deliver -> OK: answer delivered to user (24 words)
+  2026-10-31 05:12:27.763  +   42.48 ms  c12  COMPLETE   I2 redact_then_dispatch(provider=azure-ai) succeeded (7 steps) for D3
+  2026-10-31 05:12:27.763  +   42.49 ms  c12  BELIEF     response.delivered: False -> True (source intention:I2/deliver)
+  2026-10-31 05:12:27.763  +   42.51 ms  c12  BELIEF     request.status: PENDING -> COMPLETED (source intention:I2/deliver)
+  2026-10-31 05:12:27.763  +   42.54 ms  c12  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.763  +   42.55 ms  c12  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.763  +   42.60 ms  c12  FINISH     request req-s5 finished: COMPLETED after 12 cycles, 11 steps, 1 intention shift(s), 1 transmission(s)
+----------------------------------------------------------------------------------------------------
+  ====================== INTENTION SHIFT 1/1 (cycle 5, +8.09 ms) =======================
+  BEFORE   I1 redact_then_dispatch(provider=aws-bedrock)  desire D3  U=77.28  progress
+           4/7  next step 'dispatch'
+  TRIGGER  provider.aws-bedrock.residency: IN -> US  [source
+           aws-health:inference-profile, confidence 0.97]
+  DROPPED  I1: requires 'provider aws-bedrock residency allowed for this prompt (D2)'
+           but believed prompt.categories=['aadhaar', 'email'],
+           provider.aws-bedrock.residency=US
+  AFTER    I2 redact_then_dispatch(provider=azure-ai)  desire D3  U=76.84  adopted at
+           cycle 6 (+8.88 ms, reaction 0.79 ms)
+  ======================================================================================
+  OUTCOME  status=COMPLETED  delivered=True  cycles=12  steps=11  elapsed=37.65 ms
+           transmissions: azure-ai(IN, ok, redacted)
+           evidence ledger: 3 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 11, 'kept': 10, 'dropped': 1, 'suspended': 0, 'resumed': 0, 'failed': 0, 'belief_changes': 59, 'ignored_changes': 15}
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SCENARIO S6 - Indian data residency: prompt correction reveals PAN
+====================================================================================================
+Commitment   : OPEN_MINDED
+Prompt (safe): Prepare a GST invoice summary for vendor Sharma Traders for October.
+Disturbances : user edits the prompt and adds the vendor PAN [before step 'seal_dispatch_record' on gcp-vertex]
+Expected     : start allow_then_dispatch(provider=gcp-vertex); finish redact_then_dispatch(provider=aws-bedrock); status COMPLETED
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.769  +    3.95 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.769  +    4.29 ms  c00  PERCEIVE   request req-s6 received: 68 bytes, policy ALLOW
+  2026-10-31 05:12:27.769  +    4.33 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.769  +    4.34 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.769  +    4.36 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.769  +    4.37 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.769  +    4.38 ms  c01  BELIEF     request.id: None -> req-s6 (source gateway)
+  2026-10-31 05:12:27.769  +    4.39 ms  c01  BELIEF     prompt.sha256: None -> c4dd1efa692a94b1 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.769  +    4.40 ms  c01  BELIEF     prompt.bytes: None -> 68 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.769  +    4.41 ms  c01  BELIEF     prompt.categories: None -> [] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.769  +    4.42 ms  c01  BELIEF     prompt.decision: None -> ALLOW (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.769  +    4.43 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.769  +    4.46 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.769  +    4.48 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.770  +    4.55 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.770  +    5.07 ms  c01  DELIBERATE means-ends for D3: 4 applicable option(s): allow_then_dispatch(provider=gcp-vertex) U=77.93, allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.770  +    5.14 ms  c01  INTEND     I1 adopted for D3: allow_then_dispatch(provider=gcp-vertex) U=77.93 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.770  +    5.47 ms  c01  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=c4dd1efa692a94b1
+  2026-10-31 05:12:27.770  +    5.50 ms  c01  BELIEF     payload.sha256: None -> c4dd1efa692a94b1 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.770  +    5.51 ms  c01  BELIEF     payload.redacted: None -> False (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.770  +    5.52 ms  c01  BELIEF     payload.prompt_sha256: None -> c4dd1efa692a94b1 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.771  +    5.88 ms  c02  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [2/7] procure_contract -> OK: contract AGREED with gcp-vertex: effective $1.79/1k (list $2.20, 5 rounds)
+  2026-10-31 05:12:27.771  +    5.90 ms  c02  BELIEF     provider.gcp-vertex.contract_digest: None -> 7270393b8298bff6 (source intention:I1/procure_contract)
+  2026-10-31 05:12:27.771  +    6.40 ms  c03  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [3/7] route_and_verify -> OK: router: gcp-vertex feasible, U=77.93, rank 1/4 [gcp-vertex > aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.771  +    6.43 ms  c03  BELIEF     route.selected: None -> gcp-vertex (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.771  +    6.44 ms  c03  BELIEF     route.utility: None -> 77.9333 (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.771  +    6.46 ms  c03  BELIEF     route.ranking: None -> ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.772  +    6.68 ms  c04  PERCEIVE   environment: user edits the prompt and adds the vendor PAN
+  2026-10-31 05:12:27.772  +    6.88 ms  c04  BELIEF     prompt.sha256: c4dd1efa692a94b1 -> 618051009b0ecd1f (source user:amendment)
+  2026-10-31 05:12:27.772  +    6.90 ms  c04  BELIEF     prompt.bytes: 68 -> 84 (source user:amendment)
+  2026-10-31 05:12:27.772  +    6.91 ms  c04  BELIEF     prompt.categories: [] -> ['pan'] (source user:amendment)
+  2026-10-31 05:12:27.772  +    6.92 ms  c04  BELIEF     prompt.decision: ALLOW -> REDACT (source user:amendment)
+  2026-10-31 05:12:27.772  +    6.95 ms  c04  DESIRE     D2 'Keep Indian personal data in India' (p90, maintain): inactive -> constraining -> dispatch only to providers with residency IN or LOCAL
+  2026-10-31 05:12:27.772  +    7.14 ms  c04  RECONSIDER I1 invalidated by ['prompt.sha256', 'prompt.categories', 'prompt.decision']
+  2026-10-31 05:12:27.772  +    7.17 ms  c04  DROP       I1 allow_then_dispatch(provider=gcp-vertex) dropped before 'seal_dispatch_record' (3/7 done): requires 'provider gcp-vertex residency allowed for this prompt (D2)' but believed prompt.categories=['pan'], provider.gcp-vertex.residency=US; requires 'prompt decision is ALLOW' but believed prompt.decision=REDACT
+  2026-10-31 05:12:27.773  +    7.72 ms  c05  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D2', 'D4']
+  2026-10-31 05:12:27.773  +    8.00 ms  c05  DELIBERATE means-ends for D3: 3 applicable option(s): redact_then_dispatch(provider=aws-bedrock) U=77.28, redact_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.773  +    8.08 ms  c05  INTEND     I2 adopted for D3: redact_then_dispatch(provider=aws-bedrock) U=77.28 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.773  +    8.15 ms  c05  REPLAN     I1 allow_then_dispatch(provider=gcp-vertex) [DROPPED] -> I2 redact_then_dispatch(provider=aws-bedrock)
+  2026-10-31 05:12:27.773  +    8.40 ms  c05  STEP       I2 redact_then_dispatch(provider=aws-bedrock) [1/7] prepare_payload -> OK: policy REDACT; payload sanitized (1 spans masked), sha256=f478f3493d6044bb
+  2026-10-31 05:12:27.773  +    8.43 ms  c05  BELIEF     payload.sha256: c4dd1efa692a94b1 -> f478f3493d6044bb (source intention:I2/prepare_payload)
+  2026-10-31 05:12:27.773  +    8.45 ms  c05  BELIEF     payload.redacted: False -> True (source intention:I2/prepare_payload)
+  2026-10-31 05:12:27.773  +    8.46 ms  c05  BELIEF     payload.prompt_sha256: c4dd1efa692a94b1 -> 618051009b0ecd1f (source intention:I2/prepare_payload)
+  2026-10-31 05:12:27.774  +    8.81 ms  c06  STEP       I2 redact_then_dispatch(provider=aws-bedrock) [2/7] procure_contract -> OK: contract AGREED with aws-bedrock: effective $2.28/1k (list $2.80, 5 rounds)
+  2026-10-31 05:12:27.774  +    8.83 ms  c06  BELIEF     provider.aws-bedrock.contract_digest: None -> 7735ba3a2d12bf12 (source intention:I2/procure_contract)
+  2026-10-31 05:12:27.774  +    9.32 ms  c07  STEP       I2 redact_then_dispatch(provider=aws-bedrock) [3/7] route_and_verify -> OK: router: aws-bedrock feasible, U=77.28, rank 1/3 [aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.774  +    9.35 ms  c07  BELIEF     route.selected: gcp-vertex -> aws-bedrock (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.774  +    9.36 ms  c07  BELIEF     route.utility: 77.9333 -> 77.2833 (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.774  +    9.37 ms  c07  BELIEF     route.ranking: ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] -> ['aws-bedrock', 'azure-ai', 'local'] (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.775  +    9.69 ms  c08  STEP       I2 redact_then_dispatch(provider=aws-bedrock) [4/7] seal_dispatch_record -> OK: evidence record #0 sealed (hmac 8a09bd4938d8)
+  2026-10-31 05:12:27.808  +   42.85 ms  c09  STEP       I2 redact_then_dispatch(provider=aws-bedrock) [5/7] dispatch -> OK: transmitted to aws-bedrock (IN); reply in 32.8 ms
+  2026-10-31 05:12:27.808  +   42.94 ms  c09  BELIEF     dispatch.sent_to: None -> aws-bedrock (source intention:I2/dispatch)
+  2026-10-31 05:12:27.808  +   42.95 ms  c09  BELIEF     dispatch.residency: None -> IN (source intention:I2/dispatch)
+  2026-10-31 05:12:27.808  +   42.97 ms  c09  BELIEF     dispatch.effective_cost: None -> 2.28 (source intention:I2/dispatch)
+  2026-10-31 05:12:27.808  +   42.98 ms  c09  BELIEF     response.received: None -> True (source intention:I2/dispatch)
+  2026-10-31 05:12:27.808  +   43.21 ms  c09  RECONSIDER I2 kept after ['response.received']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.809  +   43.69 ms  c10  STEP       I2 redact_then_dispatch(provider=aws-bedrock) [6/7] inspect_response -> OK: reply inspected: ALLOW (clean)
+  2026-10-31 05:12:27.809  +   43.73 ms  c10  BELIEF     response.decision: None -> ALLOW (source intention:I2/inspect_response)
+  2026-10-31 05:12:27.809  +   43.87 ms  c10  RECONSIDER I2 kept after ['response.decision']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.809  +   44.37 ms  c11  STEP       I2 redact_then_dispatch(provider=aws-bedrock) [7/7] deliver -> OK: answer delivered to user (22 words)
+  2026-10-31 05:12:27.809  +   44.41 ms  c11  COMPLETE   I2 redact_then_dispatch(provider=aws-bedrock) succeeded (7 steps) for D3
+  2026-10-31 05:12:27.809  +   44.44 ms  c11  BELIEF     response.delivered: False -> True (source intention:I2/deliver)
+  2026-10-31 05:12:27.809  +   44.45 ms  c11  BELIEF     request.status: PENDING -> COMPLETED (source intention:I2/deliver)
+  2026-10-31 05:12:27.809  +   44.48 ms  c11  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.809  +   44.49 ms  c11  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.809  +   44.53 ms  c11  FINISH     request req-s6 finished: COMPLETED after 11 cycles, 10 steps, 1 intention shift(s), 1 transmission(s)
+----------------------------------------------------------------------------------------------------
+  ====================== INTENTION SHIFT 1/1 (cycle 4, +7.23 ms) =======================
+  BEFORE   I1 allow_then_dispatch(provider=gcp-vertex)  desire D3  U=77.93  progress
+           3/7  next step 'seal_dispatch_record'
+  TRIGGER  prompt.sha256: c4dd1efa692a94b1 -> 618051009b0ecd1f  [source user:amendment,
+           confidence 1.00]
+  TRIGGER  prompt.categories: [] -> ["pan"]  [source user:amendment, confidence 1.00]
+  TRIGGER  prompt.decision: ALLOW -> REDACT  [source user:amendment, confidence 1.00]
+  DROPPED  I1: requires 'provider gcp-vertex residency allowed for this prompt (D2)'
+           but believed prompt.categories=['pan'], provider.gcp-vertex.residency=US
+           I1: requires 'prompt decision is ALLOW' but believed prompt.decision=REDACT
+  AFTER    I2 redact_then_dispatch(provider=aws-bedrock)  desire D3  U=77.28  adopted
+           at cycle 5 (+8.14 ms, reaction 0.91 ms)
+  ======================================================================================
+  OUTCOME  status=COMPLETED  delivered=True  cycles=11  steps=10  elapsed=40.24 ms
+           transmissions: aws-bedrock(IN, ok, redacted)
+           evidence ledger: 2 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 10, 'kept': 9, 'dropped': 1, 'suspended': 0, 'resumed': 0, 'failed': 0, 'belief_changes': 64, 'ignored_changes': 18}
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SCENARIO S7 - Transient partial outage: suspend and resume
+====================================================================================================
+Commitment   : OPEN_MINDED
+Prompt (safe): List five icebreaker questions for a new-joiner orientation session.
+Disturbances : status feed reports GCP Vertex partial outage [before step 'dispatch' on gcp-vertex]; status feed reports GCP Vertex operational again [on idle cycle 2]
+Expected     : start allow_then_dispatch(provider=gcp-vertex); finish allow_then_dispatch(provider=gcp-vertex); status COMPLETED (a transient condition suspends the intention instead of dropping it)
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.816  +    4.63 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.817  +    4.95 ms  c00  PERCEIVE   request req-s7 received: 68 bytes, policy ALLOW
+  2026-10-31 05:12:27.817  +    4.99 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.817  +    5.01 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.817  +    5.02 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.817  +    5.03 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.817  +    5.04 ms  c01  BELIEF     request.id: None -> req-s7 (source gateway)
+  2026-10-31 05:12:27.817  +    5.05 ms  c01  BELIEF     prompt.sha256: None -> 86e2ac20c9fd6478 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.817  +    5.07 ms  c01  BELIEF     prompt.bytes: None -> 68 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.817  +    5.08 ms  c01  BELIEF     prompt.categories: None -> [] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.817  +    5.09 ms  c01  BELIEF     prompt.decision: None -> ALLOW (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.817  +    5.10 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.817  +    5.13 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.817  +    5.15 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.817  +    5.26 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.817  +    5.63 ms  c01  DELIBERATE means-ends for D3: 4 applicable option(s): allow_then_dispatch(provider=gcp-vertex) U=77.93, allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.817  +    5.68 ms  c01  INTEND     I1 adopted for D3: allow_then_dispatch(provider=gcp-vertex) U=77.93 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.818  +    6.01 ms  c01  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=86e2ac20c9fd6478
+  2026-10-31 05:12:27.818  +    6.06 ms  c01  BELIEF     payload.sha256: None -> 86e2ac20c9fd6478 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.818  +    6.08 ms  c01  BELIEF     payload.redacted: None -> False (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.818  +    6.10 ms  c01  BELIEF     payload.prompt_sha256: None -> 86e2ac20c9fd6478 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.818  +    6.56 ms  c02  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [2/7] procure_contract -> OK: contract AGREED with gcp-vertex: effective $1.79/1k (list $2.20, 5 rounds)
+  2026-10-31 05:12:27.818  +    6.61 ms  c02  BELIEF     provider.gcp-vertex.contract_digest: None -> 7270393b8298bff6 (source intention:I1/procure_contract)
+  2026-10-31 05:12:27.819  +    7.18 ms  c03  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [3/7] route_and_verify -> OK: router: gcp-vertex feasible, U=77.93, rank 1/4 [gcp-vertex > aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.819  +    7.26 ms  c03  BELIEF     route.selected: None -> gcp-vertex (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.819  +    7.28 ms  c03  BELIEF     route.utility: None -> 77.9333 (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.819  +    7.30 ms  c03  BELIEF     route.ranking: None -> ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.819  +    7.70 ms  c04  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [4/7] seal_dispatch_record -> OK: evidence record #0 sealed (hmac 739878f090cc)
+  2026-10-31 05:12:27.820  +    7.95 ms  c05  PERCEIVE   environment: status feed reports GCP Vertex partial outage
+  2026-10-31 05:12:27.820  +    7.98 ms  c05  BELIEF     provider.gcp-vertex.status: operational -> partial_outage (source status-feed:gcp-vertex)
+  2026-10-31 05:12:27.820  +    8.11 ms  c05  SUSPEND    I1 allow_then_dispatch(provider=gcp-vertex) suspended at dispatch: waiting: provider gcp-vertex is usable is UNCERTAIN
+  2026-10-31 05:12:27.841  +   28.80 ms  c06  RECONSIDER I1 still suspended (provider gcp-vertex is usable UNCERTAIN; waited 1/4 cycles)
+  2026-10-31 05:12:27.841  +   28.90 ms  c07  PERCEIVE   environment: status feed reports GCP Vertex operational again
+  2026-10-31 05:12:27.841  +   28.95 ms  c07  BELIEF     provider.gcp-vertex.status: partial_outage -> operational (source status-feed:gcp-vertex)
+  2026-10-31 05:12:27.841  +   29.15 ms  c07  RESUME     I1 allow_then_dispatch(provider=gcp-vertex) resumed at dispatch (all conditions hold)
+  2026-10-31 05:12:27.871  +   58.79 ms  c07  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [5/7] dispatch -> OK: transmitted to gcp-vertex (US); reply in 29.2 ms
+  2026-10-31 05:12:27.871  +   58.87 ms  c07  BELIEF     dispatch.sent_to: None -> gcp-vertex (source intention:I1/dispatch)
+  2026-10-31 05:12:27.871  +   58.88 ms  c07  BELIEF     dispatch.residency: None -> US (source intention:I1/dispatch)
+  2026-10-31 05:12:27.871  +   58.89 ms  c07  BELIEF     dispatch.effective_cost: None -> 1.79 (source intention:I1/dispatch)
+  2026-10-31 05:12:27.871  +   58.91 ms  c07  BELIEF     response.received: None -> True (source intention:I1/dispatch)
+  2026-10-31 05:12:27.871  +   59.06 ms  c07  RECONSIDER I1 kept after ['response.received']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.871  +   59.48 ms  c08  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [6/7] inspect_response -> OK: reply inspected: ALLOW (clean)
+  2026-10-31 05:12:27.871  +   59.51 ms  c08  BELIEF     response.decision: None -> ALLOW (source intention:I1/inspect_response)
+  2026-10-31 05:12:27.871  +   59.61 ms  c08  RECONSIDER I1 kept after ['response.decision']: 2 remaining condition(s) still hold
+  2026-10-31 05:12:27.872  +   59.93 ms  c09  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [7/7] deliver -> OK: answer delivered to user (19 words)
+  2026-10-31 05:12:27.872  +   59.96 ms  c09  COMPLETE   I1 allow_then_dispatch(provider=gcp-vertex) succeeded (7 steps) for D3
+  2026-10-31 05:12:27.872  +   59.98 ms  c09  BELIEF     response.delivered: False -> True (source intention:I1/deliver)
+  2026-10-31 05:12:27.872  +   59.99 ms  c09  BELIEF     request.status: PENDING -> COMPLETED (source intention:I1/deliver)
+  2026-10-31 05:12:27.872  +   60.01 ms  c09  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.872  +   60.02 ms  c09  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.872  +   60.06 ms  c09  FINISH     request req-s7 finished: COMPLETED after 9 cycles, 7 steps, 0 intention shift(s), 1 transmission(s)
+----------------------------------------------------------------------------------------------------
+  NO RE-PLAN: the intention was suspended and resumed, then completed on the same plan.
+  OUTCOME  status=COMPLETED  delivered=True  cycles=9  steps=7  elapsed=55.10 ms
+           transmissions: gcp-vertex(US, ok)
+           evidence ledger: 2 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 9, 'kept': 6, 'dropped': 0, 'suspended': 1, 'resumed': 1, 'failed': 0, 'belief_changes': 55, 'ignored_changes': 10}
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SCENARIO S8 - Review backlog fills up
+====================================================================================================
+Commitment   : OPEN_MINDED
+Prompt (safe): Find out why [REDACTED:INTERNAL_URL] keeps failing in the nightly build.
+Disturbances : a burst of 25 internal-URL prompts fills the review queue [before step 'open_review_ticket']
+Expected     : start hold_for_review; finish decline_review_overflow; status DEFERRED
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.878  +    4.30 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.878  +    4.73 ms  c00  PERCEIVE   request req-s8 received: 91 bytes, policy REVIEW ['internal_url']
+  2026-10-31 05:12:27.878  +    4.80 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.878  +    4.82 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.878  +    4.83 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.878  +    4.85 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.878  +    4.86 ms  c01  BELIEF     request.id: None -> req-s8 (source gateway)
+  2026-10-31 05:12:27.878  +    4.87 ms  c01  BELIEF     prompt.sha256: None -> d79fab493d9c2030 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.878  +    4.88 ms  c01  BELIEF     prompt.bytes: None -> 91 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.878  +    4.89 ms  c01  BELIEF     prompt.categories: None -> ['internal_url'] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.878  +    4.90 ms  c01  BELIEF     prompt.decision: None -> REVIEW (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.878  +    4.91 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.878  +    4.95 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.878  +    4.98 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.878  +    5.00 ms  c01  DESIRE     D5 'Keep the human-review backlog under its limit' (p30, achieve): new -> satisfied
+  2026-10-31 05:12:27.879  +    5.12 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.879  +    5.20 ms  c01  DELIBERATE means-ends for D3: 1 applicable option(s): hold_for_review U=60.00
+  2026-10-31 05:12:27.879  +    5.23 ms  c01  INTEND     I1 adopted for D3: hold_for_review U=60.00 [open_review_ticket -> notify_user]
+  2026-10-31 05:12:27.879  +    5.32 ms  c01  PERCEIVE   environment: a burst of 25 internal-URL prompts fills the review queue
+  2026-10-31 05:12:27.879  +    6.02 ms  c01  BELIEF     review.queue_depth: 0 -> 25 (source engine:review_monitor)
+  2026-10-31 05:12:27.880  +    6.11 ms  c01  DESIRE     D5 'Keep the human-review backlog under its limit' (p30, achieve): satisfied -> option
+  2026-10-31 05:12:27.880  +    6.24 ms  c01  RECONSIDER I1 invalidated by ['review.queue_depth']
+  2026-10-31 05:12:27.880  +    6.26 ms  c01  DROP       I1 hold_for_review dropped before 'open_review_ticket' (0/2 done): requires 'review backlog has capacity (D5)' but believed review.limit=25, review.queue_depth=25
+  2026-10-31 05:12:27.880  +    6.59 ms  c02  DELIBERATE options ['D3', 'D5']; pursue ['D3', 'D5']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.880  +    6.70 ms  c02  DESIRE     D3 has no applicable plan now (allow_then_dispatch: no feasible binding from router; redact_then_dispatch: no feasible binding from router; dispatch_local_only: no feasible binding from router)
+  2026-10-31 05:12:27.880  +    6.77 ms  c02  DELIBERATE means-ends for D5: 1 applicable option(s): decline_review_overflow U=40.00
+  2026-10-31 05:12:27.880  +    6.80 ms  c02  INTEND     I2 adopted for D5: decline_review_overflow U=40.00 [seal_evidence -> notify_user]
+  2026-10-31 05:12:27.880  +    6.88 ms  c02  REPLAN     I1 hold_for_review [DROPPED] -> I2 decline_review_overflow
+  2026-10-31 05:12:27.880  +    7.03 ms  c02  STEP       I2 decline_review_overflow [1/2] seal_evidence -> OK: evidence 'decline_review_overflow' sealed as record #0 (hmac 6adcd75511f6)
+  2026-10-31 05:12:27.881  +    7.22 ms  c03  STEP       I2 decline_review_overflow [2/2] notify_user -> OK: user notified; request.status=DEFERRED
+  2026-10-31 05:12:27.881  +    7.25 ms  c03  COMPLETE   I2 decline_review_overflow succeeded (2 steps) for D5
+  2026-10-31 05:12:27.881  +    7.26 ms  c03  BELIEF     request.status: PENDING -> DEFERRED (source intention:I2/notify_user)
+  2026-10-31 05:12:27.881  +    7.29 ms  c03  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.881  +    7.30 ms  c03  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.881  +    7.32 ms  c03  DESIRE     D5 'Keep the human-review backlog under its limit' (p30, achieve): option -> inactive
+  2026-10-31 05:12:27.881  +    7.38 ms  c03  FINISH     request req-s8 finished: DEFERRED after 3 cycles, 2 steps, 1 intention shift(s), 0 transmission(s)
+----------------------------------------------------------------------------------------------------
+  ====================== INTENTION SHIFT 1/1 (cycle 1, +6.35 ms) =======================
+  BEFORE   I1 hold_for_review  desire D3  U=60.00  progress 0/2  next step
+           'open_review_ticket'
+  TRIGGER  review.queue_depth: 0 -> 25  [source engine:review_monitor, confidence 1.00]
+  DROPPED  I1: requires 'review backlog has capacity (D5)' but believed
+           review.limit=25, review.queue_depth=25
+  AFTER    I2 decline_review_overflow  desire D5  U=40.00  adopted at cycle 2 (+6.87
+           ms, reaction 0.52 ms)
+  ======================================================================================
+  OUTCOME  status=DEFERRED  delivered=False  cycles=3  steps=2  elapsed=2.65 ms
+           transmissions: none
+           evidence ledger: 1 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 2, 'kept': 1, 'dropped': 1, 'suspended': 0, 'resumed': 0, 'failed': 0, 'belief_changes': 41, 'ignored_changes': 0}
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SCENARIO S1-BLIND - Provider outage mid-dispatch (blind commitment)
+====================================================================================================
+Commitment   : BLIND
+Prompt (safe): Draft a customer FAQ that explains our new UPI refund timelines in plain language.
+Disturbances : status feed reports GCP Vertex AI us-central1 major outage [before step 'seal_dispatch_record' on gcp-vertex]
+Expected     : start allow_then_dispatch(provider=gcp-vertex); finish allow_then_dispatch(provider=aws-bedrock); status COMPLETED
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.887  +    4.92 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.888  +    5.23 ms  c00  PERCEIVE   request req-s1-blind received: 82 bytes, policy ALLOW
+  2026-10-31 05:12:27.888  +    5.28 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.888  +    5.29 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.888  +    5.31 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.888  +    5.32 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.888  +    5.33 ms  c01  BELIEF     request.id: None -> req-s1-blind (source gateway)
+  2026-10-31 05:12:27.888  +    5.34 ms  c01  BELIEF     prompt.sha256: None -> cc9ec8198d585d36 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.888  +    5.35 ms  c01  BELIEF     prompt.bytes: None -> 82 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.888  +    5.36 ms  c01  BELIEF     prompt.categories: None -> [] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.888  +    5.37 ms  c01  BELIEF     prompt.decision: None -> ALLOW (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.888  +    5.38 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.888  +    5.42 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.888  +    5.43 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.888  +    5.50 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.888  +    5.92 ms  c01  DELIBERATE means-ends for D3: 4 applicable option(s): allow_then_dispatch(provider=gcp-vertex) U=77.93, allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.888  +    5.96 ms  c01  INTEND     I1 adopted for D3: allow_then_dispatch(provider=gcp-vertex) U=77.93 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.889  +    6.28 ms  c01  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=cc9ec8198d585d36
+  2026-10-31 05:12:27.889  +    6.31 ms  c01  BELIEF     payload.sha256: None -> cc9ec8198d585d36 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.889  +    6.33 ms  c01  BELIEF     payload.redacted: None -> False (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.889  +    6.34 ms  c01  BELIEF     payload.prompt_sha256: None -> cc9ec8198d585d36 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.889  +    6.46 ms  c02  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [2/7] procure_contract -> OK: contract AGREED with gcp-vertex: effective $1.79/1k (list $2.20, 5 rounds)
+  2026-10-31 05:12:27.889  +    6.48 ms  c02  BELIEF     provider.gcp-vertex.contract_digest: None -> 7270393b8298bff6 (source intention:I1/procure_contract)
+  2026-10-31 05:12:27.889  +    6.75 ms  c03  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [3/7] route_and_verify -> OK: router: gcp-vertex feasible, U=77.93, rank 1/4 [gcp-vertex > aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.889  +    6.78 ms  c03  BELIEF     route.selected: None -> gcp-vertex (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.889  +    6.79 ms  c03  BELIEF     route.utility: None -> 77.9333 (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.889  +    6.80 ms  c03  BELIEF     route.ranking: None -> ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.889  +    6.88 ms  c04  PERCEIVE   environment: status feed reports GCP Vertex AI us-central1 major outage
+  2026-10-31 05:12:27.889  +    6.91 ms  c04  BELIEF     provider.gcp-vertex.status: operational -> major_outage (source status-feed:gcp-vertex)
+  2026-10-31 05:12:27.889  +    7.00 ms  c04  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [4/7] seal_dispatch_record -> OK: evidence record #0 sealed (hmac f0d591127b29)
+  2026-10-31 05:12:27.889  +    7.10 ms  c05  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [5/7] dispatch -> FAILED: interlock: gcp-vertex is believed major_outage; nothing transmitted
+  2026-10-31 05:12:27.889  +    7.13 ms  c05  FAIL       I1 allow_then_dispatch(provider=gcp-vertex) failed at dispatch
+  2026-10-31 05:12:27.890  +    7.80 ms  c06  DELIBERATE means-ends for D3: 3 applicable option(s): allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.890  +    7.84 ms  c06  INTEND     I2 adopted for D3: allow_then_dispatch(provider=aws-bedrock) U=77.28 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.890  +    7.92 ms  c06  REPLAN     I1 allow_then_dispatch(provider=gcp-vertex) [FAILED] -> I2 allow_then_dispatch(provider=aws-bedrock)
+  2026-10-31 05:12:27.890  +    8.09 ms  c06  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=cc9ec8198d585d36
+  2026-10-31 05:12:27.890  +    8.19 ms  c07  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [2/7] procure_contract -> OK: contract AGREED with aws-bedrock: effective $2.28/1k (list $2.80, 5 rounds)
+  2026-10-31 05:12:27.891  +    8.22 ms  c07  BELIEF     provider.aws-bedrock.contract_digest: None -> 7735ba3a2d12bf12 (source intention:I2/procure_contract)
+  2026-10-31 05:12:27.891  +    8.44 ms  c08  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [3/7] route_and_verify -> OK: router: aws-bedrock feasible, U=77.28, rank 1/3 [aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.891  +    8.46 ms  c08  BELIEF     route.selected: gcp-vertex -> aws-bedrock (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.891  +    8.48 ms  c08  BELIEF     route.utility: 77.9333 -> 77.2833 (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.891  +    8.49 ms  c08  BELIEF     route.ranking: ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] -> ['aws-bedrock', 'azure-ai', 'local'] (source intention:I2/route_and_verify)
+  2026-10-31 05:12:27.891  +    8.62 ms  c09  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [4/7] seal_dispatch_record -> OK: evidence record #1 sealed (hmac 8768a11ad276)
+  2026-10-31 05:12:27.924  +   41.65 ms  c10  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [5/7] dispatch -> OK: transmitted to aws-bedrock (IN); reply in 32.7 ms
+  2026-10-31 05:12:27.924  +   41.77 ms  c10  BELIEF     dispatch.sent_to: None -> aws-bedrock (source intention:I2/dispatch)
+  2026-10-31 05:12:27.924  +   41.78 ms  c10  BELIEF     dispatch.residency: None -> IN (source intention:I2/dispatch)
+  2026-10-31 05:12:27.924  +   41.80 ms  c10  BELIEF     dispatch.effective_cost: None -> 2.28 (source intention:I2/dispatch)
+  2026-10-31 05:12:27.924  +   41.81 ms  c10  BELIEF     response.received: None -> True (source intention:I2/dispatch)
+  2026-10-31 05:12:27.925  +   42.28 ms  c11  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [6/7] inspect_response -> OK: reply inspected: ALLOW (clean)
+  2026-10-31 05:12:27.925  +   42.31 ms  c11  BELIEF     response.decision: None -> ALLOW (source intention:I2/inspect_response)
+  2026-10-31 05:12:27.925  +   42.66 ms  c12  STEP       I2 allow_then_dispatch(provider=aws-bedrock) [7/7] deliver -> OK: answer delivered to user (23 words)
+  2026-10-31 05:12:27.925  +   42.74 ms  c12  COMPLETE   I2 allow_then_dispatch(provider=aws-bedrock) succeeded (7 steps) for D3
+  2026-10-31 05:12:27.925  +   42.76 ms  c12  BELIEF     response.delivered: False -> True (source intention:I2/deliver)
+  2026-10-31 05:12:27.925  +   42.77 ms  c12  BELIEF     request.status: PENDING -> COMPLETED (source intention:I2/deliver)
+  2026-10-31 05:12:27.925  +   42.80 ms  c12  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.925  +   42.81 ms  c12  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.925  +   42.85 ms  c12  FINISH     request req-s1-blind finished: COMPLETED after 12 cycles, 12 steps, 1 intention shift(s), 1 transmission(s)
+----------------------------------------------------------------------------------------------------
+  ====================== INTENTION SHIFT 1/1 (cycle 5, +7.14 ms) =======================
+  BEFORE   I1 allow_then_dispatch(provider=gcp-vertex)  desire D3  U=77.93  progress
+           4/7  next step 'dispatch'
+  TRIGGER  step:dispatch: null -> FAILED  [source self]
+  FAILED   I1: step dispatch failed: interlock: gcp-vertex is believed major_outage;
+           nothing transmitted
+  AFTER    I2 allow_then_dispatch(provider=aws-bedrock)  desire D3  U=77.28  adopted at
+           cycle 6 (+7.91 ms, reaction 0.76 ms)
+  ======================================================================================
+  OUTCOME  status=COMPLETED  delivered=True  cycles=12  steps=12  elapsed=37.62 ms
+           transmissions: aws-bedrock(IN, ok)
+           evidence ledger: 3 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 0, 'kept': 0, 'dropped': 0, 'suspended': 0, 'resumed': 0, 'failed': 1, 'belief_changes': 58, 'ignored_changes': 0}
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SCENARIO S2-BLIND - Emergency lockdown mid-execution (blind commitment)
+====================================================================================================
+Commitment   : BLIND
+Prompt (safe): Compare three approaches to rate-limiting a public REST API and list their trade-offs.
+Disturbances : security operations declares an emergency lockdown [before step 'dispatch']
+Expected     : start allow_then_dispatch(provider=gcp-vertex); finish enforce_lockdown_block; status BLOCKED
+----------------------------------------------------------------------------------------------------
+  2026-10-31 05:12:27.931  +    4.09 ms  c00  PERCEIVE   world model seeded with 29 beliefs (contracts: aws-bedrock $2.28, azure-ai $2.69, gcp-vertex $1.79, local $0.33; budget $6.00/1k)
+  2026-10-31 05:12:27.931  +    4.42 ms  c00  PERCEIVE   request req-s2-blind received: 86 bytes, policy ALLOW
+  2026-10-31 05:12:27.931  +    4.46 ms  c01  BELIEF     response.delivered: None -> False (source agent:init)
+  2026-10-31 05:12:27.931  +    4.47 ms  c01  BELIEF     response.findings: None -> [] (source agent:init)
+  2026-10-31 05:12:27.931  +    4.52 ms  c01  BELIEF     guard.secret_contained: None -> False (source agent:init)
+  2026-10-31 05:12:27.931  +    4.54 ms  c01  BELIEF     dispatch.residency_violations: None -> 0 (source agent:init)
+  2026-10-31 05:12:27.931  +    4.55 ms  c01  BELIEF     request.id: None -> req-s2-blind (source gateway)
+  2026-10-31 05:12:27.931  +    4.56 ms  c01  BELIEF     prompt.sha256: None -> 5e182e381a7e57c1 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.931  +    4.57 ms  c01  BELIEF     prompt.bytes: None -> 86 (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.931  +    4.59 ms  c01  BELIEF     prompt.categories: None -> [] (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.931  +    4.60 ms  c01  BELIEF     prompt.decision: None -> ALLOW (source sensor:policy.inspect_text)
+  2026-10-31 05:12:27.931  +    4.61 ms  c01  BELIEF     request.status: None -> PENDING (source gateway)
+  2026-10-31 05:12:27.931  +    4.65 ms  c01  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): new -> option
+  2026-10-31 05:12:27.931  +    4.67 ms  c01  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): new -> constraining -> effective price per 1k requests must not exceed budget.max_cost_per_1k
+  2026-10-31 05:12:27.931  +    4.74 ms  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D4']
+  2026-10-31 05:12:27.932  +    5.12 ms  c01  DELIBERATE means-ends for D3: 4 applicable option(s): allow_then_dispatch(provider=gcp-vertex) U=77.93, allow_then_dispatch(provider=aws-bedrock) U=77.28, allow_then_dispatch(provider=azure-ai) U=76.84, dispatch_local_only(provider=local) U=71.53
+  2026-10-31 05:12:27.932  +    5.17 ms  c01  INTEND     I1 adopted for D3: allow_then_dispatch(provider=gcp-vertex) U=77.93 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_response -> deliver]
+  2026-10-31 05:12:27.932  +    5.42 ms  c01  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [1/7] prepare_payload -> OK: policy ALLOW; payload clean, sha256=5e182e381a7e57c1
+  2026-10-31 05:12:27.932  +    5.45 ms  c01  BELIEF     payload.sha256: None -> 5e182e381a7e57c1 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.932  +    5.46 ms  c01  BELIEF     payload.redacted: None -> False (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.932  +    5.48 ms  c01  BELIEF     payload.prompt_sha256: None -> 5e182e381a7e57c1 (source intention:I1/prepare_payload)
+  2026-10-31 05:12:27.932  +    5.64 ms  c02  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [2/7] procure_contract -> OK: contract AGREED with gcp-vertex: effective $1.79/1k (list $2.20, 5 rounds)
+  2026-10-31 05:12:27.932  +    5.67 ms  c02  BELIEF     provider.gcp-vertex.contract_digest: None -> 7270393b8298bff6 (source intention:I1/procure_contract)
+  2026-10-31 05:12:27.932  +    5.96 ms  c03  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [3/7] route_and_verify -> OK: router: gcp-vertex feasible, U=77.93, rank 1/4 [gcp-vertex > aws-bedrock > azure-ai > local]
+  2026-10-31 05:12:27.932  +    5.98 ms  c03  BELIEF     route.selected: None -> gcp-vertex (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.932  +    6.00 ms  c03  BELIEF     route.utility: None -> 77.9333 (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.933  +    6.01 ms  c03  BELIEF     route.ranking: None -> ['gcp-vertex', 'aws-bedrock', 'azure-ai', 'local'] (source intention:I1/route_and_verify)
+  2026-10-31 05:12:27.933  +    6.15 ms  c04  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [4/7] seal_dispatch_record -> OK: evidence record #0 sealed (hmac ef21f9c506fb)
+  2026-10-31 05:12:27.933  +    6.23 ms  c05  PERCEIVE   environment: security operations declares an emergency lockdown
+  2026-10-31 05:12:27.933  +    6.26 ms  c05  BELIEF     policy.lockdown: False -> True (source soc:command_instruction)
+  2026-10-31 05:12:27.933  +    6.28 ms  c05  DESIRE     D1 'Never transmit a secret' (p100, achieve): inactive -> option
+  2026-10-31 05:12:27.933  +    6.32 ms  c05  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [5/7] dispatch -> FAILED: interlock: emergency lockdown is active; nothing transmitted
+  2026-10-31 05:12:27.933  +    6.36 ms  c05  FAIL       I1 allow_then_dispatch(provider=gcp-vertex) failed at dispatch
+  2026-10-31 05:12:27.933  +    6.52 ms  c06  DELIBERATE options ['D1', 'D3']; pursue ['D1']; pre-empted: D3 by D1; constraints ['D4']
+  2026-10-31 05:12:27.933  +    6.57 ms  c06  DELIBERATE means-ends for D1: 1 applicable option(s): enforce_lockdown_block U=100.00
+  2026-10-31 05:12:27.933  +    6.60 ms  c06  INTEND     I2 adopted for D1: enforce_lockdown_block U=100.00 [apply_lockdown -> seal_evidence -> notify_user]
+  2026-10-31 05:12:27.933  +    6.67 ms  c06  REPLAN     I1 allow_then_dispatch(provider=gcp-vertex) [FAILED] -> I2 enforce_lockdown_block
+  2026-10-31 05:12:27.933  +    6.78 ms  c06  STEP       I2 enforce_lockdown_block [1/3] apply_lockdown -> OK: engine force_block_all=True; policy re-inspection -> BLOCK: Emergency lockdown active: all outbound content is blocked
+  2026-10-31 05:12:27.933  +    6.80 ms  c06  BELIEF     prompt.decision: ALLOW -> BLOCK (source intention:I2/apply_lockdown)
+  2026-10-31 05:12:27.933  +    6.93 ms  c07  STEP       I2 enforce_lockdown_block [2/3] seal_evidence -> OK: evidence 'enforce_lockdown_block' sealed as record #1 (hmac d2537dd71e8a)
+  2026-10-31 05:12:27.934  +    7.03 ms  c08  STEP       I2 enforce_lockdown_block [3/3] notify_user -> OK: user notified; request.status=BLOCKED
+  2026-10-31 05:12:27.934  +    7.05 ms  c08  COMPLETE   I2 enforce_lockdown_block succeeded (3 steps) for D1
+  2026-10-31 05:12:27.934  +    7.06 ms  c08  BELIEF     guard.secret_contained: False -> True (source intention:I2/notify_user)
+  2026-10-31 05:12:27.934  +    7.08 ms  c08  BELIEF     request.status: PENDING -> BLOCKED (source intention:I2/notify_user)
+  2026-10-31 05:12:27.934  +    7.10 ms  c08  DESIRE     D1 'Never transmit a secret' (p100, achieve): option -> inactive
+  2026-10-31 05:12:27.934  +    7.11 ms  c08  DESIRE     D3 'Deliver a useful answer to the user' (p60, achieve): option -> inactive
+  2026-10-31 05:12:27.934  +    7.12 ms  c08  DESIRE     D4 'Lowest cost within quality bounds' (p40, maintain): constraining -> inactive
+  2026-10-31 05:12:27.934  +    7.16 ms  c08  FINISH     request req-s2-blind finished: BLOCKED after 8 cycles, 8 steps, 1 intention shift(s), 0 transmission(s)
+----------------------------------------------------------------------------------------------------
+  ====================== INTENTION SHIFT 1/1 (cycle 5, +6.37 ms) =======================
+  BEFORE   I1 allow_then_dispatch(provider=gcp-vertex)  desire D3  U=77.93  progress
+           4/7  next step 'dispatch'
+  TRIGGER  step:dispatch: null -> FAILED  [source self]
+  FAILED   I1: step dispatch failed: interlock: emergency lockdown is active; nothing
+           transmitted
+  AFTER    I2 enforce_lockdown_block  desire D1  U=100.00  adopted at cycle 6 (+6.67
+           ms, reaction 0.30 ms)
+  ======================================================================================
+  OUTCOME  status=BLOCKED  delivered=False  cycles=8  steps=8  elapsed=2.74 ms
+           transmissions: none
+           evidence ledger: 2 sealed record(s), chain verified=True
+           reconsideration: {'evaluated': 0, 'kept': 0, 'dropped': 0, 'suspended': 0, 'resumed': 0, 'failed': 1, 'belief_changes': 50, 'ignored_changes': 0}
+  CHECK    expectation met: PASS
+
+====================================================================================================
+SUMMARY OF ALL SCENARIOS (open-minded commitment)
+====================================================================================================
+  ID   Initial intention                  Trigger belief                     Adopted intention(s)                                         Outcome            Steps      ms  Check
+  S0   allow_then_dispatch(gcp-vertex)    -                                  (unchanged)                                                  COMPLETED              7   34.11  PASS
+  S1   allow_then_dispatch(gcp-vertex)    provider.gcp-vertex.status         allow_then_dispatch(aws-bedrock)                             COMPLETED             10   39.54  PASS
+  S2   allow_then_dispatch(gcp-vertex)    policy.lockdown                    enforce_lockdown_block                                       BLOCKED                7    5.22  PASS
+  S3   allow_then_dispatch(gcp-vertex)    response.findings                  withhold_reply_and_alert                                     RESPONSE_WITHHELD     10   34.36  PASS
+  S4   allow_then_dispatch(gcp-vertex)    provider.gcp-vertex.price_per_1k   allow_then_dispatch(aws-bedrock) -> dispatch_local_only(local) COMPLETED             14   70.21  PASS
+  S5   redact_then_dispatch(aws-bedrock)  provider.aws-bedrock.residency     redact_then_dispatch(azure-ai)                               COMPLETED             11   37.65  PASS
+  S6   allow_then_dispatch(gcp-vertex)    prompt.categories                  redact_then_dispatch(aws-bedrock)                            COMPLETED             10   40.24  PASS
+  S7   allow_then_dispatch(gcp-vertex)    provider.gcp-vertex.status         (suspended, resumed, unchanged)                              COMPLETED              7   55.10  PASS
+  S8   hold_for_review                    review.queue_depth                 decline_review_overflow                                      DEFERRED               2    2.65  PASS
+
+ABLATION: commitment strategy under the same disturbance
+  Run        Commitment   Provider attempts Failed attempts  Steps Final status   How the old intention ended
+  S1         OPEN_MINDED                  1               0     10 COMPLETED      I1 DROPPED before 'seal_dispatch_record'
+  S2         OPEN_MINDED                  0               0      7 BLOCKED        I1 DROPPED before 'dispatch'
+  S1-BLIND   BLIND                        1               0     12 COMPLETED      I1 FAILED at 'dispatch'
+  S2-BLIND   BLIND                        0               0      8 BLOCKED        I1 FAILED at 'dispatch'
+
+Result: 11/11 runs met their expected behaviour; total wall time 431.6 ms; finished 2026-10-31T05:12:27.935+00:00
+====================================================================================================

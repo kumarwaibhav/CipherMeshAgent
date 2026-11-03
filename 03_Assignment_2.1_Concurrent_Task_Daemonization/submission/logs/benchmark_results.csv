@@ -1,0 +1,6 @@
+mode,workers,requests,simulated_io_ms,wall_ms,throughput_req_s,avg_service_ms,p95_service_ms,avg_end_to_end_ms,p95_end_to_end_ms,speedup_vs_sequential
+sequential,0,80,25.0,2014.735,39.707,25.14,25.178,25.14,25.179,1.0
+threaded,1,80,25.0,2025.889,39.489,25.121,25.141,1020.45,1915.182,0.994
+threaded,2,80,25.0,1014.51,78.856,25.178,25.467,518.108,960.834,1.986
+threaded,4,80,25.0,506.423,157.971,25.135,25.248,264.639,478.811,3.978
+threaded,8,80,25.0,264.657,302.278,25.19,25.378,139.147,252.357,7.613

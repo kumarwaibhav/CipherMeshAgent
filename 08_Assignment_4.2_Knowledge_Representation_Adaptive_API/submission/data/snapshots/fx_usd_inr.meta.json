@@ -1,0 +1,14 @@
+{
+ "feed": "fx_usd_inr",
+ "url": "https://api.frankfurter.dev/v1/latest?from=USD&to=INR",
+ "final_url": "https://api.frankfurter.dev/v1/latest?from=USD&to=INR",
+ "http_status": 200,
+ "original_bytes": 69,
+ "original_sha256": "750d255e986c5698b542d9d69877f77a730a05ff88fdb8c46388e5e1420d8179",
+ "fetched_at": "2026-11-02T21:42:16.885+00:00",
+ "content_type": "application/json; charset=utf-8",
+ "raw_redistributed": true,
+ "file": "fx_usd_inr.json",
+ "sha256": "750d255e986c5698b542d9d69877f77a730a05ff88fdb8c46388e5e1420d8179",
+ "bytes": 69
+}

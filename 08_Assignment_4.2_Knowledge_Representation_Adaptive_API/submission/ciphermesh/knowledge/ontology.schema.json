@@ -1,0 +1,297 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ciphermesh:kg:schema:4.2.0",
+  "title": "CipherMesh ontology document",
+  "description": "Structural contract for ciphermesh/knowledge/ontology.json (JSON-LD 1.1 style). Author: Kumar Waibhav Akshat (RA2212704010027).",
+  "type": "object",
+  "required": [
+    "@context",
+    "@id",
+    "@type",
+    "owl:versionInfo",
+    "dcterms:title",
+    "dcterms:creator",
+    "@graph"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "@context": {
+      "$ref": "#/$defs/context"
+    },
+    "@id": {
+      "const": "cm:ontology"
+    },
+    "@type": {
+      "const": "owl:Ontology"
+    },
+    "owl:versionInfo": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "dcterms:title": {
+      "type": "string",
+      "minLength": 8
+    },
+    "dcterms:creator": {
+      "type": "string",
+      "minLength": 3
+    },
+    "dcterms:modified": {
+      "type": "string",
+      "format": "date"
+    },
+    "@graph": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/node"
+      }
+    }
+  },
+  "$defs": {
+    "curie": {
+      "type": "string",
+      "pattern": "^(cm|rdf|rdfs|owl|xsd|dcterms):[A-Za-z][A-Za-z0-9_./-]*$"
+    },
+    "termName": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_]*$"
+    },
+    "context": {
+      "type": "object",
+      "required": [
+        "@version",
+        "cm",
+        "rdf",
+        "rdfs",
+        "owl",
+        "xsd"
+      ],
+      "properties": {
+        "@version": {
+          "const": 1.1
+        },
+        "cm": {
+          "type": "string",
+          "pattern": "^urn:ciphermesh:kg:$"
+        }
+      },
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "type": "object",
+            "required": [
+              "@id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "@id": {
+                "$ref": "#/$defs/curie"
+              },
+              "@type": {
+                "oneOf": [
+                  {
+                    "const": "@id"
+                  },
+                  {
+                    "$ref": "#/$defs/curie"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "literal": {
+      "type": [
+        "string",
+        "number",
+        "boolean"
+      ]
+    },
+    "typedLiteral": {
+      "type": "object",
+      "required": [
+        "@value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "@value": {
+          "$ref": "#/$defs/literal"
+        },
+        "@type": {
+          "$ref": "#/$defs/curie"
+        }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "required": [
+        "@id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "@id": {
+          "$ref": "#/$defs/curie"
+        }
+      }
+    },
+    "value": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/literal"
+        },
+        {
+          "$ref": "#/$defs/typedLiteral"
+        },
+        {
+          "$ref": "#/$defs/reference"
+        }
+      ]
+    },
+    "values": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/value"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/value"
+          }
+        }
+      ]
+    },
+    "typeList": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/curie"
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/curie"
+          }
+        }
+      ]
+    },
+    "node": {
+      "type": "object",
+      "required": [
+        "@id",
+        "@type"
+      ],
+      "properties": {
+        "@id": {
+          "$ref": "#/$defs/curie"
+        },
+        "@type": {
+          "$ref": "#/$defs/typeList"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comment": {
+          "type": "string"
+        }
+      },
+      "propertyNames": {
+        "anyOf": [
+          {
+            "enum": [
+              "@id",
+              "@type"
+            ]
+          },
+          {
+            "$ref": "#/$defs/termName"
+          },
+          {
+            "$ref": "#/$defs/curie"
+          }
+        ]
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/values"
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "@type": {
+                "anyOf": [
+                  {
+                    "const": "owl:Class"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "owl:Class"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "label",
+              "comment"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "@type": {
+                "anyOf": [
+                  {
+                    "anyOf": [
+                      {
+                        "const": "owl:ObjectProperty"
+                      },
+                      {
+                        "type": "array",
+                        "contains": {
+                          "const": "owl:ObjectProperty"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "anyOf": [
+                      {
+                        "const": "owl:DatatypeProperty"
+                      },
+                      {
+                        "type": "array",
+                        "contains": {
+                          "const": "owl:DatatypeProperty"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "label",
+              "domain",
+              "range"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

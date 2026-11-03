@@ -1,0 +1,34 @@
+CipherMesh v3.0 ops | phase DONE Cycle complete | bus v5432 | 2026-11-03T03:42:56.392Z
+------------------------------------------------------------------------------------------------------------------------
+gateway-alpha     STOPPED   queue 0/6 workers 4 done 73 attested True posture ELEVATED peers [gateway-beta=ONLINE]
+gateway-beta      STOPPED   queue 0/6 workers 4 done 10 attested True posture ELEVATED peers [gateway-alpha=ONLINE]
+security-console  ONLINE    commands 5 accepted 5 verified replies 5
+attacker          HOSTILE   hostile frames 18 blocked 18 accepted 0
+------------------------------------------------------------------------------------------------------------------------
+PIPELINE  ALLOW  44  REDACT  23  REVIEW   5  BLOCK  11   total 83  p50 36.778 ms  p95 122.665 ms  delegated 10
+INTENTION I1 allow_then_dispatch(provider=gcp-vertex) [D3] SUCCEEDED [#######] next: done (request p6-r2)
+DESIRES   D1(p100) D2(p90) D3(p60) D4(p40) D5(p30)   (* = active now)
+SHIFT     p4-01: allow_then_dispatch(provider=gcp-vertex) -> dispatch_local_only(provider=local) | requires 'provider g~
+------------------------------------------------------------------------------------------------------------------------
+KNOWLEDGE posture ELEVATED  USD/INR 94.91  budget $3.1609/1k  R5 32768 B  feeds gcp_status:live, aws_health:live, cisa_kev:live, fx_usd_inr:live, aiid_rss:live, azure_status:what-if, azure_status:snapshot
+  belief changed  policy.lockdown = False (command:security-console)
+  belief changed  review.queue_depth = 5 (engine:review_queue)
+PROVIDERS pick=gcp-vertex  local=operational/CLOSED U=70.3  aws-bedrock=operational/CLOSED U=68.8  azure-ai=operational/CLOSED U=66.8  gcp-vertex=operational/CLOSED U=71.2
+CONTRACT-NET cfp 10 bids 10 awards 10 signed results 10 heartbeats 102
+------------------------------------------------------------------------------------------------------------------------
+SECURITY  19 accepted, 18 blocked (latest first)
+  03:42:52 ACCEPTED     RELEASE_LOCKDOWN               security-console   127.0.0.21 
+  03:42:42 ACCEPTED     TRIGGER_EMERGENCY_LOCKDOWN     security-console   127.0.0.21 
+  03:42:25 BLOCKED L0   TRIGGER_EMERGENCY_LOCKDOWN     security-console   127.0.0.77 SOURCE_LOCKED_OUT
+  03:42:25 BLOCKED C7   TRIGGER_EMERGENCY_LOCKDOWN     security-console   127.0.0.77 ORIGIN_NOT_ALLOWED
+  03:42:25 BLOCKED C7   TRIGGER_EMERGENCY_LOCKDOWN     security-console   127.0.0.77 ORIGIN_NOT_ALLOWED
+  03:42:25 BLOCKED C7   TRIGGER_EMERGENCY_LOCKDOWN     security-console   127.0.0.77 ORIGIN_NOT_ALLOWED
+------------------------------------------------------------------------------------------------------------------------
+03:42:52.147 security-console CONSOLE   RELEASE_LOCKDOWN -> gateway-alpha: ACCEPTED (reply signature VERIFIED)
+03:42:52.183 gateway-alpha    REQUEST   p6-r1 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 m~
+03:42:52.219 gateway-alpha    REQUEST   p6-r2 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 m~
+03:42:52.285 gateway-beta     PEER      peer gateway-alpha is ONLINE
+03:42:56.225 gateway-alpha    DRAIN     draining: 0 queued, 0 in flight
+03:42:56.298 gateway-alpha    STOP      gateway-alpha stopped cleanly; 73 requests completed, 0 failed
+03:42:56.299 gateway-beta     DRAIN     draining: 0 queued, 0 in flight
+03:42:56.382 gateway-beta     STOP      gateway-beta stopped cleanly; 10 requests completed, 0 failed

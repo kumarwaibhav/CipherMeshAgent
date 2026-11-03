@@ -1,0 +1,15 @@
+{
+ "feed": "cisa_kev",
+ "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+ "final_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+ "http_status": 200,
+ "original_bytes": 1826755,
+ "original_sha256": "3aa9cf3c01f116362a29d111702979175453c425e3733bde80fc4f6f8e2294e5",
+ "fetched_at": "2026-11-02T21:42:16.667+00:00",
+ "content_type": "application/json",
+ "raw_redistributed": false,
+ "note": "raw payload not redistributed (third-party content); re-fetch to reproduce",
+ "file": "cisa_kev.derived.json",
+ "sha256": "3d8305008d016d93f72421713ec47461c7f1524a85996b8253a3fc25ca8532cf",
+ "bytes": 358670
+}

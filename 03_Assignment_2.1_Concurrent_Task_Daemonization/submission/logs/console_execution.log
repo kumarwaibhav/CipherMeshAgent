@@ -1,0 +1,46 @@
+CipherMesh Concurrent Agent | STATUS=ONLINE | workers=4 monitor_daemon=ON audit_worker=ON mock_provider_ms=120
+[MAIN] ENQUEUE id=REQ-201 provider=ollama-local queue=1
+[MAIN] ENQUEUE id=REQ-202 provider=azure-ai queue=2
+[MAIN] ENQUEUE id=REQ-203 provider=aws-bedrock queue=3
+[MAIN] ENQUEUE id=REQ-204 provider=gcp-vertex queue=4
+[MAIN] ENQUEUE id=REQ-205 provider=azure-ai queue=5
+[MAIN] ENQUEUE id=REQ-206 provider=gcp-vertex queue=6
+[MAIN] ENQUEUE id=REQ-207 provider=ollama-local queue=7
+[MAIN] ENQUEUE id=REQ-208 provider=azure-ai queue=5
+[MAIN] ENQUEUE id=REQ-209 provider=aws-bedrock queue=6
+[MAIN] ENQUEUE id=REQ-210 provider=ollama-local queue=7
+[MAIN] ENQUEUE id=REQ-211 provider=gcp-vertex queue=8
+[MAIN] ENQUEUE id=REQ-212 provider=azure-ai queue=9
+[MAIN] ENQUEUE id=REQ-213 provider=aws-bedrock queue=10
+[INPUT-14] PARSE_ERROR | unsupported provider 'unknown-cloud' | ACTION=REJECT_ENVELOPE
+[MAIN] CORE_EVENT_LOOP=RESPONSIVE | completed=0/13 in_flight=3 queue=10
+[MONITOR] queue=9 in_flight=4 completed=0 workers_alive=4 avg_service_ms=0.0
+[MONITOR] queue=9 in_flight=4 completed=0 workers_alive=4 avg_service_ms=0.0
+[cipher-worker-1] COMPLETE id=REQ-201 action=ALLOW queue_wait_ms=0.178 service_ms=120.124 e2e_ms=120.302
+[cipher-worker-2] COMPLETE id=REQ-203 action=BLOCK queue_wait_ms=0.267 service_ms=120.262 e2e_ms=120.529
+[cipher-worker-4] COMPLETE id=REQ-202 action=REDACT queue_wait_ms=0.219 service_ms=120.590 e2e_ms=120.809
+[cipher-worker-3] COMPLETE id=REQ-204 action=BLOCK queue_wait_ms=0.503 service_ms=120.366 e2e_ms=120.869
+[MONITOR] queue=5 in_flight=4 completed=4 workers_alive=4 avg_service_ms=120.335
+[MAIN] CORE_EVENT_LOOP=RESPONSIVE | completed=4/13 in_flight=4 queue=5
+[MONITOR] queue=5 in_flight=4 completed=4 workers_alive=4 avg_service_ms=120.335
+[cipher-worker-1] COMPLETE id=REQ-205 action=BLOCK queue_wait_ms=120.386 service_ms=120.152 e2e_ms=240.538
+[cipher-worker-2] COMPLETE id=REQ-206 action=REVIEW queue_wait_ms=120.620 service_ms=120.236 e2e_ms=240.856
+[cipher-worker-4] COMPLETE id=REQ-207 action=ALLOW queue_wait_ms=120.718 service_ms=120.281 e2e_ms=241.000
+[cipher-worker-3] COMPLETE id=REQ-208 action=REDACT queue_wait_ms=120.716 service_ms=120.209 e2e_ms=240.925
+[MONITOR] queue=1 in_flight=4 completed=8 workers_alive=4 avg_service_ms=120.278
+[MAIN] CORE_EVENT_LOOP=RESPONSIVE | completed=8/13 in_flight=4 queue=1
+[MONITOR] queue=1 in_flight=4 completed=8 workers_alive=4 avg_service_ms=120.278
+[MONITOR] queue=1 in_flight=4 completed=8 workers_alive=4 avg_service_ms=120.278
+[cipher-worker-1] COMPLETE id=REQ-209 action=BLOCK queue_wait_ms=240.473 service_ms=120.142 e2e_ms=360.614
+[cipher-worker-2] COMPLETE id=REQ-210 action=ALLOW queue_wait_ms=240.773 service_ms=120.100 e2e_ms=360.873
+[cipher-worker-4] COMPLETE id=REQ-211 action=REDACT queue_wait_ms=240.942 service_ms=120.111 e2e_ms=361.053
+[cipher-worker-3] COMPLETE id=REQ-212 action=REVIEW queue_wait_ms=241.085 service_ms=120.120 e2e_ms=361.205
+[MAIN] CORE_EVENT_LOOP=RESPONSIVE | completed=12/13 in_flight=1 queue=0
+[MONITOR] queue=0 in_flight=1 completed=12 workers_alive=4 avg_service_ms=120.224
+[MONITOR] queue=0 in_flight=1 completed=12 workers_alive=4 avg_service_ms=120.224
+[cipher-worker-1] COMPLETE id=REQ-213 action=ALLOW queue_wait_ms=360.660 service_ms=120.155 e2e_ms=480.814
+STREAM_COMPLETE | parsed=13 rejected=1 completed=13 ALLOW=4 REDACT=3 REVIEW=2 BLOCK=4 avg_service_ms=120.219 p95_service_ms=120.366 STATUS=STANDBY
+LATENCY_LOG=/mnt/data/CipherMesh_Assignment_2.1/logs/execution_latency.log
+MONITOR_LOG=/mnt/data/CipherMesh_Assignment_2.1/logs/monitor_metrics.jsonl
+AUDIT_LOG=/mnt/data/CipherMesh_Assignment_2.1/logs/audit_events.jsonl
+TOTAL_WALL_MS=503.702

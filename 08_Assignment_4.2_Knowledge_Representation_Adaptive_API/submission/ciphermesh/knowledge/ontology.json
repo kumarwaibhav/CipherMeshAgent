@@ -1,0 +1,2060 @@
+{
+ "@context": {
+  "@version": 1.1,
+  "cm": "urn:ciphermesh:kg:",
+  "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+  "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+  "owl": "http://www.w3.org/2002/07/owl#",
+  "xsd": "http://www.w3.org/2001/XMLSchema#",
+  "dcterms": "http://purl.org/dc/terms/",
+  "label": "rdfs:label",
+  "comment": "rdfs:comment",
+  "subClassOf": {
+   "@id": "rdfs:subClassOf",
+   "@type": "@id"
+  },
+  "domain": {
+   "@id": "rdfs:domain",
+   "@type": "@id"
+  },
+  "range": {
+   "@id": "rdfs:range",
+   "@type": "@id"
+  },
+  "hostedIn": {
+   "@id": "cm:hostedIn",
+   "@type": "@id"
+  },
+  "locatedIn": {
+   "@id": "cm:locatedIn",
+   "@type": "@id"
+  },
+  "operatedBy": {
+   "@id": "cm:operatedBy",
+   "@type": "@id"
+  },
+  "monitoredBy": {
+   "@id": "cm:monitoredBy",
+   "@type": "@id"
+  },
+  "priceCurrency": {
+   "@id": "cm:priceCurrency",
+   "@type": "@id"
+  },
+  "hasStatus": {
+   "@id": "cm:hasStatus",
+   "@type": "@id"
+  },
+  "memberOf": {
+   "@id": "cm:memberOf",
+   "@type": "@id"
+  },
+  "triggersRule": {
+   "@id": "cm:triggersRule",
+   "@type": "@id"
+  },
+  "yieldsDecision": {
+   "@id": "cm:yieldsDecision",
+   "@type": "@id"
+  },
+  "precedes": {
+   "@id": "cm:precedes",
+   "@type": "@id"
+  },
+  "governedBy": {
+   "@id": "cm:governedBy",
+   "@type": "@id"
+  },
+  "basedOn": {
+   "@id": "cm:basedOn",
+   "@type": "@id"
+  },
+  "requiresResidency": {
+   "@id": "cm:requiresResidency",
+   "@type": "@id"
+  },
+  "appliesIn": {
+   "@id": "cm:appliesIn",
+   "@type": "@id"
+  },
+  "mitigatedBy": {
+   "@id": "cm:mitigatedBy",
+   "@type": "@id"
+  },
+  "watchesVendor": {
+   "@id": "cm:watchesVendor",
+   "@type": "@id"
+  },
+  "hasPosture": {
+   "@id": "cm:hasPosture",
+   "@type": "@id"
+  },
+  "budgetCurrency": {
+   "@id": "cm:budgetCurrency",
+   "@type": "@id"
+  },
+  "fromCurrency": {
+   "@id": "cm:fromCurrency",
+   "@type": "@id"
+  },
+  "toCurrency": {
+   "@id": "cm:toCurrency",
+   "@type": "@id"
+  },
+  "affectsRegion": {
+   "@id": "cm:affectsRegion",
+   "@type": "@id"
+  },
+  "affectsProvider": {
+   "@id": "cm:affectsProvider",
+   "@type": "@id"
+  },
+  "reportedBy": {
+   "@id": "cm:reportedBy",
+   "@type": "@id"
+  },
+  "affectsVendor": {
+   "@id": "cm:affectsVendor",
+   "@type": "@id"
+  },
+  "providerId": {
+   "@id": "cm:providerId",
+   "@type": "xsd:string"
+  },
+  "kind": {
+   "@id": "cm:kind",
+   "@type": "xsd:string"
+  },
+  "costPer1kUsd": {
+   "@id": "cm:costPer1kUsd",
+   "@type": "xsd:decimal"
+  },
+  "p95LatencyMs": {
+   "@id": "cm:p95LatencyMs",
+   "@type": "xsd:decimal"
+  },
+  "qualityScore": {
+   "@id": "cm:qualityScore",
+   "@type": "xsd:decimal"
+  },
+  "availabilityPct": {
+   "@id": "cm:availabilityPct",
+   "@type": "xsd:decimal"
+  },
+  "serviceAlias": {
+   "@id": "cm:serviceAlias",
+   "@type": "xsd:string"
+  },
+  "regionCode": {
+   "@id": "cm:regionCode",
+   "@type": "xsd:string"
+  },
+  "alias": {
+   "@id": "cm:alias",
+   "@type": "xsd:string"
+  },
+  "jurisdictionCode": {
+   "@id": "cm:jurisdictionCode",
+   "@type": "xsd:string"
+  },
+  "detectorRule": {
+   "@id": "cm:detectorRule",
+   "@type": "xsd:string"
+  },
+  "severity": {
+   "@id": "cm:severity",
+   "@type": "xsd:string"
+  },
+  "ruleCode": {
+   "@id": "cm:ruleCode",
+   "@type": "xsd:string"
+  },
+  "priority": {
+   "@id": "cm:priority",
+   "@type": "xsd:integer"
+  },
+  "endpointUrl": {
+   "@id": "cm:endpointUrl",
+   "@type": "xsd:anyURI"
+  },
+  "docUrl": {
+   "@id": "cm:docUrl",
+   "@type": "xsd:anyURI"
+  },
+  "format": {
+   "@id": "cm:format",
+   "@type": "xsd:string"
+  },
+  "ttlSeconds": {
+   "@id": "cm:ttlSeconds",
+   "@type": "xsd:integer"
+  },
+  "isoCode": {
+   "@id": "cm:isoCode",
+   "@type": "xsd:string"
+  },
+  "rateValue": {
+   "@id": "cm:rateValue",
+   "@type": "xsd:decimal"
+  },
+  "kevMatch": {
+   "@id": "cm:kevMatch",
+   "@type": "xsd:string"
+  },
+  "availabilityPenalty": {
+   "@id": "cm:availabilityPenalty",
+   "@type": "xsd:decimal"
+  },
+  "latencyFactor": {
+   "@id": "cm:latencyFactor",
+   "@type": "xsd:decimal"
+  },
+  "excludesProvider": {
+   "@id": "cm:excludesProvider",
+   "@type": "xsd:boolean"
+  },
+  "level": {
+   "@id": "cm:level",
+   "@type": "xsd:integer"
+  },
+  "minKevRatio": {
+   "@id": "cm:minKevRatio",
+   "@type": "xsd:decimal"
+  },
+  "minRelevantHits": {
+   "@id": "cm:minRelevantHits",
+   "@type": "xsd:integer"
+  },
+  "minAiMlHits": {
+   "@id": "cm:minAiMlHits",
+   "@type": "xsd:integer"
+  },
+  "minRansomwareHits": {
+   "@id": "cm:minRansomwareHits",
+   "@type": "xsd:integer"
+  },
+  "minAiPrivacyPerDay": {
+   "@id": "cm:minAiPrivacyPerDay",
+   "@type": "xsd:decimal"
+  },
+  "minSignals": {
+   "@id": "cm:minSignals",
+   "@type": "xsd:integer"
+  },
+  "hysteresisFactor": {
+   "@id": "cm:hysteresisFactor",
+   "@type": "xsd:decimal"
+  },
+  "maxSnapshotAgeSeconds": {
+   "@id": "cm:maxSnapshotAgeSeconds",
+   "@type": "xsd:integer"
+  },
+  "calibration": {
+   "@id": "cm:calibration",
+   "@type": "xsd:string"
+  },
+  "maxPromptBytes": {
+   "@id": "cm:maxPromptBytes",
+   "@type": "xsd:integer"
+  },
+  "addsRedactionPattern": {
+   "@id": "cm:addsRedactionPattern",
+   "@type": "xsd:string"
+  },
+  "restrictsAllTrafficTo": {
+   "@id": "cm:restrictsAllTrafficTo",
+   "@type": "xsd:string"
+  },
+  "recommendsLockdown": {
+   "@id": "cm:recommendsLockdown",
+   "@type": "xsd:boolean"
+  },
+  "budgetPer1k": {
+   "@id": "cm:budgetPer1k",
+   "@type": "xsd:decimal"
+  },
+  "lookbackDays": {
+   "@id": "cm:lookbackDays",
+   "@type": "xsd:integer"
+  },
+  "statusImpact": {
+   "@id": "cm:statusImpact",
+   "@type": "xsd:string"
+  },
+  "observedAt": {
+   "@id": "cm:observedAt",
+   "@type": "xsd:dateTime"
+  },
+  "cveId": {
+   "@id": "cm:cveId",
+   "@type": "xsd:string"
+  },
+  "dateAdded": {
+   "@id": "cm:dateAdded",
+   "@type": "xsd:date"
+  }
+ },
+ "@id": "cm:ontology",
+ "@type": "owl:Ontology",
+ "owl:versionInfo": "4.2.0",
+ "dcterms:title": "CipherMesh domain ontology (providers, jurisdictions, data categories, policy, threats, live feeds)",
+ "dcterms:creator": "Kumar Waibhav Akshat (RA2212704010027)",
+ "dcterms:modified": "2026-10-31",
+ "@graph": [
+  {
+   "@id": "cm:Resource",
+   "@type": "owl:Class",
+   "label": "Resource",
+   "comment": "Root class of every CipherMesh knowledge item."
+  },
+  {
+   "@id": "cm:Provider",
+   "@type": "owl:Class",
+   "label": "Provider",
+   "comment": "An AI inference endpoint the router can select.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:CloudProvider",
+   "@type": "owl:Class",
+   "label": "CloudProvider",
+   "comment": "A managed provider in a public cloud region.",
+   "subClassOf": "cm:Provider"
+  },
+  {
+   "@id": "cm:LocalProvider",
+   "@type": "owl:Class",
+   "label": "LocalProvider",
+   "comment": "An on-host model runtime (no network egress).",
+   "subClassOf": "cm:Provider"
+  },
+  {
+   "@id": "cm:Location",
+   "@type": "owl:Class",
+   "label": "Location",
+   "comment": "Anything that has a geographic or legal position.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:CloudRegion",
+   "@type": "owl:Class",
+   "label": "CloudRegion",
+   "comment": "A vendor data-centre region.",
+   "subClassOf": "cm:Location"
+  },
+  {
+   "@id": "cm:Jurisdiction",
+   "@type": "owl:Class",
+   "label": "Jurisdiction",
+   "comment": "A legal territory (country, bloc or on-host).",
+   "subClassOf": "cm:Location"
+  },
+  {
+   "@id": "cm:Vendor",
+   "@type": "owl:Class",
+   "label": "Vendor",
+   "comment": "An organisation or software project.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:DataCategory",
+   "@type": "owl:Class",
+   "label": "DataCategory",
+   "comment": "One of the 25 detector categories.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:DetectorFamily",
+   "@type": "owl:Class",
+   "label": "DetectorFamily",
+   "comment": "A detector family D1-D12.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:LegalInstrument",
+   "@type": "owl:Class",
+   "label": "LegalInstrument",
+   "comment": "A law, regulation or organisational policy.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:Regulation",
+   "@type": "owl:Class",
+   "label": "Regulation",
+   "comment": "A statute or binding regulation.",
+   "subClassOf": "cm:LegalInstrument"
+  },
+  {
+   "@id": "cm:OrganisationalPolicy",
+   "@type": "owl:Class",
+   "label": "OrganisationalPolicy",
+   "comment": "A CipherMesh policy that interprets regulation.",
+   "subClassOf": "cm:LegalInstrument"
+  },
+  {
+   "@id": "cm:ResidencyPolicy",
+   "@type": "owl:Class",
+   "label": "ResidencyPolicy",
+   "comment": "A policy that limits where data may be processed.",
+   "subClassOf": "cm:OrganisationalPolicy"
+  },
+  {
+   "@id": "cm:PolicyRule",
+   "@type": "owl:Class",
+   "label": "PolicyRule",
+   "comment": "A condition-action rule of the CipherMesh policy engine.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:Decision",
+   "@type": "owl:Class",
+   "label": "Decision",
+   "comment": "ALLOW, REDACT, REVIEW or BLOCK.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:Threat",
+   "@type": "owl:Class",
+   "label": "Threat",
+   "comment": "A way sensitive data can be exposed or misused.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:VulnerabilityClass",
+   "@type": "owl:Class",
+   "label": "VulnerabilityClass",
+   "comment": "A class of exploitable weakness.",
+   "subClassOf": "cm:Threat"
+  },
+  {
+   "@id": "cm:Vulnerability",
+   "@type": "owl:Class",
+   "label": "Vulnerability",
+   "comment": "A specific known-exploited vulnerability (live).",
+   "subClassOf": "cm:Threat"
+  },
+  {
+   "@id": "cm:ThreatPosture",
+   "@type": "owl:Class",
+   "label": "ThreatPosture",
+   "comment": "Agent-wide threat level with its policy effects.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:InformationSource",
+   "@type": "owl:Class",
+   "label": "InformationSource",
+   "comment": "Any external knowledge feed.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:StatusSource",
+   "@type": "owl:Class",
+   "label": "StatusSource",
+   "comment": "Live provider health feed.",
+   "subClassOf": "cm:InformationSource"
+  },
+  {
+   "@id": "cm:ThreatFeed",
+   "@type": "owl:Class",
+   "label": "ThreatFeed",
+   "comment": "Live security or AI-incident feed.",
+   "subClassOf": "cm:InformationSource"
+  },
+  {
+   "@id": "cm:MarketDataFeed",
+   "@type": "owl:Class",
+   "label": "MarketDataFeed",
+   "comment": "Live market data feed (exchange rates).",
+   "subClassOf": "cm:InformationSource"
+  },
+  {
+   "@id": "cm:Currency",
+   "@type": "owl:Class",
+   "label": "Currency",
+   "comment": "An ISO 4217 currency.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:ExchangeRate",
+   "@type": "owl:Class",
+   "label": "ExchangeRate",
+   "comment": "A currency conversion rate (live).",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:ProviderStatus",
+   "@type": "owl:Class",
+   "label": "ProviderStatus",
+   "comment": "Operational status value with routing effects.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:Incident",
+   "@type": "owl:Class",
+   "label": "Incident",
+   "comment": "A live incident record from a status feed.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:AgentProfile",
+   "@type": "owl:Class",
+   "label": "AgentProfile",
+   "comment": "Settings of the CipherMesh agent itself.",
+   "subClassOf": "cm:Resource"
+  },
+  {
+   "@id": "cm:hostedIn",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "hostedIn",
+   "comment": "A provider endpoint is served from exactly one region.",
+   "domain": "cm:Provider",
+   "range": "cm:CloudRegion"
+  },
+  {
+   "@id": "cm:locatedIn",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "locatedIn",
+   "comment": "The legal jurisdiction where a region stores and processes data.",
+   "domain": "cm:CloudRegion",
+   "range": "cm:Jurisdiction"
+  },
+  {
+   "@id": "cm:operatedBy",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "operatedBy",
+   "comment": "Organisation that runs the provider service or software.",
+   "domain": "cm:Provider",
+   "range": "cm:Vendor"
+  },
+  {
+   "@id": "cm:monitoredBy",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "monitoredBy",
+   "comment": "Public live feed that reports the provider's health.",
+   "domain": "cm:Provider",
+   "range": "cm:StatusSource"
+  },
+  {
+   "@id": "cm:priceCurrency",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "priceCurrency",
+   "comment": "Currency in which the provider's list price is quoted.",
+   "domain": "cm:Provider",
+   "range": "cm:Currency"
+  },
+  {
+   "@id": "cm:hasStatus",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "hasStatus",
+   "comment": "Current operational status (updated from live feeds).",
+   "domain": "cm:Provider",
+   "range": "cm:ProviderStatus"
+  },
+  {
+   "@id": "cm:memberOf",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "memberOf",
+   "comment": "Detector family (D1-D12) that a category belongs to.",
+   "domain": "cm:DataCategory",
+   "range": "cm:DetectorFamily"
+  },
+  {
+   "@id": "cm:triggersRule",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "triggersRule",
+   "comment": "Policy rule that fires when the category is found.",
+   "domain": "cm:DataCategory",
+   "range": "cm:PolicyRule"
+  },
+  {
+   "@id": "cm:yieldsDecision",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "yieldsDecision",
+   "comment": "Decision produced by the rule.",
+   "domain": "cm:PolicyRule",
+   "range": "cm:Decision"
+  },
+  {
+   "@id": "cm:precedes",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "precedes",
+   "comment": "Strictest-wins ordering between rules.",
+   "domain": "cm:PolicyRule",
+   "range": "cm:PolicyRule"
+  },
+  {
+   "@id": "cm:governedBy",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "governedBy",
+   "comment": "Law or organisational policy that applies to a category or family.",
+   "domain": "cm:Resource",
+   "range": "cm:LegalInstrument"
+  },
+  {
+   "@id": "cm:basedOn",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "basedOn",
+   "comment": "Statute that an organisational policy interprets.",
+   "domain": "cm:OrganisationalPolicy",
+   "range": "cm:Regulation"
+  },
+  {
+   "@id": "cm:requiresResidency",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "requiresResidency",
+   "comment": "Jurisdictions where governed data may be processed.",
+   "domain": "cm:ResidencyPolicy",
+   "range": "cm:Jurisdiction"
+  },
+  {
+   "@id": "cm:appliesIn",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "appliesIn",
+   "comment": "Territorial scope of a regulation.",
+   "domain": "cm:Regulation",
+   "range": "cm:Jurisdiction"
+  },
+  {
+   "@id": "cm:mitigatedBy",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "mitigatedBy",
+   "comment": "Control (rule or policy) that mitigates a threat.",
+   "domain": "cm:Threat",
+   "range": "cm:Resource"
+  },
+  {
+   "@id": "cm:watchesVendor",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "watchesVendor",
+   "comment": "Vendor whose products are counted as relevant to CipherMesh.",
+   "domain": "cm:ThreatFeed",
+   "range": "cm:Vendor"
+  },
+  {
+   "@id": "cm:hasPosture",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "hasPosture",
+   "comment": "Current threat posture of the agent (derived from live feeds).",
+   "domain": "cm:AgentProfile",
+   "range": "cm:ThreatPosture"
+  },
+  {
+   "@id": "cm:budgetCurrency",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "budgetCurrency",
+   "comment": "Currency of the organisation's routing budget.",
+   "domain": "cm:AgentProfile",
+   "range": "cm:Currency"
+  },
+  {
+   "@id": "cm:fromCurrency",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "fromCurrency",
+   "comment": "Base currency of an exchange rate.",
+   "domain": "cm:ExchangeRate",
+   "range": "cm:Currency"
+  },
+  {
+   "@id": "cm:toCurrency",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "toCurrency",
+   "comment": "Quote currency of an exchange rate.",
+   "domain": "cm:ExchangeRate",
+   "range": "cm:Currency"
+  },
+  {
+   "@id": "cm:affectsRegion",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "affectsRegion",
+   "comment": "Region named in a live incident report.",
+   "domain": "cm:Incident",
+   "range": "cm:CloudRegion"
+  },
+  {
+   "@id": "cm:affectsProvider",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "affectsProvider",
+   "comment": "CipherMesh provider affected by a live incident.",
+   "domain": "cm:Incident",
+   "range": "cm:Provider"
+  },
+  {
+   "@id": "cm:reportedBy",
+   "@type": [
+    "owl:ObjectProperty",
+    "owl:FunctionalProperty"
+   ],
+   "label": "reportedBy",
+   "comment": "Feed that reported the incident or record.",
+   "domain": "cm:Incident",
+   "range": "cm:InformationSource"
+  },
+  {
+   "@id": "cm:affectsVendor",
+   "@type": [
+    "owl:ObjectProperty"
+   ],
+   "label": "affectsVendor",
+   "comment": "Vendor named in a known-exploited vulnerability record.",
+   "domain": "cm:Vulnerability",
+   "range": "cm:Vendor"
+  },
+  {
+   "@id": "cm:providerId",
+   "@type": "owl:DatatypeProperty",
+   "label": "providerId",
+   "comment": "Identifier used by the routing engine (providers.py).",
+   "domain": "cm:Provider",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:kind",
+   "@type": "owl:DatatypeProperty",
+   "label": "kind",
+   "comment": "cloud or local.",
+   "domain": "cm:Provider",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:costPer1kUsd",
+   "@type": "owl:DatatypeProperty",
+   "label": "costPer1kUsd",
+   "comment": "Illustrative list price per 1,000 requests (USD).",
+   "domain": "cm:Provider",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:p95LatencyMs",
+   "@type": "owl:DatatypeProperty",
+   "label": "p95LatencyMs",
+   "comment": "Illustrative p95 latency in milliseconds.",
+   "domain": "cm:Provider",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:qualityScore",
+   "@type": "owl:DatatypeProperty",
+   "label": "qualityScore",
+   "comment": "Illustrative quality score on a 0-5 scale.",
+   "domain": "cm:Provider",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:availabilityPct",
+   "@type": "owl:DatatypeProperty",
+   "label": "availabilityPct",
+   "comment": "Illustrative availability percentage.",
+   "domain": "cm:Provider",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:serviceAlias",
+   "@type": "owl:DatatypeProperty",
+   "label": "serviceAlias",
+   "comment": "Service names used for this provider in vendor status feeds.",
+   "domain": "cm:Provider",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:regionCode",
+   "@type": "owl:DatatypeProperty",
+   "label": "regionCode",
+   "comment": "Vendor region code, e.g. ap-south-1.",
+   "domain": "cm:CloudRegion",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:alias",
+   "@type": "owl:DatatypeProperty",
+   "label": "alias",
+   "comment": "Alternative spelling used in unstructured text.",
+   "domain": "cm:Resource",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:jurisdictionCode",
+   "@type": "owl:DatatypeProperty",
+   "label": "jurisdictionCode",
+   "comment": "ISO 3166-1 alpha-2 code or LOCAL.",
+   "domain": "cm:Jurisdiction",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:detectorRule",
+   "@type": "owl:DatatypeProperty",
+   "label": "detectorRule",
+   "comment": "Detector family code D1-D12.",
+   "domain": "cm:DetectorFamily",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:severity",
+   "@type": "owl:DatatypeProperty",
+   "label": "severity",
+   "comment": "CRITICAL, SENSITIVE or CONFIDENTIAL.",
+   "domain": "cm:DataCategory",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:ruleCode",
+   "@type": "owl:DatatypeProperty",
+   "label": "ruleCode",
+   "comment": "Rule code R1-R5 or LOCKDOWN.",
+   "domain": "cm:PolicyRule",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:priority",
+   "@type": "owl:DatatypeProperty",
+   "label": "priority",
+   "comment": "Lower value wins (strictest first).",
+   "domain": "cm:PolicyRule",
+   "range": "xsd:integer"
+  },
+  {
+   "@id": "cm:endpointUrl",
+   "@type": "owl:DatatypeProperty",
+   "label": "endpointUrl",
+   "comment": "Public REST/RSS endpoint.",
+   "domain": "cm:InformationSource",
+   "range": "xsd:anyURI"
+  },
+  {
+   "@id": "cm:docUrl",
+   "@type": "owl:DatatypeProperty",
+   "label": "docUrl",
+   "comment": "Official documentation or landing page.",
+   "domain": "cm:InformationSource",
+   "range": "xsd:anyURI"
+  },
+  {
+   "@id": "cm:format",
+   "@type": "owl:DatatypeProperty",
+   "label": "format",
+   "comment": "json, json-utf16 or rss.",
+   "domain": "cm:InformationSource",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:ttlSeconds",
+   "@type": "owl:DatatypeProperty",
+   "label": "ttlSeconds",
+   "comment": "Cache time-to-live for the feed.",
+   "domain": "cm:InformationSource",
+   "range": "xsd:integer"
+  },
+  {
+   "@id": "cm:isoCode",
+   "@type": "owl:DatatypeProperty",
+   "label": "isoCode",
+   "comment": "ISO 4217 currency code.",
+   "domain": "cm:Currency",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:rateValue",
+   "@type": "owl:DatatypeProperty",
+   "label": "rateValue",
+   "comment": "Units of the quote currency per one unit of base currency.",
+   "domain": "cm:ExchangeRate",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:kevMatch",
+   "@type": "owl:DatatypeProperty",
+   "label": "kevMatch",
+   "comment": "Vendor/project name as written in the CISA KEV catalog.",
+   "domain": "cm:Vendor",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:availabilityPenalty",
+   "@type": "owl:DatatypeProperty",
+   "label": "availabilityPenalty",
+   "comment": "Points subtracted from availability while in this status.",
+   "domain": "cm:ProviderStatus",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:latencyFactor",
+   "@type": "owl:DatatypeProperty",
+   "label": "latencyFactor",
+   "comment": "Multiplier applied to p95 latency while in this status.",
+   "domain": "cm:ProviderStatus",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:excludesProvider",
+   "@type": "owl:DatatypeProperty",
+   "label": "excludesProvider",
+   "comment": "If true the router must not select the provider.",
+   "domain": "cm:ProviderStatus",
+   "range": "xsd:boolean"
+  },
+  {
+   "@id": "cm:level",
+   "@type": "owl:DatatypeProperty",
+   "label": "level",
+   "comment": "Ordinal level, 0 = LOW.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:integer"
+  },
+  {
+   "@id": "cm:minKevRatio",
+   "@type": "owl:DatatypeProperty",
+   "label": "minKevRatio",
+   "comment": "Signal met when 30-day KEV additions / 12-month median >= value.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:minRelevantHits",
+   "@type": "owl:DatatypeProperty",
+   "label": "minRelevantHits",
+   "comment": "Signal met when watched-vendor KEV hits (30 days) >= value.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:integer"
+  },
+  {
+   "@id": "cm:minAiMlHits",
+   "@type": "owl:DatatypeProperty",
+   "label": "minAiMlHits",
+   "comment": "Signal met when AI/ML-product KEV hits (30 days) >= value.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:integer"
+  },
+  {
+   "@id": "cm:minRansomwareHits",
+   "@type": "owl:DatatypeProperty",
+   "label": "minRansomwareHits",
+   "comment": "Signal met when ransomware-linked watched-vendor hits >= value.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:integer"
+  },
+  {
+   "@id": "cm:minAiPrivacyPerDay",
+   "@type": "owl:DatatypeProperty",
+   "label": "minAiPrivacyPerDay",
+   "comment": "Signal met when privacy-related AI incident reports per covered day >= value.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:minSignals",
+   "@type": "owl:DatatypeProperty",
+   "label": "minSignals",
+   "comment": "Number of independent signal groups (KEV volume, KEV stack, AI incidents) that must be met.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:integer"
+  },
+  {
+   "@id": "cm:hysteresisFactor",
+   "@type": "owl:DatatypeProperty",
+   "label": "hysteresisFactor",
+   "comment": "Thresholds at or below the current posture are multiplied by this factor (prevents flapping).",
+   "domain": "cm:AgentProfile",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:maxSnapshotAgeSeconds",
+   "@type": "owl:DatatypeProperty",
+   "label": "maxSnapshotAgeSeconds",
+   "comment": "Older fallback snapshots are treated as stale and down-weighted.",
+   "domain": "cm:InformationSource",
+   "range": "xsd:integer"
+  },
+  {
+   "@id": "cm:calibration",
+   "@type": "owl:DatatypeProperty",
+   "label": "calibration",
+   "comment": "How the thresholds were chosen.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:maxPromptBytes",
+   "@type": "owl:DatatypeProperty",
+   "label": "maxPromptBytes",
+   "comment": "R5 byte limit applied in this posture.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:integer"
+  },
+  {
+   "@id": "cm:addsRedactionPattern",
+   "@type": "owl:DatatypeProperty",
+   "label": "addsRedactionPattern",
+   "comment": "Extra custom redaction regex enabled in this posture.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:restrictsAllTrafficTo",
+   "@type": "owl:DatatypeProperty",
+   "label": "restrictsAllTrafficTo",
+   "comment": "Jurisdiction codes all traffic is limited to (empty = no limit).",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:recommendsLockdown",
+   "@type": "owl:DatatypeProperty",
+   "label": "recommendsLockdown",
+   "comment": "Raise a lockdown recommendation for a human operator.",
+   "domain": "cm:ThreatPosture",
+   "range": "xsd:boolean"
+  },
+  {
+   "@id": "cm:budgetPer1k",
+   "@type": "owl:DatatypeProperty",
+   "label": "budgetPer1k",
+   "comment": "Routing budget per 1,000 requests in budgetCurrency.",
+   "domain": "cm:AgentProfile",
+   "range": "xsd:decimal"
+  },
+  {
+   "@id": "cm:lookbackDays",
+   "@type": "owl:DatatypeProperty",
+   "label": "lookbackDays",
+   "comment": "Window used when counting recent records.",
+   "domain": "cm:InformationSource",
+   "range": "xsd:integer"
+  },
+  {
+   "@id": "cm:statusImpact",
+   "@type": "owl:DatatypeProperty",
+   "label": "statusImpact",
+   "comment": "Normalised impact: operational, advisory, degraded or outage.",
+   "domain": "cm:Incident",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:observedAt",
+   "@type": "owl:DatatypeProperty",
+   "label": "observedAt",
+   "comment": "When a live fact was observed.",
+   "domain": "cm:Resource",
+   "range": "xsd:dateTime"
+  },
+  {
+   "@id": "cm:cveId",
+   "@type": "owl:DatatypeProperty",
+   "label": "cveId",
+   "comment": "CVE identifier.",
+   "domain": "cm:Vulnerability",
+   "range": "xsd:string"
+  },
+  {
+   "@id": "cm:dateAdded",
+   "@type": "owl:DatatypeProperty",
+   "label": "dateAdded",
+   "comment": "Date the record was added to the KEV catalog.",
+   "domain": "cm:Vulnerability",
+   "range": "xsd:date"
+  },
+  {
+   "@id": "cm:jur/IN",
+   "@type": "cm:Jurisdiction",
+   "label": "India",
+   "jurisdictionCode": "IN"
+  },
+  {
+   "@id": "cm:jur/US",
+   "@type": "cm:Jurisdiction",
+   "label": "United States",
+   "jurisdictionCode": "US"
+  },
+  {
+   "@id": "cm:jur/EU",
+   "@type": "cm:Jurisdiction",
+   "label": "European Union",
+   "jurisdictionCode": "EU"
+  },
+  {
+   "@id": "cm:jur/LOCAL",
+   "@type": "cm:Jurisdiction",
+   "label": "On-host (no network egress)",
+   "jurisdictionCode": "LOCAL"
+  },
+  {
+   "@id": "cm:region/ap-south-1",
+   "@type": "cm:CloudRegion",
+   "label": "AWS Asia Pacific (Mumbai)",
+   "regionCode": "ap-south-1",
+   "locatedIn": "cm:jur/IN",
+   "alias": [
+    "ap-south-1",
+    "Mumbai",
+    "Asia Pacific (Mumbai)",
+    "AP-SOUTH-1"
+   ]
+  },
+  {
+   "@id": "cm:region/centralindia",
+   "@type": "cm:CloudRegion",
+   "label": "Azure Central India (Pune)",
+   "regionCode": "centralindia",
+   "locatedIn": "cm:jur/IN",
+   "alias": [
+    "centralindia",
+    "Central India",
+    "India Central"
+   ]
+  },
+  {
+   "@id": "cm:region/us-central1",
+   "@type": "cm:CloudRegion",
+   "label": "GCP Iowa (us-central1)",
+   "regionCode": "us-central1",
+   "locatedIn": "cm:jur/US",
+   "alias": [
+    "us-central1",
+    "Iowa",
+    "Iowa (us-central1)"
+   ]
+  },
+  {
+   "@id": "cm:region/on-host",
+   "@type": "cm:CloudRegion",
+   "label": "On-host runtime",
+   "regionCode": "on-host",
+   "locatedIn": "cm:jur/LOCAL",
+   "alias": [
+    "on-host",
+    "localhost"
+   ]
+  },
+  {
+   "@id": "cm:vendor/amazon",
+   "@type": "cm:Vendor",
+   "label": "Amazon Web Services",
+   "kevMatch": [
+    "Amazon",
+    "AWS"
+   ]
+  },
+  {
+   "@id": "cm:vendor/microsoft",
+   "@type": "cm:Vendor",
+   "label": "Microsoft",
+   "kevMatch": [
+    "Microsoft"
+   ]
+  },
+  {
+   "@id": "cm:vendor/google",
+   "@type": "cm:Vendor",
+   "label": "Google",
+   "kevMatch": [
+    "Google"
+   ]
+  },
+  {
+   "@id": "cm:vendor/ollama",
+   "@type": "cm:Vendor",
+   "label": "Ollama",
+   "kevMatch": [
+    "Ollama"
+   ]
+  },
+  {
+   "@id": "cm:vendor/linux",
+   "@type": "cm:Vendor",
+   "label": "Linux kernel",
+   "kevMatch": [
+    "Linux"
+   ]
+  },
+  {
+   "@id": "cm:vendor/python",
+   "@type": "cm:Vendor",
+   "label": "Python Software Foundation",
+   "kevMatch": [
+    "Python Software Foundation",
+    "Python"
+   ]
+  },
+  {
+   "@id": "cm:vendor/openssl",
+   "@type": "cm:Vendor",
+   "label": "OpenSSL",
+   "kevMatch": [
+    "OpenSSL"
+   ]
+  },
+  {
+   "@id": "cm:vendor/redis",
+   "@type": "cm:Vendor",
+   "label": "Redis",
+   "kevMatch": [
+    "Redis"
+   ]
+  },
+  {
+   "@id": "cm:vendor/postgresql",
+   "@type": "cm:Vendor",
+   "label": "PostgreSQL",
+   "kevMatch": [
+    "PostgreSQL"
+   ]
+  },
+  {
+   "@id": "cm:vendor/docker",
+   "@type": "cm:Vendor",
+   "label": "Docker",
+   "kevMatch": [
+    "Docker"
+   ]
+  },
+  {
+   "@id": "cm:vendor/kubernetes",
+   "@type": "cm:Vendor",
+   "label": "Kubernetes",
+   "kevMatch": [
+    "Kubernetes"
+   ]
+  },
+  {
+   "@id": "cm:vendor/nginx",
+   "@type": "cm:Vendor",
+   "label": "NGINX",
+   "kevMatch": [
+    "NGINX",
+    "F5"
+   ]
+  },
+  {
+   "@id": "cm:vendor/langflow",
+   "@type": "cm:Vendor",
+   "label": "Langflow",
+   "kevMatch": [
+    "Langflow"
+   ]
+  },
+  {
+   "@id": "cm:vendor/nvidia",
+   "@type": "cm:Vendor",
+   "label": "NVIDIA",
+   "kevMatch": [
+    "NVIDIA"
+   ]
+  },
+  {
+   "@id": "cm:cur/USD",
+   "@type": "cm:Currency",
+   "label": "US dollar",
+   "isoCode": "USD"
+  },
+  {
+   "@id": "cm:cur/INR",
+   "@type": "cm:Currency",
+   "label": "Indian rupee",
+   "isoCode": "INR"
+  },
+  {
+   "@id": "cm:fxrate/USD-INR",
+   "@type": "cm:ExchangeRate",
+   "label": "USD to INR",
+   "fromCurrency": "cm:cur/USD",
+   "toCurrency": "cm:cur/INR"
+  },
+  {
+   "@id": "cm:feed/gcp-status",
+   "@type": "cm:StatusSource",
+   "label": "Google Cloud Service Health (incidents.json)",
+   "endpointUrl": "https://status.cloud.google.com/incidents.json",
+   "docUrl": "https://status.cloud.google.com/",
+   "format": "json",
+   "ttlSeconds": 300,
+   "lookbackDays": 30,
+   "maxSnapshotAgeSeconds": 86400
+  },
+  {
+   "@id": "cm:feed/azure-status",
+   "@type": "cm:StatusSource",
+   "label": "Azure status RSS feed",
+   "endpointUrl": "https://azure.status.microsoft/en-us/status/feed/",
+   "docUrl": "https://azure.status.microsoft/en-us/status/",
+   "format": "rss",
+   "ttlSeconds": 300,
+   "lookbackDays": 7,
+   "maxSnapshotAgeSeconds": 86400
+  },
+  {
+   "@id": "cm:feed/aws-health",
+   "@type": "cm:StatusSource",
+   "label": "AWS Health Dashboard public current events",
+   "endpointUrl": "https://health.aws.amazon.com/public/currentevents",
+   "docUrl": "https://health.aws.amazon.com/health/status",
+   "format": "json-utf16",
+   "ttlSeconds": 300,
+   "lookbackDays": 30,
+   "maxSnapshotAgeSeconds": 86400
+  },
+  {
+   "@id": "cm:feed/cisa-kev",
+   "@type": "cm:ThreatFeed",
+   "label": "CISA Known Exploited Vulnerabilities catalog",
+   "endpointUrl": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+   "docUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+   "format": "json",
+   "ttlSeconds": 3600,
+   "lookbackDays": 30,
+   "maxSnapshotAgeSeconds": 604800,
+   "watchesVendor": [
+    "cm:vendor/amazon",
+    "cm:vendor/microsoft",
+    "cm:vendor/google",
+    "cm:vendor/ollama",
+    "cm:vendor/linux",
+    "cm:vendor/python",
+    "cm:vendor/openssl",
+    "cm:vendor/redis",
+    "cm:vendor/postgresql",
+    "cm:vendor/docker",
+    "cm:vendor/kubernetes",
+    "cm:vendor/nginx",
+    "cm:vendor/langflow",
+    "cm:vendor/nvidia"
+   ]
+  },
+  {
+   "@id": "cm:feed/frankfurter",
+   "@type": "cm:MarketDataFeed",
+   "label": "Frankfurter exchange-rate API (ECB reference rates)",
+   "endpointUrl": "https://api.frankfurter.dev/v1/latest?from=USD&to=INR",
+   "docUrl": "https://frankfurter.dev/",
+   "format": "json",
+   "ttlSeconds": 3600,
+   "lookbackDays": 7,
+   "maxSnapshotAgeSeconds": 604800
+  },
+  {
+   "@id": "cm:feed/aiid",
+   "@type": "cm:ThreatFeed",
+   "label": "AI Incident Database RSS feed",
+   "endpointUrl": "https://incidentdatabase.ai/rss.xml",
+   "docUrl": "https://incidentdatabase.ai/",
+   "format": "rss",
+   "ttlSeconds": 3600,
+   "lookbackDays": 30,
+   "maxSnapshotAgeSeconds": 604800
+  },
+  {
+   "@id": "cm:status/operational",
+   "@type": "cm:ProviderStatus",
+   "label": "operational",
+   "availabilityPenalty": 0.0,
+   "latencyFactor": 1.0,
+   "excludesProvider": false
+  },
+  {
+   "@id": "cm:status/advisory",
+   "@type": "cm:ProviderStatus",
+   "label": "advisory",
+   "availabilityPenalty": 0.0,
+   "latencyFactor": 1.0,
+   "excludesProvider": false
+  },
+  {
+   "@id": "cm:status/degraded",
+   "@type": "cm:ProviderStatus",
+   "label": "degraded",
+   "availabilityPenalty": 0.8,
+   "latencyFactor": 1.5,
+   "excludesProvider": false
+  },
+  {
+   "@id": "cm:status/outage",
+   "@type": "cm:ProviderStatus",
+   "label": "outage",
+   "availabilityPenalty": 0.0,
+   "latencyFactor": 1.0,
+   "excludesProvider": true
+  },
+  {
+   "@id": "cm:status/unknown",
+   "@type": "cm:ProviderStatus",
+   "label": "unknown",
+   "availabilityPenalty": 0.0,
+   "latencyFactor": 1.0,
+   "excludesProvider": false
+  },
+  {
+   "@id": "cm:provider/local",
+   "@type": "cm:LocalProvider",
+   "label": "Ollama (local)",
+   "providerId": "local",
+   "kind": "local",
+   "hostedIn": "cm:region/on-host",
+   "operatedBy": "cm:vendor/ollama",
+   "priceCurrency": "cm:cur/USD",
+   "costPer1kUsd": 0.4,
+   "p95LatencyMs": 1200,
+   "qualityScore": 3.4,
+   "availabilityPct": 99.0,
+   "hasStatus": "cm:status/operational",
+   "serviceAlias": [
+    "Ollama"
+   ]
+  },
+  {
+   "@id": "cm:provider/aws-bedrock",
+   "@type": "cm:CloudProvider",
+   "label": "AWS Bedrock",
+   "providerId": "aws-bedrock",
+   "kind": "cloud",
+   "hostedIn": "cm:region/ap-south-1",
+   "operatedBy": "cm:vendor/amazon",
+   "monitoredBy": "cm:feed/aws-health",
+   "priceCurrency": "cm:cur/USD",
+   "costPer1kUsd": 2.8,
+   "p95LatencyMs": 650,
+   "qualityScore": 4.6,
+   "availabilityPct": 99.9,
+   "hasStatus": "cm:status/operational",
+   "serviceAlias": [
+    "Amazon Bedrock",
+    "Bedrock",
+    "bedrock"
+   ]
+  },
+  {
+   "@id": "cm:provider/azure-ai",
+   "@type": "cm:CloudProvider",
+   "label": "Azure AI Foundry",
+   "providerId": "azure-ai",
+   "kind": "cloud",
+   "hostedIn": "cm:region/centralindia",
+   "operatedBy": "cm:vendor/microsoft",
+   "monitoredBy": "cm:feed/azure-status",
+   "priceCurrency": "cm:cur/USD",
+   "costPer1kUsd": 3.3,
+   "p95LatencyMs": 600,
+   "qualityScore": 4.7,
+   "availabilityPct": 99.9,
+   "hasStatus": "cm:status/operational",
+   "serviceAlias": [
+    "Azure OpenAI Service",
+    "Azure OpenAI",
+    "Azure AI Foundry",
+    "Azure AI Services",
+    "Azure AI services",
+    "Cognitive Services",
+    "Azure Machine Learning"
+   ]
+  },
+  {
+   "@id": "cm:provider/gcp-vertex",
+   "@type": "cm:CloudProvider",
+   "label": "GCP Vertex AI",
+   "providerId": "gcp-vertex",
+   "kind": "cloud",
+   "hostedIn": "cm:region/us-central1",
+   "operatedBy": "cm:vendor/google",
+   "monitoredBy": "cm:feed/gcp-status",
+   "priceCurrency": "cm:cur/USD",
+   "costPer1kUsd": 2.2,
+   "p95LatencyMs": 580,
+   "qualityScore": 4.7,
+   "availabilityPct": 99.95,
+   "hasStatus": "cm:status/operational",
+   "serviceAlias": [
+    "Vertex Gemini API",
+    "Vertex AI Gemini API",
+    "Vertex AI",
+    "Gemini API",
+    "Generative AI on Vertex AI",
+    "Vertex AI Online Prediction"
+   ]
+  },
+  {
+   "@id": "cm:decision/ALLOW",
+   "@type": "cm:Decision",
+   "label": "ALLOW"
+  },
+  {
+   "@id": "cm:decision/REDACT",
+   "@type": "cm:Decision",
+   "label": "REDACT"
+  },
+  {
+   "@id": "cm:decision/REVIEW",
+   "@type": "cm:Decision",
+   "label": "REVIEW"
+  },
+  {
+   "@id": "cm:decision/BLOCK",
+   "@type": "cm:Decision",
+   "label": "BLOCK"
+  },
+  {
+   "@id": "cm:rule/LOCKDOWN",
+   "@type": "cm:PolicyRule",
+   "label": "LOCKDOWN",
+   "ruleCode": "LOCKDOWN",
+   "priority": 0,
+   "yieldsDecision": "cm:decision/BLOCK",
+   "comment": "Emergency lockdown: block all outbound content.",
+   "precedes": "cm:rule/R5"
+  },
+  {
+   "@id": "cm:rule/R5",
+   "@type": "cm:PolicyRule",
+   "label": "R5",
+   "ruleCode": "R5",
+   "priority": 1,
+   "yieldsDecision": "cm:decision/BLOCK",
+   "comment": "Payload exceeds the configured byte limit.",
+   "precedes": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:rule/R1",
+   "@type": "cm:PolicyRule",
+   "label": "R1",
+   "ruleCode": "R1",
+   "priority": 2,
+   "yieldsDecision": "cm:decision/BLOCK",
+   "comment": "Critical credential or token detected.",
+   "precedes": "cm:rule/R3"
+  },
+  {
+   "@id": "cm:rule/R3",
+   "@type": "cm:PolicyRule",
+   "label": "R3",
+   "ruleCode": "R3",
+   "priority": 3,
+   "yieldsDecision": "cm:decision/REVIEW",
+   "comment": "Internal or corporate URL requires human approval.",
+   "precedes": "cm:rule/R2"
+  },
+  {
+   "@id": "cm:rule/R2",
+   "@type": "cm:PolicyRule",
+   "label": "R2",
+   "ruleCode": "R2",
+   "priority": 4,
+   "yieldsDecision": "cm:decision/REDACT",
+   "comment": "PII or custom pattern: sanitise before transmission.",
+   "precedes": "cm:rule/R4"
+  },
+  {
+   "@id": "cm:rule/R4",
+   "@type": "cm:PolicyRule",
+   "label": "R4",
+   "ruleCode": "R4",
+   "priority": 5,
+   "yieldsDecision": "cm:decision/ALLOW",
+   "comment": "No policy-triggering findings."
+  },
+  {
+   "@id": "cm:reg/DPDP2023",
+   "@type": "cm:Regulation",
+   "label": "Digital Personal Data Protection Act, 2023 (India)",
+   "appliesIn": "cm:jur/IN",
+   "comment": "Section 16 allows transfer outside India except to countries the Central Government restricts by notification."
+  },
+  {
+   "@id": "cm:reg/Aadhaar2016",
+   "@type": "cm:Regulation",
+   "label": "Aadhaar (Targeted Delivery of Financial and Other Subsidies, Benefits and Services) Act, 2016",
+   "appliesIn": "cm:jur/IN"
+  },
+  {
+   "@id": "cm:reg/GDPR",
+   "@type": "cm:Regulation",
+   "label": "Regulation (EU) 2016/679 (GDPR)",
+   "appliesIn": "cm:jur/EU",
+   "comment": "Applies when data subjects are in the EU; Chapter V governs transfers."
+  },
+  {
+   "@id": "cm:policy/india-residency",
+   "@type": "cm:ResidencyPolicy",
+   "label": "CipherMesh India identifier residency policy",
+   "basedOn": [
+    "cm:reg/DPDP2023",
+    "cm:reg/Aadhaar2016"
+   ],
+   "requiresResidency": [
+    "cm:jur/IN",
+    "cm:jur/LOCAL"
+   ],
+   "comment": "Conservative organisational rule: Indian national identifiers and Indian phone numbers are processed only in India or on-host."
+  },
+  {
+   "@id": "cm:family/D1",
+   "@type": "cm:DetectorFamily",
+   "label": "AWS credentials",
+   "detectorRule": "D1"
+  },
+  {
+   "@id": "cm:family/D2",
+   "@type": "cm:DetectorFamily",
+   "label": "Private keys",
+   "detectorRule": "D2"
+  },
+  {
+   "@id": "cm:family/D3",
+   "@type": "cm:DetectorFamily",
+   "label": "Azure storage secrets",
+   "detectorRule": "D3"
+  },
+  {
+   "@id": "cm:family/D4",
+   "@type": "cm:DetectorFamily",
+   "label": "API tokens and passwords",
+   "detectorRule": "D4"
+  },
+  {
+   "@id": "cm:family/D5",
+   "@type": "cm:DetectorFamily",
+   "label": "Email addresses",
+   "detectorRule": "D5"
+  },
+  {
+   "@id": "cm:family/D6",
+   "@type": "cm:DetectorFamily",
+   "label": "Phone numbers",
+   "detectorRule": "D6"
+  },
+  {
+   "@id": "cm:family/D7",
+   "@type": "cm:DetectorFamily",
+   "label": "IPv4 addresses",
+   "detectorRule": "D7"
+  },
+  {
+   "@id": "cm:family/D8",
+   "@type": "cm:DetectorFamily",
+   "label": "Internal URLs",
+   "detectorRule": "D8"
+  },
+  {
+   "@id": "cm:family/D9",
+   "@type": "cm:DetectorFamily",
+   "label": "Payment cards",
+   "detectorRule": "D9"
+  },
+  {
+   "@id": "cm:family/D10",
+   "@type": "cm:DetectorFamily",
+   "label": "Aadhaar numbers",
+   "detectorRule": "D10",
+   "governedBy": [
+    "cm:policy/india-residency",
+    "cm:reg/DPDP2023",
+    "cm:reg/Aadhaar2016"
+   ]
+  },
+  {
+   "@id": "cm:family/D11",
+   "@type": "cm:DetectorFamily",
+   "label": "PAN numbers",
+   "detectorRule": "D11",
+   "governedBy": [
+    "cm:policy/india-residency",
+    "cm:reg/DPDP2023"
+   ]
+  },
+  {
+   "@id": "cm:family/D12",
+   "@type": "cm:DetectorFamily",
+   "label": "US social security numbers",
+   "detectorRule": "D12"
+  },
+  {
+   "@id": "cm:cat/private_key_header",
+   "@type": "cm:DataCategory",
+   "label": "private_key_header",
+   "memberOf": "cm:family/D2",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/db_connection_string",
+   "@type": "cm:DataCategory",
+   "label": "db_connection_string",
+   "memberOf": "cm:family/D4",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/aws_access_key",
+   "@type": "cm:DataCategory",
+   "label": "aws_access_key",
+   "memberOf": "cm:family/D1",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/aws_key_assignment",
+   "@type": "cm:DataCategory",
+   "label": "aws_key_assignment",
+   "memberOf": "cm:family/D1",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/aws_secret_key",
+   "@type": "cm:DataCategory",
+   "label": "aws_secret_key",
+   "memberOf": "cm:family/D1",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/gcp_service_account_key",
+   "@type": "cm:DataCategory",
+   "label": "gcp_service_account_key",
+   "memberOf": "cm:family/D2",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/azure_sas_signature",
+   "@type": "cm:DataCategory",
+   "label": "azure_sas_signature",
+   "memberOf": "cm:family/D3",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/azure_storage_key",
+   "@type": "cm:DataCategory",
+   "label": "azure_storage_key",
+   "memberOf": "cm:family/D3",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/github_token",
+   "@type": "cm:DataCategory",
+   "label": "github_token",
+   "memberOf": "cm:family/D4",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/llm_api_key",
+   "@type": "cm:DataCategory",
+   "label": "llm_api_key",
+   "memberOf": "cm:family/D4",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/slack_token",
+   "@type": "cm:DataCategory",
+   "label": "slack_token",
+   "memberOf": "cm:family/D4",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/google_api_key",
+   "@type": "cm:DataCategory",
+   "label": "google_api_key",
+   "memberOf": "cm:family/D4",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/stripe_secret_key",
+   "@type": "cm:DataCategory",
+   "label": "stripe_secret_key",
+   "memberOf": "cm:family/D4",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/jwt_token",
+   "@type": "cm:DataCategory",
+   "label": "jwt_token",
+   "memberOf": "cm:family/D4",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/generic_api_token",
+   "@type": "cm:DataCategory",
+   "label": "generic_api_token",
+   "memberOf": "cm:family/D4",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/password_assignment",
+   "@type": "cm:DataCategory",
+   "label": "password_assignment",
+   "memberOf": "cm:family/D4",
+   "severity": "CRITICAL",
+   "triggersRule": "cm:rule/R1"
+  },
+  {
+   "@id": "cm:cat/payment_card",
+   "@type": "cm:DataCategory",
+   "label": "payment_card",
+   "memberOf": "cm:family/D9",
+   "severity": "SENSITIVE",
+   "triggersRule": "cm:rule/R2",
+   "governedBy": [
+    "cm:reg/DPDP2023"
+   ]
+  },
+  {
+   "@id": "cm:cat/aadhaar",
+   "@type": "cm:DataCategory",
+   "label": "aadhaar",
+   "memberOf": "cm:family/D10",
+   "severity": "SENSITIVE",
+   "triggersRule": "cm:rule/R2"
+  },
+  {
+   "@id": "cm:cat/pan",
+   "@type": "cm:DataCategory",
+   "label": "pan",
+   "memberOf": "cm:family/D11",
+   "severity": "SENSITIVE",
+   "triggersRule": "cm:rule/R2"
+  },
+  {
+   "@id": "cm:cat/us_ssn",
+   "@type": "cm:DataCategory",
+   "label": "us_ssn",
+   "memberOf": "cm:family/D12",
+   "severity": "SENSITIVE",
+   "triggersRule": "cm:rule/R2",
+   "governedBy": [
+    "cm:reg/DPDP2023"
+   ]
+  },
+  {
+   "@id": "cm:cat/email",
+   "@type": "cm:DataCategory",
+   "label": "email",
+   "memberOf": "cm:family/D5",
+   "severity": "SENSITIVE",
+   "triggersRule": "cm:rule/R2",
+   "governedBy": [
+    "cm:reg/DPDP2023",
+    "cm:reg/GDPR"
+   ]
+  },
+  {
+   "@id": "cm:cat/phone_in",
+   "@type": "cm:DataCategory",
+   "label": "phone_in",
+   "memberOf": "cm:family/D6",
+   "severity": "SENSITIVE",
+   "triggersRule": "cm:rule/R2",
+   "governedBy": [
+    "cm:policy/india-residency",
+    "cm:reg/DPDP2023"
+   ]
+  },
+  {
+   "@id": "cm:cat/phone_intl",
+   "@type": "cm:DataCategory",
+   "label": "phone_intl",
+   "memberOf": "cm:family/D6",
+   "severity": "SENSITIVE",
+   "triggersRule": "cm:rule/R2",
+   "governedBy": [
+    "cm:reg/DPDP2023",
+    "cm:reg/GDPR"
+   ]
+  },
+  {
+   "@id": "cm:cat/ipv4",
+   "@type": "cm:DataCategory",
+   "label": "ipv4",
+   "memberOf": "cm:family/D7",
+   "severity": "SENSITIVE",
+   "triggersRule": "cm:rule/R2",
+   "governedBy": [
+    "cm:reg/DPDP2023",
+    "cm:reg/GDPR"
+   ]
+  },
+  {
+   "@id": "cm:cat/internal_url",
+   "@type": "cm:DataCategory",
+   "label": "internal_url",
+   "memberOf": "cm:family/D8",
+   "severity": "CONFIDENTIAL",
+   "triggersRule": "cm:rule/R3"
+  },
+  {
+   "@id": "cm:threat/credential-leak",
+   "@type": "cm:VulnerabilityClass",
+   "label": "Credential or key pasted into a prompt",
+   "mitigatedBy": [
+    "cm:rule/R1"
+   ]
+  },
+  {
+   "@id": "cm:threat/pii-exposure",
+   "@type": "cm:VulnerabilityClass",
+   "label": "Personal data sent to a third-party model",
+   "mitigatedBy": [
+    "cm:rule/R2"
+   ]
+  },
+  {
+   "@id": "cm:threat/internal-reconnaissance",
+   "@type": "cm:VulnerabilityClass",
+   "label": "Internal hostnames or URLs disclosed",
+   "mitigatedBy": [
+    "cm:rule/R3"
+   ]
+  },
+  {
+   "@id": "cm:threat/bulk-exfiltration",
+   "@type": "cm:VulnerabilityClass",
+   "label": "Large document dumps leaving the boundary",
+   "mitigatedBy": [
+    "cm:rule/R5"
+   ]
+  },
+  {
+   "@id": "cm:threat/cross-border-transfer",
+   "@type": "cm:VulnerabilityClass",
+   "label": "Regulated identifiers processed outside India",
+   "mitigatedBy": [
+    "cm:policy/india-residency"
+   ]
+  },
+  {
+   "@id": "cm:threat/exploited-infrastructure",
+   "@type": "cm:VulnerabilityClass",
+   "label": "Actively exploited vulnerability in the provider or software stack",
+   "mitigatedBy": [
+    "cm:posture/ELEVATED",
+    "cm:posture/HIGH",
+    "cm:rule/LOCKDOWN"
+   ]
+  },
+  {
+   "@id": "cm:posture/LOW",
+   "@type": "cm:ThreatPosture",
+   "label": "LOW",
+   "level": 0,
+   "minSignals": 0,
+   "maxPromptBytes": 65536,
+   "restrictsAllTrafficTo": [],
+   "recommendsLockdown": false,
+   "comment": "Normal operation; engine defaults apply."
+  },
+  {
+   "@id": "cm:posture/ELEVATED",
+   "@type": "cm:ThreatPosture",
+   "label": "ELEVATED",
+   "level": 1,
+   "minSignals": 1,
+   "minKevRatio": 1.69,
+   "minRelevantHits": 11,
+   "minAiMlHits": 3,
+   "minRansomwareHits": 2,
+   "minAiPrivacyPerDay": 0.5,
+   "maxPromptBytes": 32768,
+   "addsRedactionPattern": [
+    "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:[A-Za-z0-9/_.-]+",
+    "[a-z0-9-]+\\.[a-z0-9-]+\\.svc\\.cluster\\.local"
+   ],
+   "restrictsAllTrafficTo": [],
+   "recommendsLockdown": false,
+   "calibration": "KEV thresholds: smallest values reached on at most 10 % (ELEVATED) / 3 % (HIGH) of 122 dates in a 2025-11-01..2026-10-31 backtest (calibration.py). AI-incident rate: judgement value, not backtestable.",
+   "comment": "One independent signal above its 90th-percentile level: halve the R5 limit and redact cloud resource identifiers."
+  },
+  {
+   "@id": "cm:posture/HIGH",
+   "@type": "cm:ThreatPosture",
+   "label": "HIGH",
+   "level": 2,
+   "minSignals": 2,
+   "minKevRatio": 1.89,
+   "minRelevantHits": 12,
+   "minAiMlHits": 4,
+   "minRansomwareHits": 4,
+   "minAiPrivacyPerDay": 1.0,
+   "maxPromptBytes": 16384,
+   "addsRedactionPattern": [
+    "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:[A-Za-z0-9/_.-]+",
+    "[a-z0-9-]+\\.[a-z0-9-]+\\.svc\\.cluster\\.local"
+   ],
+   "restrictsAllTrafficTo": [
+    "IN",
+    "LOCAL"
+   ],
+   "recommendsLockdown": true,
+   "calibration": "KEV thresholds: smallest values reached on at most 10 % (ELEVATED) / 3 % (HIGH) of 122 dates in a 2025-11-01..2026-10-31 backtest (calibration.py). AI-incident rate: judgement value, not backtestable.",
+   "comment": "Two independent signals above their 97th-percentile levels: keep all traffic in-country and ask an operator about lockdown."
+  },
+  {
+   "@id": "cm:agent/ciphermesh",
+   "@type": "cm:AgentProfile",
+   "label": "CipherMesh gateway agent",
+   "hasPosture": "cm:posture/LOW",
+   "budgetPer1k": 300.0,
+   "budgetCurrency": "cm:cur/INR",
+   "hysteresisFactor": 0.9,
+   "comment": "Illustrative organisational budget of INR 300 per 1,000 requests."
+  }
+ ]
+}

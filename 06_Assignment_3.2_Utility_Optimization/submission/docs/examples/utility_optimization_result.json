@@ -1,0 +1,259 @@
+{
+  "status": "SELECTED",
+  "selected_option_id": "ECO-08",
+  "selected_seller": "NorthPeak",
+  "selected_utility": 71.23879310344827,
+  "selected_landed_cost": 131.0,
+  "evaluated_count": 10,
+  "valid_count": 10,
+  "feasible_count": 6,
+  "rejected_count": 4,
+  "evaluations": [
+    {
+      "option_id": "ECO-01",
+      "seller": "Meridian Value",
+      "status": "FEASIBLE",
+      "landed_cost": 121.0,
+      "utility": 53.73793103448276,
+      "breakdown": {
+        "quality_score": 84.0,
+        "cost_score": 16.5517,
+        "delivery_score": 25.0,
+        "reliability_score": 96.0,
+        "returns_score": 50.0,
+        "weighted_quality": 25.2,
+        "weighted_cost": 4.1379,
+        "weighted_delivery": 5.0,
+        "weighted_reliability": 14.4,
+        "weighted_returns": 5.0,
+        "total_utility": 53.73793103448276
+      },
+      "reasons": [],
+      "input_errors": []
+    },
+    {
+      "option_id": "ECO-02",
+      "seller": "PrimeCart",
+      "status": "FEASIBLE",
+      "landed_cost": 130.0,
+      "utility": 69.08620689655172,
+      "breakdown": {
+        "quality_score": 96.0,
+        "cost_score": 10.3448,
+        "delivery_score": 75.0,
+        "reliability_score": 98.0,
+        "returns_score": 80.0,
+        "weighted_quality": 28.8,
+        "weighted_cost": 2.5862,
+        "weighted_delivery": 15.0,
+        "weighted_reliability": 14.7,
+        "weighted_returns": 8.0,
+        "total_utility": 69.08620689655172
+      },
+      "reasons": [],
+      "input_errors": []
+    },
+    {
+      "option_id": "ECO-03",
+      "seller": "BudgetBee",
+      "status": "INFEASIBLE",
+      "landed_cost": 108.0,
+      "utility": 61.779310344827586,
+      "breakdown": {
+        "quality_score": 74.0,
+        "cost_score": 25.5172,
+        "delivery_score": 50.0,
+        "reliability_score": 98.0,
+        "returns_score": 85.0,
+        "weighted_quality": 22.2,
+        "weighted_cost": 6.3793,
+        "weighted_delivery": 10.0,
+        "weighted_reliability": 14.7,
+        "weighted_returns": 8.5,
+        "total_utility": 61.779310344827586
+      },
+      "reasons": [
+        "QUALITY_BELOW_MINIMUM: 3.70 < 4.00",
+        "REGION_UNSUPPORTED: seller does not serve the destination"
+      ],
+      "input_errors": []
+    },
+    {
+      "option_id": "ECO-04",
+      "seller": "SwiftSupply",
+      "status": "INFEASIBLE",
+      "landed_cost": 145.0,
+      "utility": 73.325,
+      "breakdown": {
+        "quality_score": 98.0,
+        "cost_score": 0.0,
+        "delivery_score": 100.0,
+        "reliability_score": 99.5,
+        "returns_score": 90.0,
+        "weighted_quality": 29.4,
+        "weighted_cost": 0.0,
+        "weighted_delivery": 20.0,
+        "weighted_reliability": 14.925,
+        "weighted_returns": 9.0,
+        "total_utility": 73.325
+      },
+      "reasons": [
+        "INSUFFICIENT_STOCK: 80 < required 100 units"
+      ],
+      "input_errors": []
+    },
+    {
+      "option_id": "ECO-05",
+      "seller": "SolidMart",
+      "status": "FEASIBLE",
+      "landed_cost": 122.0,
+      "utility": 63.11551724137931,
+      "breakdown": {
+        "quality_score": 92.0,
+        "cost_score": 15.8621,
+        "delivery_score": 50.0,
+        "reliability_score": 97.0,
+        "returns_score": 70.0,
+        "weighted_quality": 27.6,
+        "weighted_cost": 3.9655,
+        "weighted_delivery": 10.0,
+        "weighted_reliability": 14.55,
+        "weighted_returns": 7.0,
+        "total_utility": 63.11551724137931
+      },
+      "reasons": [],
+      "input_errors": []
+    },
+    {
+      "option_id": "ECO-06",
+      "seller": "LuxuryLane",
+      "status": "INFEASIBLE",
+      "landed_cost": 148.0,
+      "utility": 73.25,
+      "breakdown": {
+        "quality_score": 98.0,
+        "cost_score": 0.0,
+        "delivery_score": 100.0,
+        "reliability_score": 99.0,
+        "returns_score": 90.0,
+        "weighted_quality": 29.4,
+        "weighted_cost": 0.0,
+        "weighted_delivery": 20.0,
+        "weighted_reliability": 14.85,
+        "weighted_returns": 9.0,
+        "total_utility": 73.25
+      },
+      "reasons": [
+        "OVER_BUDGET: landed cost 148.00 exceeds 145.00"
+      ],
+      "input_errors": []
+    },
+    {
+      "option_id": "ECO-07",
+      "seller": "RapidHub",
+      "status": "INFEASIBLE",
+      "landed_cost": 117.0,
+      "utility": 66.52758620689656,
+      "breakdown": {
+        "quality_score": 82.0,
+        "cost_score": 19.3103,
+        "delivery_score": 75.0,
+        "reliability_score": 94.0,
+        "returns_score": 80.0,
+        "weighted_quality": 24.6,
+        "weighted_cost": 4.8276,
+        "weighted_delivery": 15.0,
+        "weighted_reliability": 14.1,
+        "weighted_returns": 8.0,
+        "total_utility": 66.52758620689656
+      },
+      "reasons": [
+        "RELIABILITY_BELOW_MINIMUM: 94.00% < 95.00%"
+      ],
+      "input_errors": []
+    },
+    {
+      "option_id": "ECO-08",
+      "seller": "NorthPeak",
+      "status": "FEASIBLE",
+      "landed_cost": 131.0,
+      "utility": 71.23879310344827,
+      "breakdown": {
+        "quality_score": 94.0,
+        "cost_score": 9.6552,
+        "delivery_score": 100.0,
+        "reliability_score": 97.5,
+        "returns_score": 60.0,
+        "weighted_quality": 28.2,
+        "weighted_cost": 2.4138,
+        "weighted_delivery": 20.0,
+        "weighted_reliability": 14.625,
+        "weighted_returns": 6.0,
+        "total_utility": 71.23879310344827
+      },
+      "reasons": [],
+      "input_errors": []
+    },
+    {
+      "option_id": "ECO-09",
+      "seller": "TrustCart",
+      "status": "FEASIBLE",
+      "landed_cost": 127.0,
+      "utility": 61.35344827586207,
+      "breakdown": {
+        "quality_score": 98.0,
+        "cost_score": 12.4138,
+        "delivery_score": 25.0,
+        "reliability_score": 99.0,
+        "returns_score": 90.0,
+        "weighted_quality": 29.4,
+        "weighted_cost": 3.1034,
+        "weighted_delivery": 5.0,
+        "weighted_reliability": 14.85,
+        "weighted_returns": 9.0,
+        "total_utility": 61.35344827586207
+      },
+      "reasons": [],
+      "input_errors": []
+    },
+    {
+      "option_id": "ECO-10",
+      "seller": "EconomyPlus",
+      "status": "FEASIBLE",
+      "landed_cost": 111.0,
+      "utility": 48.11206896551724,
+      "breakdown": {
+        "quality_score": 80.0,
+        "cost_score": 23.4483,
+        "delivery_score": 0.0,
+        "reliability_score": 95.0,
+        "returns_score": 40.0,
+        "weighted_quality": 24.0,
+        "weighted_cost": 5.8621,
+        "weighted_delivery": 0.0,
+        "weighted_reliability": 14.25,
+        "weighted_returns": 4.0,
+        "total_utility": 48.11206896551724
+      },
+      "reasons": [],
+      "input_errors": []
+    }
+  ],
+  "feasible_ranking": [
+    "ECO-08",
+    "ECO-02",
+    "ECO-05",
+    "ECO-09",
+    "ECO-01",
+    "ECO-10"
+  ],
+  "algorithm": "single_pass_argmax_with_deterministic_tie_breaks",
+  "complexity": "O(n) selection; O(k log k) optional feasible ranking",
+  "optimality_verified": true,
+  "verification_winner_id": "ECO-08",
+  "notes": [
+    "Hard constraints are applied before a candidate is eligible to win.",
+    "The selected option maximizes the defined weighted utility among feasible offers.",
+    "Tie-break order: utility descending, landed cost ascending, delivery days ascending, option ID ascending."
+  ]
+}

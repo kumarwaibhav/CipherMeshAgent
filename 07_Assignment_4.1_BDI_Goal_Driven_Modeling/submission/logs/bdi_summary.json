@@ -1,0 +1,1215 @@
+{
+  "assignment": "4.1 Belief-Desire-Intention (BDI) Goal-Driven Modeling",
+  "student": "Kumar Waibhav Akshat (RA2212704010027)",
+  "generated_at": "2026-10-31T05:12:27.936+00:00",
+  "settings": {
+    "latency_scale": 0.05,
+    "idle_wait_s": 0.02,
+    "commitment": "per scenario (see scenarios[].commitment)"
+  },
+  "passed": 11,
+  "runs": 11,
+  "scenarios": [
+    {
+      "scenario": "S0",
+      "title": "Baseline: no disturbance",
+      "commitment": "OPEN_MINDED",
+      "request_id": "req-s0",
+      "prompt_sha256": "ee8351f9d3ec9b20",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "disturbances": [],
+      "shifts": [],
+      "suspensions": [],
+      "final_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "outcome": "COMPLETED",
+      "delivered": true,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=gcp-vertex)",
+          "status": "SUCCEEDED",
+          "progress": "7/7"
+        }
+      ],
+      "steps_executed": 7,
+      "cycles": 7,
+      "elapsed_ms": 34.114,
+      "step_time_ms": 30.467,
+      "transmissions": [
+        {
+          "provider": "gcp-vertex",
+          "residency": "US",
+          "ok": true,
+          "redacted": false,
+          "payload_sha256": "ee8351f9d3ec9b20"
+        }
+      ],
+      "provider_attempts": 1,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 6,
+        "kept": 6,
+        "dropped": 0,
+        "suspended": 0,
+        "resumed": 0,
+        "failed": 0,
+        "belief_changes": 53,
+        "ignored_changes": 10
+      },
+      "ledger_records": 2,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [],
+      "expected": {
+        "initial": "allow_then_dispatch(provider=gcp-vertex)",
+        "final_plan": "allow_then_dispatch(provider=gcp-vertex)",
+        "status": "COMPLETED"
+      },
+      "expectation_met": true,
+      "ablation": false
+    },
+    {
+      "scenario": "S1",
+      "title": "Provider outage mid-dispatch",
+      "commitment": "OPEN_MINDED",
+      "request_id": "req-s1",
+      "prompt_sha256": "cc9ec8198d585d36",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "disturbances": [
+        {
+          "label": "gcp_major_outage",
+          "cycle": 4,
+          "description": "status feed reports GCP Vertex AI us-central1 major outage",
+          "trigger": "before step 'seal_dispatch_record' on gcp-vertex"
+        }
+      ],
+      "shifts": [
+        {
+          "cycle": 4,
+          "at_ms": 7.04,
+          "dropped": "allow_then_dispatch(provider=gcp-vertex)",
+          "dropped_id": "I1",
+          "dropped_progress": "3/7",
+          "status": "DROPPED",
+          "before_step": "seal_dispatch_record",
+          "reasons": [
+            "requires 'provider gcp-vertex is usable' but believed provider.gcp-vertex.status=major_outage"
+          ],
+          "trigger": [
+            {
+              "key": "provider.gcp-vertex.status",
+              "old": "operational",
+              "new": "major_outage",
+              "source": "status-feed:gcp-vertex",
+              "confidence": 0.98
+            }
+          ],
+          "adopted": "allow_then_dispatch(provider=aws-bedrock)",
+          "adopted_id": "I2",
+          "adopted_desire": "D3",
+          "reaction_ms": 0.767
+        }
+      ],
+      "suspensions": [],
+      "final_intention": {
+        "id": "I2",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=aws-bedrock)",
+        "utility": 77.2833
+      },
+      "outcome": "COMPLETED",
+      "delivered": true,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=gcp-vertex)",
+          "status": "DROPPED",
+          "progress": "3/7"
+        },
+        {
+          "id": "I2",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=aws-bedrock)",
+          "status": "SUCCEEDED",
+          "progress": "7/7"
+        }
+      ],
+      "steps_executed": 10,
+      "cycles": 11,
+      "elapsed_ms": 39.538,
+      "step_time_ms": 34.298,
+      "transmissions": [
+        {
+          "provider": "aws-bedrock",
+          "residency": "IN",
+          "ok": true,
+          "redacted": false,
+          "payload_sha256": "cc9ec8198d585d36"
+        }
+      ],
+      "provider_attempts": 1,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 10,
+        "kept": 9,
+        "dropped": 1,
+        "suspended": 0,
+        "resumed": 0,
+        "failed": 0,
+        "belief_changes": 58,
+        "ignored_changes": 14
+      },
+      "ledger_records": 2,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [],
+      "expected": {
+        "initial": "allow_then_dispatch(provider=gcp-vertex)",
+        "final_plan": "allow_then_dispatch(provider=aws-bedrock)",
+        "status": "COMPLETED"
+      },
+      "expectation_met": true,
+      "ablation": false
+    },
+    {
+      "scenario": "S2",
+      "title": "Emergency lockdown mid-execution",
+      "commitment": "OPEN_MINDED",
+      "request_id": "req-s2",
+      "prompt_sha256": "5e182e381a7e57c1",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "disturbances": [
+        {
+          "label": "emergency_lockdown",
+          "cycle": 5,
+          "description": "security operations declares an emergency lockdown",
+          "trigger": "before step 'dispatch'"
+        }
+      ],
+      "shifts": [
+        {
+          "cycle": 5,
+          "at_ms": 9.221,
+          "dropped": "allow_then_dispatch(provider=gcp-vertex)",
+          "dropped_id": "I1",
+          "dropped_progress": "4/7",
+          "status": "DROPPED",
+          "before_step": "dispatch",
+          "reasons": [
+            "pre-empted by D1 'Never transmit a secret' (priority 100)",
+            "requires 'policy lockdown is off' but believed policy.lockdown=True"
+          ],
+          "trigger": [
+            {
+              "key": "policy.lockdown",
+              "old": false,
+              "new": true,
+              "source": "soc:command_instruction",
+              "confidence": 1.0
+            }
+          ],
+          "adopted": "enforce_lockdown_block",
+          "adopted_id": "I2",
+          "adopted_desire": "D1",
+          "reaction_ms": 0.286
+        }
+      ],
+      "suspensions": [],
+      "final_intention": {
+        "id": "I2",
+        "desire": "D1",
+        "label": "enforce_lockdown_block",
+        "utility": 100.0
+      },
+      "outcome": "BLOCKED",
+      "delivered": false,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=gcp-vertex)",
+          "status": "DROPPED",
+          "progress": "4/7"
+        },
+        {
+          "id": "I2",
+          "desire": "D1",
+          "label": "enforce_lockdown_block",
+          "status": "SUCCEEDED",
+          "progress": "3/3"
+        }
+      ],
+      "steps_executed": 7,
+      "cycles": 8,
+      "elapsed_ms": 5.223,
+      "step_time_ms": 0.58,
+      "transmissions": [],
+      "provider_attempts": 0,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 7,
+        "kept": 6,
+        "dropped": 1,
+        "suspended": 0,
+        "resumed": 0,
+        "failed": 0,
+        "belief_changes": 50,
+        "ignored_changes": 7
+      },
+      "ledger_records": 2,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [],
+      "expected": {
+        "initial": "allow_then_dispatch(provider=gcp-vertex)",
+        "final_plan": "enforce_lockdown_block",
+        "status": "BLOCKED"
+      },
+      "expectation_met": true,
+      "ablation": false
+    },
+    {
+      "scenario": "S3",
+      "title": "Provider reply leaks a secret",
+      "commitment": "OPEN_MINDED",
+      "request_id": "req-s3",
+      "prompt_sha256": "6e2785e7202bc204",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "disturbances": [
+        {
+          "label": "reply_leak",
+          "cycle": 5,
+          "description": "GCP Vertex starts echoing a cached staging credential in replies",
+          "trigger": "before step 'dispatch' on gcp-vertex"
+        }
+      ],
+      "shifts": [
+        {
+          "cycle": 6,
+          "at_ms": 37.344,
+          "dropped": "allow_then_dispatch(provider=gcp-vertex)",
+          "dropped_id": "I1",
+          "dropped_progress": "6/7",
+          "status": "DROPPED",
+          "before_step": "deliver",
+          "reasons": [
+            "pre-empted by D1 'Never transmit a secret' (priority 100)",
+            "requires 'reply contains no critical secret (D1)' but believed response.findings=[{'category': 'aws_access_key', 'severity': 'CRITICAL', 'rule': 'D1'}]"
+          ],
+          "trigger": [
+            {
+              "key": "response.findings",
+              "old": [],
+              "new": [
+                {
+                  "category": "aws_access_key",
+                  "severity": "CRITICAL",
+                  "rule": "D1"
+                }
+              ],
+              "source": "intention:I1/inspect_response",
+              "confidence": 1.0
+            },
+            {
+              "key": "response.decision",
+              "old": null,
+              "new": "BLOCK",
+              "source": "intention:I1/inspect_response",
+              "confidence": 1.0
+            }
+          ],
+          "adopted": "withhold_reply_and_alert",
+          "adopted_id": "I2",
+          "adopted_desire": "D1",
+          "reaction_ms": 0.351
+        }
+      ],
+      "suspensions": [],
+      "final_intention": {
+        "id": "I2",
+        "desire": "D1",
+        "label": "withhold_reply_and_alert",
+        "utility": 100.0
+      },
+      "outcome": "RESPONSE_WITHHELD",
+      "delivered": false,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=gcp-vertex)",
+          "status": "DROPPED",
+          "progress": "6/7"
+        },
+        {
+          "id": "I2",
+          "desire": "D1",
+          "label": "withhold_reply_and_alert",
+          "status": "SUCCEEDED",
+          "progress": "4/4"
+        }
+      ],
+      "steps_executed": 10,
+      "cycles": 10,
+      "elapsed_ms": 34.36,
+      "step_time_ms": 30.256,
+      "transmissions": [
+        {
+          "provider": "gcp-vertex",
+          "residency": "US",
+          "ok": true,
+          "redacted": false,
+          "payload_sha256": "6e2785e7202bc204"
+        }
+      ],
+      "provider_attempts": 1,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 9,
+        "kept": 8,
+        "dropped": 1,
+        "suspended": 0,
+        "resumed": 0,
+        "failed": 0,
+        "belief_changes": 56,
+        "ignored_changes": 12
+      },
+      "ledger_records": 2,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [
+        "provider gcp-vertex returned critical secret material ['aws_access_key']"
+      ],
+      "expected": {
+        "initial": "allow_then_dispatch(provider=gcp-vertex)",
+        "final_plan": "withhold_reply_and_alert",
+        "status": "RESPONSE_WITHHELD"
+      },
+      "expectation_met": true,
+      "ablation": false
+    },
+    {
+      "scenario": "S4",
+      "title": "Price spike, then budget cut",
+      "commitment": "OPEN_MINDED",
+      "request_id": "req-s4",
+      "prompt_sha256": "a827facdc4c9bbb1",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "disturbances": [
+        {
+          "label": "gcp_price_spike",
+          "cycle": 4,
+          "description": "GCP re-prices capacity: contract lapses, on-demand $6.80/1k",
+          "trigger": "before step 'seal_dispatch_record' on gcp-vertex"
+        },
+        {
+          "label": "budget_cut",
+          "cycle": 9,
+          "description": "finance lowers the AI budget to $1.00 per 1k requests",
+          "trigger": "before step 'dispatch' on aws-bedrock"
+        }
+      ],
+      "shifts": [
+        {
+          "cycle": 4,
+          "at_ms": 7.402,
+          "dropped": "allow_then_dispatch(provider=gcp-vertex)",
+          "dropped_id": "I1",
+          "dropped_progress": "3/7",
+          "status": "DROPPED",
+          "before_step": "seal_dispatch_record",
+          "reasons": [
+            "requires 'provider gcp-vertex price within budget (D4)' but believed budget.max_cost_per_1k=6.0, provider.gcp-vertex.price_per_1k=6.8"
+          ],
+          "trigger": [
+            {
+              "key": "provider.gcp-vertex.price_per_1k",
+              "old": 1.79,
+              "new": 6.8,
+              "source": "procurement:price-feed",
+              "confidence": 0.95
+            }
+          ],
+          "adopted": "allow_then_dispatch(provider=aws-bedrock)",
+          "adopted_id": "I2",
+          "adopted_desire": "D3",
+          "reaction_ms": 0.841
+        },
+        {
+          "cycle": 9,
+          "at_ms": 10.124,
+          "dropped": "allow_then_dispatch(provider=aws-bedrock)",
+          "dropped_id": "I2",
+          "dropped_progress": "4/7",
+          "status": "DROPPED",
+          "before_step": "dispatch",
+          "reasons": [
+            "requires 'provider aws-bedrock price within budget (D4)' but believed budget.max_cost_per_1k=1.0, provider.aws-bedrock.price_per_1k=2.28"
+          ],
+          "trigger": [
+            {
+              "key": "budget.max_cost_per_1k",
+              "old": 6.0,
+              "new": 1.0,
+              "source": "finance:budget-policy",
+              "confidence": 1.0
+            }
+          ],
+          "adopted": "dispatch_local_only(provider=local)",
+          "adopted_id": "I3",
+          "adopted_desire": "D3",
+          "reaction_ms": 0.682
+        }
+      ],
+      "suspensions": [],
+      "final_intention": {
+        "id": "I3",
+        "desire": "D3",
+        "label": "dispatch_local_only(provider=local)",
+        "utility": 64.65
+      },
+      "outcome": "COMPLETED",
+      "delivered": true,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=gcp-vertex)",
+          "status": "DROPPED",
+          "progress": "3/7"
+        },
+        {
+          "id": "I2",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=aws-bedrock)",
+          "status": "DROPPED",
+          "progress": "4/7"
+        },
+        {
+          "id": "I3",
+          "desire": "D3",
+          "label": "dispatch_local_only(provider=local)",
+          "status": "SUCCEEDED",
+          "progress": "7/7"
+        }
+      ],
+      "steps_executed": 14,
+      "cycles": 16,
+      "elapsed_ms": 70.213,
+      "step_time_ms": 62.123,
+      "transmissions": [
+        {
+          "provider": "local",
+          "residency": "LOCAL",
+          "ok": true,
+          "redacted": false,
+          "payload_sha256": "a827facdc4c9bbb1"
+        }
+      ],
+      "provider_attempts": 1,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 15,
+        "kept": 13,
+        "dropped": 2,
+        "suspended": 0,
+        "resumed": 0,
+        "failed": 0,
+        "belief_changes": 64,
+        "ignored_changes": 19
+      },
+      "ledger_records": 3,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [],
+      "expected": {
+        "initial": "allow_then_dispatch(provider=gcp-vertex)",
+        "final_plan": "dispatch_local_only(provider=local)",
+        "status": "COMPLETED"
+      },
+      "expectation_met": true,
+      "ablation": false
+    },
+    {
+      "scenario": "S5",
+      "title": "Indian data residency: provider region changes",
+      "commitment": "OPEN_MINDED",
+      "request_id": "req-s5",
+      "prompt_sha256": "724425188b6da1a1",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "redact_then_dispatch(provider=aws-bedrock)",
+        "utility": 77.2833
+      },
+      "disturbances": [
+        {
+          "label": "bedrock_region_change",
+          "cycle": 5,
+          "description": "AWS enables a cross-region inference profile: Bedrock now serves from us-east-1",
+          "trigger": "before step 'dispatch' on aws-bedrock"
+        }
+      ],
+      "shifts": [
+        {
+          "cycle": 5,
+          "at_ms": 8.094,
+          "dropped": "redact_then_dispatch(provider=aws-bedrock)",
+          "dropped_id": "I1",
+          "dropped_progress": "4/7",
+          "status": "DROPPED",
+          "before_step": "dispatch",
+          "reasons": [
+            "requires 'provider aws-bedrock residency allowed for this prompt (D2)' but believed prompt.categories=['aadhaar', 'email'], provider.aws-bedrock.residency=US"
+          ],
+          "trigger": [
+            {
+              "key": "provider.aws-bedrock.residency",
+              "old": "IN",
+              "new": "US",
+              "source": "aws-health:inference-profile",
+              "confidence": 0.97
+            }
+          ],
+          "adopted": "redact_then_dispatch(provider=azure-ai)",
+          "adopted_id": "I2",
+          "adopted_desire": "D3",
+          "reaction_ms": 0.788
+        }
+      ],
+      "suspensions": [],
+      "final_intention": {
+        "id": "I2",
+        "desire": "D3",
+        "label": "redact_then_dispatch(provider=azure-ai)",
+        "utility": 76.8417
+      },
+      "outcome": "COMPLETED",
+      "delivered": true,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "redact_then_dispatch(provider=aws-bedrock)",
+          "status": "DROPPED",
+          "progress": "4/7"
+        },
+        {
+          "id": "I2",
+          "desire": "D3",
+          "label": "redact_then_dispatch(provider=azure-ai)",
+          "status": "SUCCEEDED",
+          "progress": "7/7"
+        }
+      ],
+      "steps_executed": 11,
+      "cycles": 12,
+      "elapsed_ms": 37.651,
+      "step_time_ms": 31.845,
+      "transmissions": [
+        {
+          "provider": "azure-ai",
+          "residency": "IN",
+          "ok": true,
+          "redacted": true,
+          "payload_sha256": "df3aaae53411de19"
+        }
+      ],
+      "provider_attempts": 1,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 11,
+        "kept": 10,
+        "dropped": 1,
+        "suspended": 0,
+        "resumed": 0,
+        "failed": 0,
+        "belief_changes": 59,
+        "ignored_changes": 15
+      },
+      "ledger_records": 3,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [],
+      "expected": {
+        "initial": "redact_then_dispatch(provider=aws-bedrock)",
+        "final_plan": "redact_then_dispatch(provider=azure-ai)",
+        "status": "COMPLETED"
+      },
+      "expectation_met": true,
+      "ablation": false
+    },
+    {
+      "scenario": "S6",
+      "title": "Indian data residency: prompt correction reveals PAN",
+      "commitment": "OPEN_MINDED",
+      "request_id": "req-s6",
+      "prompt_sha256": "618051009b0ecd1f",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "disturbances": [
+        {
+          "label": "prompt_amended",
+          "cycle": 4,
+          "description": "user edits the prompt and adds the vendor PAN",
+          "trigger": "before step 'seal_dispatch_record' on gcp-vertex"
+        }
+      ],
+      "shifts": [
+        {
+          "cycle": 4,
+          "at_ms": 7.232,
+          "dropped": "allow_then_dispatch(provider=gcp-vertex)",
+          "dropped_id": "I1",
+          "dropped_progress": "3/7",
+          "status": "DROPPED",
+          "before_step": "seal_dispatch_record",
+          "reasons": [
+            "requires 'provider gcp-vertex residency allowed for this prompt (D2)' but believed prompt.categories=['pan'], provider.gcp-vertex.residency=US",
+            "requires 'prompt decision is ALLOW' but believed prompt.decision=REDACT"
+          ],
+          "trigger": [
+            {
+              "key": "prompt.sha256",
+              "old": "c4dd1efa692a94b1",
+              "new": "618051009b0ecd1f",
+              "source": "user:amendment",
+              "confidence": 1.0
+            },
+            {
+              "key": "prompt.categories",
+              "old": [],
+              "new": [
+                "pan"
+              ],
+              "source": "user:amendment",
+              "confidence": 1.0
+            },
+            {
+              "key": "prompt.decision",
+              "old": "ALLOW",
+              "new": "REDACT",
+              "source": "user:amendment",
+              "confidence": 1.0
+            }
+          ],
+          "adopted": "redact_then_dispatch(provider=aws-bedrock)",
+          "adopted_id": "I2",
+          "adopted_desire": "D3",
+          "reaction_ms": 0.911
+        }
+      ],
+      "suspensions": [],
+      "final_intention": {
+        "id": "I2",
+        "desire": "D3",
+        "label": "redact_then_dispatch(provider=aws-bedrock)",
+        "utility": 77.2833
+      },
+      "outcome": "COMPLETED",
+      "delivered": true,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=gcp-vertex)",
+          "status": "DROPPED",
+          "progress": "3/7"
+        },
+        {
+          "id": "I2",
+          "desire": "D3",
+          "label": "redact_then_dispatch(provider=aws-bedrock)",
+          "status": "SUCCEEDED",
+          "progress": "7/7"
+        }
+      ],
+      "steps_executed": 10,
+      "cycles": 11,
+      "elapsed_ms": 40.245,
+      "step_time_ms": 34.253,
+      "transmissions": [
+        {
+          "provider": "aws-bedrock",
+          "residency": "IN",
+          "ok": true,
+          "redacted": true,
+          "payload_sha256": "f478f3493d6044bb"
+        }
+      ],
+      "provider_attempts": 1,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 10,
+        "kept": 9,
+        "dropped": 1,
+        "suspended": 0,
+        "resumed": 0,
+        "failed": 0,
+        "belief_changes": 64,
+        "ignored_changes": 18
+      },
+      "ledger_records": 2,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [],
+      "expected": {
+        "initial": "allow_then_dispatch(provider=gcp-vertex)",
+        "final_plan": "redact_then_dispatch(provider=aws-bedrock)",
+        "status": "COMPLETED"
+      },
+      "expectation_met": true,
+      "ablation": false
+    },
+    {
+      "scenario": "S7",
+      "title": "Transient partial outage: suspend and resume",
+      "commitment": "OPEN_MINDED",
+      "request_id": "req-s7",
+      "prompt_sha256": "86e2ac20c9fd6478",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "disturbances": [
+        {
+          "label": "gcp_partial_outage",
+          "cycle": 5,
+          "description": "status feed reports GCP Vertex partial outage",
+          "trigger": "before step 'dispatch' on gcp-vertex"
+        },
+        {
+          "label": "gcp_recovered",
+          "cycle": 7,
+          "description": "status feed reports GCP Vertex operational again",
+          "trigger": "on idle cycle 2"
+        }
+      ],
+      "shifts": [],
+      "suspensions": [
+        {
+          "event": "SUSPEND",
+          "cycle": 5,
+          "t_ms": 8.109,
+          "intention": "I1",
+          "trigger": [
+            "provider.gcp-vertex.status"
+          ],
+          "msg": "I1 allow_then_dispatch(provider=gcp-vertex) suspended at dispatch: waiting: provider gcp-vertex is usable is UNCERTAIN"
+        },
+        {
+          "event": "RESUME",
+          "cycle": 7,
+          "t_ms": 29.15,
+          "intention": "I1",
+          "trigger": [
+            "provider.gcp-vertex.status"
+          ],
+          "msg": "I1 allow_then_dispatch(provider=gcp-vertex) resumed at dispatch (all conditions hold)"
+        }
+      ],
+      "final_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "outcome": "COMPLETED",
+      "delivered": true,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=gcp-vertex)",
+          "status": "SUCCEEDED",
+          "progress": "7/7"
+        }
+      ],
+      "steps_executed": 7,
+      "cycles": 9,
+      "elapsed_ms": 55.102,
+      "step_time_ms": 30.341,
+      "transmissions": [
+        {
+          "provider": "gcp-vertex",
+          "residency": "US",
+          "ok": true,
+          "redacted": false,
+          "payload_sha256": "86e2ac20c9fd6478"
+        }
+      ],
+      "provider_attempts": 1,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 9,
+        "kept": 6,
+        "dropped": 0,
+        "suspended": 1,
+        "resumed": 1,
+        "failed": 0,
+        "belief_changes": 55,
+        "ignored_changes": 10
+      },
+      "ledger_records": 2,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [],
+      "expected": {
+        "initial": "allow_then_dispatch(provider=gcp-vertex)",
+        "final_plan": "allow_then_dispatch(provider=gcp-vertex)",
+        "status": "COMPLETED"
+      },
+      "expectation_met": true,
+      "ablation": false
+    },
+    {
+      "scenario": "S8",
+      "title": "Review backlog fills up",
+      "commitment": "OPEN_MINDED",
+      "request_id": "req-s8",
+      "prompt_sha256": "d79fab493d9c2030",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "hold_for_review",
+        "utility": 60.0
+      },
+      "disturbances": [
+        {
+          "label": "review_burst",
+          "cycle": 1,
+          "description": "a burst of 25 internal-URL prompts fills the review queue",
+          "trigger": "before step 'open_review_ticket'"
+        }
+      ],
+      "shifts": [
+        {
+          "cycle": 1,
+          "at_ms": 6.346,
+          "dropped": "hold_for_review",
+          "dropped_id": "I1",
+          "dropped_progress": "0/2",
+          "status": "DROPPED",
+          "before_step": "open_review_ticket",
+          "reasons": [
+            "requires 'review backlog has capacity (D5)' but believed review.limit=25, review.queue_depth=25"
+          ],
+          "trigger": [
+            {
+              "key": "review.queue_depth",
+              "old": 0,
+              "new": 25,
+              "source": "engine:review_monitor",
+              "confidence": 1.0
+            }
+          ],
+          "adopted": "decline_review_overflow",
+          "adopted_id": "I2",
+          "adopted_desire": "D5",
+          "reaction_ms": 0.522
+        }
+      ],
+      "suspensions": [],
+      "final_intention": {
+        "id": "I2",
+        "desire": "D5",
+        "label": "decline_review_overflow",
+        "utility": 40.0
+      },
+      "outcome": "DEFERRED",
+      "delivered": false,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "hold_for_review",
+          "status": "DROPPED",
+          "progress": "0/2"
+        },
+        {
+          "id": "I2",
+          "desire": "D5",
+          "label": "decline_review_overflow",
+          "status": "SUCCEEDED",
+          "progress": "2/2"
+        }
+      ],
+      "steps_executed": 2,
+      "cycles": 3,
+      "elapsed_ms": 2.653,
+      "step_time_ms": 0.071,
+      "transmissions": [],
+      "provider_attempts": 0,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 2,
+        "kept": 1,
+        "dropped": 1,
+        "suspended": 0,
+        "resumed": 0,
+        "failed": 0,
+        "belief_changes": 41,
+        "ignored_changes": 0
+      },
+      "ledger_records": 1,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [],
+      "expected": {
+        "initial": "hold_for_review",
+        "final_plan": "decline_review_overflow",
+        "status": "DEFERRED"
+      },
+      "expectation_met": true,
+      "ablation": false
+    },
+    {
+      "scenario": "S1-BLIND",
+      "title": "Provider outage mid-dispatch (blind commitment)",
+      "commitment": "BLIND",
+      "request_id": "req-s1-blind",
+      "prompt_sha256": "cc9ec8198d585d36",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "disturbances": [
+        {
+          "label": "gcp_major_outage",
+          "cycle": 4,
+          "description": "status feed reports GCP Vertex AI us-central1 major outage",
+          "trigger": "before step 'seal_dispatch_record' on gcp-vertex"
+        }
+      ],
+      "shifts": [
+        {
+          "cycle": 5,
+          "at_ms": 7.145,
+          "dropped": "allow_then_dispatch(provider=gcp-vertex)",
+          "dropped_id": "I1",
+          "dropped_progress": "4/7",
+          "status": "FAILED",
+          "before_step": "dispatch",
+          "reasons": [
+            "step dispatch failed: interlock: gcp-vertex is believed major_outage; nothing transmitted"
+          ],
+          "trigger": [
+            {
+              "key": "step:dispatch",
+              "old": null,
+              "new": "FAILED",
+              "source": "self",
+              "confidence": null
+            }
+          ],
+          "adopted": "allow_then_dispatch(provider=aws-bedrock)",
+          "adopted_id": "I2",
+          "adopted_desire": "D3",
+          "reaction_ms": 0.762
+        }
+      ],
+      "suspensions": [],
+      "final_intention": {
+        "id": "I2",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=aws-bedrock)",
+        "utility": 77.2833
+      },
+      "outcome": "COMPLETED",
+      "delivered": true,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=gcp-vertex)",
+          "status": "FAILED",
+          "progress": "4/7"
+        },
+        {
+          "id": "I2",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=aws-bedrock)",
+          "status": "SUCCEEDED",
+          "progress": "7/7"
+        }
+      ],
+      "steps_executed": 12,
+      "cycles": 12,
+      "elapsed_ms": 37.622,
+      "step_time_ms": 34.255,
+      "transmissions": [
+        {
+          "provider": "aws-bedrock",
+          "residency": "IN",
+          "ok": true,
+          "redacted": false,
+          "payload_sha256": "cc9ec8198d585d36"
+        }
+      ],
+      "provider_attempts": 1,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 0,
+        "kept": 0,
+        "dropped": 0,
+        "suspended": 0,
+        "resumed": 0,
+        "failed": 1,
+        "belief_changes": 58,
+        "ignored_changes": 0
+      },
+      "ledger_records": 3,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [],
+      "expected": {
+        "initial": "allow_then_dispatch(provider=gcp-vertex)",
+        "final_plan": "allow_then_dispatch(provider=aws-bedrock)",
+        "status": "COMPLETED"
+      },
+      "expectation_met": true,
+      "ablation": true
+    },
+    {
+      "scenario": "S2-BLIND",
+      "title": "Emergency lockdown mid-execution (blind commitment)",
+      "commitment": "BLIND",
+      "request_id": "req-s2-blind",
+      "prompt_sha256": "5e182e381a7e57c1",
+      "initial_intention": {
+        "id": "I1",
+        "desire": "D3",
+        "label": "allow_then_dispatch(provider=gcp-vertex)",
+        "utility": 77.9333
+      },
+      "disturbances": [
+        {
+          "label": "emergency_lockdown",
+          "cycle": 5,
+          "description": "security operations declares an emergency lockdown",
+          "trigger": "before step 'dispatch'"
+        }
+      ],
+      "shifts": [
+        {
+          "cycle": 5,
+          "at_ms": 6.366,
+          "dropped": "allow_then_dispatch(provider=gcp-vertex)",
+          "dropped_id": "I1",
+          "dropped_progress": "4/7",
+          "status": "FAILED",
+          "before_step": "dispatch",
+          "reasons": [
+            "step dispatch failed: interlock: emergency lockdown is active; nothing transmitted"
+          ],
+          "trigger": [
+            {
+              "key": "step:dispatch",
+              "old": null,
+              "new": "FAILED",
+              "source": "self",
+              "confidence": null
+            }
+          ],
+          "adopted": "enforce_lockdown_block",
+          "adopted_id": "I2",
+          "adopted_desire": "D1",
+          "reaction_ms": 0.302
+        }
+      ],
+      "suspensions": [],
+      "final_intention": {
+        "id": "I2",
+        "desire": "D1",
+        "label": "enforce_lockdown_block",
+        "utility": 100.0
+      },
+      "outcome": "BLOCKED",
+      "delivered": false,
+      "intentions": [
+        {
+          "id": "I1",
+          "desire": "D3",
+          "label": "allow_then_dispatch(provider=gcp-vertex)",
+          "status": "FAILED",
+          "progress": "4/7"
+        },
+        {
+          "id": "I2",
+          "desire": "D1",
+          "label": "enforce_lockdown_block",
+          "status": "SUCCEEDED",
+          "progress": "3/3"
+        }
+      ],
+      "steps_executed": 8,
+      "cycles": 8,
+      "elapsed_ms": 2.74,
+      "step_time_ms": 0.546,
+      "transmissions": [],
+      "provider_attempts": 0,
+      "failed_attempts": 0,
+      "reconsideration": {
+        "evaluated": 0,
+        "kept": 0,
+        "dropped": 0,
+        "suspended": 0,
+        "resumed": 0,
+        "failed": 1,
+        "belief_changes": 50,
+        "ignored_changes": 0
+      },
+      "ledger_records": 2,
+      "ledger_verified": true,
+      "advice": [],
+      "alerts": [],
+      "expected": {
+        "initial": "allow_then_dispatch(provider=gcp-vertex)",
+        "final_plan": "enforce_lockdown_block",
+        "status": "BLOCKED"
+      },
+      "expectation_met": true,
+      "ablation": true
+    }
+  ]
+}

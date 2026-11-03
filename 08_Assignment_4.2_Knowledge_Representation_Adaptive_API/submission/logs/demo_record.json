@@ -1,0 +1,2522 @@
+{
+ "started_at": "2026-11-02T21:42:14+00:00",
+ "mode": "live",
+ "phase_a": {
+  "summary": {
+   "version": "4.2.0",
+   "triples": 1170,
+   "subjects": 198,
+   "predicates": 65,
+   "classes": 29,
+   "by_asserted": 1027,
+   "by_inferred": 143,
+   "providers": 4,
+   "regions": 4,
+   "jurisdictions": 4,
+   "data_categories": 25,
+   "detector_families": 12,
+   "legal_instruments": 4,
+   "policy_rules": 6,
+   "threat_classes": 6,
+   "live_sources": 6,
+   "watched_vendors": 14
+  },
+  "plans": {
+   "P1 clean": {
+    "label": "P1 clean",
+    "plan_version": 1,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "gcp-vertex",
+    "utility": 76.225,
+    "ranking": [
+     "gcp-vertex",
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 76.225,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [],
+    "plan_ms": 0.348
+   },
+   "P2 email": {
+    "label": "P2 email",
+    "plan_version": 1,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "email"
+    ],
+    "action": "send sanitised text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "gcp-vertex",
+    "utility": 76.225,
+    "ranking": [
+     "gcp-vertex",
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 76.225,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [],
+    "plan_ms": 0.192
+   },
+   "P3 Aadhaar": {
+    "label": "P3 Aadhaar",
+    "plan_version": 1,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "aadhaar"
+    ],
+    "action": "send sanitised text",
+    "residency": [
+     "IN",
+     "LOCAL"
+    ],
+    "residency_chain": [
+     "cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": false,
+      "utility": 76.225,
+      "reasons": [
+       "RESIDENCY_NOT_ALLOWED: US"
+      ]
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "residency derived from ontology: cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "plan_ms": 0.26
+   },
+   "P4 cloud ARN": {
+    "label": "P4 cloud ARN",
+    "plan_version": 1,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "gcp-vertex",
+    "utility": 76.225,
+    "ranking": [
+     "gcp-vertex",
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 76.225,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [],
+    "plan_ms": 0.132
+   },
+   "P5 40 KB log": {
+    "label": "P5 40 KB log",
+    "plan_version": 1,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "gcp-vertex",
+    "utility": 76.225,
+    "ranking": [
+     "gcp-vertex",
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 76.225,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [],
+    "plan_ms": 18.483
+   }
+  },
+  "context": {
+   "version": 1,
+   "trigger": "initial: ontology defaults",
+   "posture": "LOW",
+   "max_cost_per_1k_usd": 6.0,
+   "allowed_residency": [
+    "IN",
+    "US",
+    "EU",
+    "LOCAL"
+   ],
+   "max_prompt_bytes": 65536,
+   "custom_redaction_patterns": 0,
+   "provider_status": {
+    "aws-bedrock": "operational",
+    "azure-ai": "operational",
+    "gcp-vertex": "operational",
+    "local": "operational"
+   },
+   "excluded": [],
+   "notes": []
+  }
+ },
+ "phase_b": {
+  "endpoints": [
+   {
+    "feed": "gcp_status",
+    "url": "https://status.cloud.google.com/incidents.json",
+    "doc": "https://status.cloud.google.com/",
+    "mode": "live",
+    "http_status": 200,
+    "bytes": 251117,
+    "latency_ms": 426.8,
+    "parse_ms": 5.63,
+    "sha256_stored": "5e979a2555c2cf1adacb3da57cf2e35ee54bc7ff72ea6b436dba8db507c43f9d",
+    "original_sha256": "5e979a2555c2cf1adacb3da57cf2e35ee54bc7ff72ea6b436dba8db507c43f9d",
+    "final_url": "https://status.cloud.google.com/incidents.json",
+    "stale": false,
+    "fetched_at": "2026-11-02T21:42:15.104+00:00",
+    "facts_extracted": 1,
+    "triples_added": 0,
+    "property_changes": 2,
+    "items_seen": 8,
+    "items_relevant": 0,
+    "signals": {
+     "provider_status": {
+      "gcp-vertex": {
+       "status": "operational",
+       "confidence": 0.8,
+       "incidents": [],
+       "evidence": "no active incident in feed"
+      }
+     },
+     "recent_incidents": {
+      "gcp-vertex": 0
+     },
+     "active_total": 0,
+     "recent_total": 2,
+     "regions_seen": [
+      "europe-west2",
+      "us-central1"
+     ]
+    },
+    "snapshot": "data/snapshots/gcp_status.derived.json",
+    "warnings": []
+   },
+   {
+    "feed": "azure_status",
+    "url": "https://azure.status.microsoft/en-us/status/feed/",
+    "doc": "https://azure.status.microsoft/en-us/status/",
+    "mode": "live",
+    "http_status": 200,
+    "bytes": 577,
+    "latency_ms": 275.1,
+    "parse_ms": 0.31,
+    "sha256_stored": "439d001adcddd9e4b18b6daa63d4b5dfcba93f1463708b63832343812956939c",
+    "original_sha256": "439d001adcddd9e4b18b6daa63d4b5dfcba93f1463708b63832343812956939c",
+    "final_url": "https://azure.status.microsoft/en-us/status/feed/",
+    "stale": false,
+    "fetched_at": "2026-11-02T21:42:15.397+00:00",
+    "facts_extracted": 1,
+    "triples_added": 0,
+    "property_changes": 2,
+    "items_seen": 0,
+    "items_relevant": 0,
+    "signals": {
+     "provider_status": {
+      "azure-ai": {
+       "status": "operational",
+       "confidence": 0.8,
+       "incidents": [],
+       "evidence": "no active incident in feed"
+      }
+     },
+     "recent_incidents": {
+      "azure-ai": 0
+     },
+     "active_total": 0,
+     "recent_total": 0,
+     "regions_seen": []
+    },
+    "snapshot": "data/snapshots/azure_status.derived.xml",
+    "warnings": []
+   },
+   {
+    "feed": "aws_health",
+    "url": "https://health.aws.amazon.com/public/currentevents",
+    "doc": "https://health.aws.amazon.com/health/status",
+    "mode": "live",
+    "http_status": 200,
+    "bytes": 231276,
+    "latency_ms": 660.2,
+    "parse_ms": 5.27,
+    "sha256_stored": "ead64c82685dba23d0f7224cd5a4ce3d11c6900f34ed594c76c832749ab11d90",
+    "original_sha256": "ead64c82685dba23d0f7224cd5a4ce3d11c6900f34ed594c76c832749ab11d90",
+    "final_url": "https://health.aws.amazon.com/public/currentevents",
+    "stale": false,
+    "fetched_at": "2026-11-02T21:42:16.063+00:00",
+    "facts_extracted": 11,
+    "triples_added": 10,
+    "property_changes": 2,
+    "items_seen": 2,
+    "items_relevant": 0,
+    "signals": {
+     "provider_status": {
+      "aws-bedrock": {
+       "status": "operational",
+       "confidence": 0.8,
+       "incidents": [],
+       "evidence": "no active incident in feed"
+      }
+     },
+     "recent_incidents": {
+      "aws-bedrock": 0
+     },
+     "active_total": 2,
+     "recent_total": 0,
+     "regions_seen": [
+      "me-central-1",
+      "me-south-1"
+     ]
+    },
+    "snapshot": "data/snapshots/aws_health.derived.json",
+    "warnings": []
+   },
+   {
+    "feed": "cisa_kev",
+    "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+    "doc": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+    "mode": "live",
+    "http_status": 200,
+    "bytes": 1826755,
+    "latency_ms": 589.1,
+    "parse_ms": 11.37,
+    "sha256_stored": "3aa9cf3c01f116362a29d111702979175453c425e3733bde80fc4f6f8e2294e5",
+    "original_sha256": "3aa9cf3c01f116362a29d111702979175453c425e3733bde80fc4f6f8e2294e5",
+    "final_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+    "stale": false,
+    "fetched_at": "2026-11-02T21:42:16.667+00:00",
+    "facts_extracted": 19,
+    "triples_added": 19,
+    "property_changes": 11,
+    "items_seen": 1766,
+    "items_relevant": 3,
+    "signals": {
+     "catalog_version": "2026.10.30",
+     "catalog_count": 1766,
+     "as_of": "2026-11-02",
+     "recent": 33,
+     "baseline_monthly_median": 23.5,
+     "ratio": 1.404,
+     "relevant_hits": 3,
+     "ai_ml_hits": 0,
+     "ransomware_hits": 0,
+     "relevant": [
+      {
+       "cve": "CVE-2026-46300",
+       "vendor": "Linux",
+       "product": "Kernel",
+       "date_added": "2026-10-28",
+       "ransomware": "Unknown"
+      },
+      {
+       "cve": "CVE-2026-111497",
+       "vendor": "Google",
+       "product": "Brotli",
+       "date_added": "2026-10-27",
+       "ransomware": "Unknown"
+      },
+      {
+       "cve": "CVE-2026-96951",
+       "vendor": "Microsoft",
+       "product": "Windows",
+       "date_added": "2026-10-13",
+       "ransomware": "Unknown"
+      }
+     ],
+     "ai_ml": [],
+     "top_vendors_recent": [
+      [
+       "Plex",
+       4
+      ],
+      [
+       "Ivanti",
+       3
+      ],
+      [
+       "Ahsay",
+       2
+      ],
+      [
+       "Cisco",
+       2
+      ],
+      [
+       "PHP Group",
+       2
+      ],
+      [
+       "Adobe",
+       1
+      ]
+     ]
+    },
+    "snapshot": "data/snapshots/cisa_kev.derived.json",
+    "warnings": []
+   },
+   {
+    "feed": "fx_usd_inr",
+    "url": "https://api.frankfurter.dev/v1/latest?from=USD&to=INR",
+    "doc": "https://frankfurter.dev/",
+    "mode": "live",
+    "http_status": 200,
+    "bytes": 69,
+    "latency_ms": 161.9,
+    "parse_ms": 0.11,
+    "sha256_stored": "750d255e986c5698b542d9d69877f77a730a05ff88fdb8c46388e5e1420d8179",
+    "original_sha256": "750d255e986c5698b542d9d69877f77a730a05ff88fdb8c46388e5e1420d8179",
+    "final_url": "https://api.frankfurter.dev/v1/latest?from=USD&to=INR",
+    "stale": false,
+    "fetched_at": "2026-11-02T21:42:16.885+00:00",
+    "facts_extracted": 2,
+    "triples_added": 2,
+    "property_changes": 3,
+    "items_seen": 1,
+    "items_relevant": 1,
+    "signals": {
+     "pair": "USD/INR",
+     "rate": 94.91,
+     "rate_date": "2026-11-02"
+    },
+    "snapshot": "data/snapshots/fx_usd_inr.json",
+    "warnings": []
+   },
+   {
+    "feed": "aiid_rss",
+    "url": "https://incidentdatabase.ai/rss.xml",
+    "doc": "https://incidentdatabase.ai/",
+    "mode": "live",
+    "http_status": 200,
+    "bytes": 88482,
+    "latency_ms": 298.3,
+    "parse_ms": 10.01,
+    "sha256_stored": "6e40f9f733b405cb5f9f36118ebb0536533ffc8ee8c8a78bda217279c4e0bf45",
+    "original_sha256": "6e40f9f733b405cb5f9f36118ebb0536533ffc8ee8c8a78bda217279c4e0bf45",
+    "final_url": "https://incidentdatabase.ai/rss.xml",
+    "stale": false,
+    "fetched_at": "2026-11-02T21:42:17.195+00:00",
+    "facts_extracted": 72,
+    "triples_added": 72,
+    "property_changes": 7,
+    "items_seen": 100,
+    "items_relevant": 18,
+    "signals": {
+     "items_in_window": 100,
+     "privacy_incidents": 11,
+     "intrusion_incidents": 10,
+     "window_days": 30,
+     "covered_days": 18.9,
+     "privacy_per_day": 0.5819,
+     "intrusion_per_day": 0.529
+    },
+    "snapshot": "data/snapshots/aiid_rss.derived.xml",
+    "warnings": []
+   }
+  ],
+  "properties": {
+   "fx.usd_inr": 94.91,
+   "policy.custom_redaction_patterns": [
+    "[a-z0-9-]+\\.[a-z0-9-]+\\.svc\\.cluster\\.local",
+    "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:[A-Za-z0-9/_.-]+"
+   ],
+   "policy.lockdown_recommended": false,
+   "policy.max_prompt_bytes": 32768,
+   "provider.aws-bedrock.recent_incidents": 0,
+   "provider.aws-bedrock.status": "operational",
+   "provider.azure-ai.recent_incidents": 0,
+   "provider.azure-ai.status": "operational",
+   "provider.gcp-vertex.recent_incidents": 0,
+   "provider.gcp-vertex.status": "operational",
+   "router.budget_inr_per_1k": 300.0,
+   "router.max_cost_per_1k_usd": 3.1609,
+   "router.restrict_all_traffic_to": [],
+   "threat.aiid.privacy_incidents": 11,
+   "threat.aiid.privacy_per_day": 0.5819,
+   "threat.kev.ai_ml_hits": 0,
+   "threat.kev.ransomware_hits": 0,
+   "threat.kev.ratio": 1.404,
+   "threat.kev.relevant_hits": 3,
+   "threat.posture": "ELEVATED",
+   "threat.posture_reason": "ai_incidents: aiid.privacy_per_day=0.5819 >= 0.5",
+   "threat.posture_signals": [
+    "ai_incidents"
+   ]
+  },
+  "context": {
+   "version": 28,
+   "trigger": "policy.custom_redaction_patterns: () -> ('[a-z0-9-]+\\\\.[a-z0-9-]+\\\\.svc\\\\.cluster\\\\.local', 'arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:[A-Za-z0-9/_.-]+') (derived:cm:posture/ELEVATED)",
+   "posture": "ELEVATED",
+   "max_cost_per_1k_usd": 3.1609,
+   "allowed_residency": [
+    "IN",
+    "US",
+    "EU",
+    "LOCAL"
+   ],
+   "max_prompt_bytes": 32768,
+   "custom_redaction_patterns": 2,
+   "provider_status": {
+    "aws-bedrock": "operational",
+    "azure-ai": "operational",
+    "gcp-vertex": "operational",
+    "local": "operational"
+   },
+   "excluded": [],
+   "notes": [
+    "budget: INR 300.0 per 1k / 94.91 INR per USD = USD 3.1609 per 1k"
+   ]
+  }
+ },
+ "phase_c": {
+  "plans": {
+   "P1 clean": {
+    "label": "P1 clean",
+    "plan_version": 28,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "local",
+    "utility": 69.7363,
+    "ranking": [
+     "local",
+     "gcp-vertex",
+     "aws-bedrock"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 64.6377,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 63.05,
+      "reasons": [
+       "OVER_BUDGET: 3.30 > 3.16"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 67.9916,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 69.7363,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 3.1609,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 32768,
+     "custom_patterns": 2
+    },
+    "posture": "ELEVATED",
+    "notes": [
+     "budget: INR 300.0 per 1k / 94.91 INR per USD = USD 3.1609 per 1k"
+    ],
+    "plan_ms": 0.325
+   },
+   "P2 email": {
+    "label": "P2 email",
+    "plan_version": 28,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "email"
+    ],
+    "action": "send sanitised text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "local",
+    "utility": 69.7363,
+    "ranking": [
+     "local",
+     "gcp-vertex",
+     "aws-bedrock"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 64.6377,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 63.05,
+      "reasons": [
+       "OVER_BUDGET: 3.30 > 3.16"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 67.9916,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 69.7363,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 3.1609,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 32768,
+     "custom_patterns": 2
+    },
+    "posture": "ELEVATED",
+    "notes": [
+     "budget: INR 300.0 per 1k / 94.91 INR per USD = USD 3.1609 per 1k"
+    ],
+    "plan_ms": 0.348
+   },
+   "P3 Aadhaar": {
+    "label": "P3 Aadhaar",
+    "plan_version": 28,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "aadhaar"
+    ],
+    "action": "send sanitised text",
+    "residency": [
+     "IN",
+     "LOCAL"
+    ],
+    "residency_chain": [
+     "cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "route_status": "SELECTED",
+    "selected": "local",
+    "utility": 69.7363,
+    "ranking": [
+     "local",
+     "aws-bedrock"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 64.6377,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 63.05,
+      "reasons": [
+       "OVER_BUDGET: 3.30 > 3.16"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": false,
+      "utility": 67.9916,
+      "reasons": [
+       "RESIDENCY_NOT_ALLOWED: US"
+      ]
+     },
+     "local": {
+      "feasible": true,
+      "utility": 69.7363,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 3.1609,
+     "allowed_residency": [
+      "IN",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 32768,
+     "custom_patterns": 2
+    },
+    "posture": "ELEVATED",
+    "notes": [
+     "budget: INR 300.0 per 1k / 94.91 INR per USD = USD 3.1609 per 1k",
+     "residency derived from ontology: cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "plan_ms": 0.318
+   },
+   "P4 cloud ARN": {
+    "label": "P4 cloud ARN",
+    "plan_version": 28,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "custom_redaction"
+    ],
+    "action": "send sanitised text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "local",
+    "utility": 69.7363,
+    "ranking": [
+     "local",
+     "gcp-vertex",
+     "aws-bedrock"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 64.6377,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 63.05,
+      "reasons": [
+       "OVER_BUDGET: 3.30 > 3.16"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 67.9916,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 69.7363,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 3.1609,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 32768,
+     "custom_patterns": 2
+    },
+    "posture": "ELEVATED",
+    "notes": [
+     "budget: INR 300.0 per 1k / 94.91 INR per USD = USD 3.1609 per 1k"
+    ],
+    "plan_ms": 0.32
+   },
+   "P5 40 KB log": {
+    "label": "P5 40 KB log",
+    "plan_version": 28,
+    "decision": "BLOCK",
+    "reasons": [
+     "R5: payload exceeds configured byte limit"
+    ],
+    "categories": [],
+    "action": "do not transmit",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "NOT_ROUTED",
+    "selected": null,
+    "utility": null,
+    "ranking": [],
+    "evaluations": {},
+    "constraints": {
+     "max_cost_per_1k_usd": 3.1609,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 32768,
+     "custom_patterns": 2
+    },
+    "posture": "ELEVATED",
+    "notes": [
+     "budget: INR 300.0 per 1k / 94.91 INR per USD = USD 3.1609 per 1k"
+    ],
+    "plan_ms": 0.061
+   }
+  },
+  "diff": [
+   {
+    "prompt": "P1 clean",
+    "before": "ALLOW -> gcp-vertex",
+    "after": "ALLOW -> local",
+    "changed": true,
+    "why": "budget USD 6.00->3.16; gcp-vertex utility 76.22->67.99; local now best (U=69.74)",
+    "utility_before": 76.225,
+    "utility_after": 69.7363
+   },
+   {
+    "prompt": "P2 email",
+    "before": "REDACT -> gcp-vertex",
+    "after": "REDACT -> local",
+    "changed": true,
+    "why": "budget USD 6.00->3.16; gcp-vertex utility 76.22->67.99; local now best (U=69.74)",
+    "utility_before": 76.225,
+    "utility_after": 69.7363
+   },
+   {
+    "prompt": "P3 Aadhaar",
+    "before": "REDACT -> aws-bedrock",
+    "after": "REDACT -> local",
+    "changed": true,
+    "why": "budget USD 6.00->3.16; aws-bedrock utility 75.12->64.64; local now best (U=69.74)",
+    "utility_before": 75.1167,
+    "utility_after": 69.7363
+   },
+   {
+    "prompt": "P4 cloud ARN",
+    "before": "ALLOW -> gcp-vertex",
+    "after": "REDACT -> local",
+    "changed": true,
+    "why": "policy ALLOW->REDACT (R2: PII or custom redaction pattern detected; sanitize before transmission); budget USD 6.00->3.16; gcp-vertex utility 76.22->67.99; local now best (U=69.74)",
+    "utility_before": 76.225,
+    "utility_after": 69.7363
+   },
+   {
+    "prompt": "P5 40 KB log",
+    "before": "ALLOW -> gcp-vertex",
+    "after": "BLOCK -> NOT_ROUTED",
+    "changed": true,
+    "why": "policy ALLOW->BLOCK (R5: payload exceeds configured byte limit); budget USD 6.00->3.16",
+    "utility_before": 76.225,
+    "utility_after": null
+   }
+  ],
+  "context": {
+   "version": 28,
+   "trigger": "policy.custom_redaction_patterns: () -> ('[a-z0-9-]+\\\\.[a-z0-9-]+\\\\.svc\\\\.cluster\\\\.local', 'arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:[A-Za-z0-9/_.-]+') (derived:cm:posture/ELEVATED)",
+   "posture": "ELEVATED",
+   "max_cost_per_1k_usd": 3.1609,
+   "allowed_residency": [
+    "IN",
+    "US",
+    "EU",
+    "LOCAL"
+   ],
+   "max_prompt_bytes": 32768,
+   "custom_redaction_patterns": 2,
+   "provider_status": {
+    "aws-bedrock": "operational",
+    "azure-ai": "operational",
+    "gcp-vertex": "operational",
+    "local": "operational"
+   },
+   "excluded": [],
+   "notes": [
+    "budget: INR 300.0 per 1k / 94.91 INR per USD = USD 3.1609 per 1k"
+   ]
+  },
+  "posture_attribution": {
+   "all feeds": "ELEVATED",
+   "without cisa_kev": "ELEVATED",
+   "cisa_kev alone": "LOW",
+   "without aiid_rss": "LOW",
+   "aiid_rss alone": "ELEVATED"
+  },
+  "plan_attribution": {
+   "gcp_status": {
+    "posture_without": "ELEVATED",
+    "plans_caused": []
+   },
+   "azure_status": {
+    "posture_without": "ELEVATED",
+    "plans_caused": []
+   },
+   "aws_health": {
+    "posture_without": "ELEVATED",
+    "plans_caused": []
+   },
+   "cisa_kev": {
+    "posture_without": "ELEVATED",
+    "plans_caused": []
+   },
+   "fx_usd_inr": {
+    "posture_without": "ELEVATED",
+    "plans_caused": [
+     "P1 ALLOW->ALLOW gcp-vertex->local",
+     "P2 REDACT->REDACT gcp-vertex->local",
+     "P3 REDACT->REDACT aws-bedrock->local",
+     "P4 REDACT->REDACT gcp-vertex->local"
+    ]
+   },
+   "aiid_rss": {
+    "posture_without": "LOW",
+    "plans_caused": [
+     "P4 ALLOW->REDACT",
+     "P5 ALLOW->BLOCK local->-"
+    ]
+   }
+  },
+  "posture_reason": "ai_incidents: aiid.privacy_per_day=0.5819 >= 0.5"
+ },
+ "phase_d": {
+  "as_of": "2026-02-27T13:00:00+00:00",
+  "baseline": {
+   "P1 clean": {
+    "label": "P1 clean",
+    "plan_version": 1,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "gcp-vertex",
+    "utility": 76.225,
+    "ranking": [
+     "gcp-vertex",
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 76.225,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [],
+    "plan_ms": 0.316
+   },
+   "P2 email": {
+    "label": "P2 email",
+    "plan_version": 1,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "email"
+    ],
+    "action": "send sanitised text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "gcp-vertex",
+    "utility": 76.225,
+    "ranking": [
+     "gcp-vertex",
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 76.225,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [],
+    "plan_ms": 0.213
+   },
+   "P3 Aadhaar": {
+    "label": "P3 Aadhaar",
+    "plan_version": 1,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "aadhaar"
+    ],
+    "action": "send sanitised text",
+    "residency": [
+     "IN",
+     "LOCAL"
+    ],
+    "residency_chain": [
+     "cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": false,
+      "utility": 76.225,
+      "reasons": [
+       "RESIDENCY_NOT_ALLOWED: US"
+      ]
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "residency derived from ontology: cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "plan_ms": 0.255
+   },
+   "P4 cloud ARN": {
+    "label": "P4 cloud ARN",
+    "plan_version": 1,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "gcp-vertex",
+    "utility": 76.225,
+    "ranking": [
+     "gcp-vertex",
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 76.225,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [],
+    "plan_ms": 0.166
+   },
+   "P5 40 KB log": {
+    "label": "P5 40 KB log",
+    "plan_version": 1,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "gcp-vertex",
+    "utility": 76.225,
+    "ranking": [
+     "gcp-vertex",
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 76.225,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [],
+    "plan_ms": 19.923
+   }
+  },
+  "d1": {
+   "P1 clean": {
+    "label": "P1 clean",
+    "plan_version": 7,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "local",
+     "gcp-vertex"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 74.3,
+      "reasons": [
+       "DISABLED"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 71.1583,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "azure-ai: status 'outage' excludes the provider",
+     "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5"
+    ],
+    "plan_ms": 0.274
+   },
+   "P2 email": {
+    "label": "P2 email",
+    "plan_version": 7,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "email"
+    ],
+    "action": "send sanitised text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "local",
+     "gcp-vertex"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 74.3,
+      "reasons": [
+       "DISABLED"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 71.1583,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "azure-ai: status 'outage' excludes the provider",
+     "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5"
+    ],
+    "plan_ms": 0.23
+   },
+   "P3 Aadhaar": {
+    "label": "P3 Aadhaar",
+    "plan_version": 7,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "aadhaar"
+    ],
+    "action": "send sanitised text",
+    "residency": [
+     "IN",
+     "LOCAL"
+    ],
+    "residency_chain": [
+     "cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 74.3,
+      "reasons": [
+       "DISABLED"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": false,
+      "utility": 71.1583,
+      "reasons": [
+       "RESIDENCY_NOT_ALLOWED: US"
+      ]
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "azure-ai: status 'outage' excludes the provider",
+     "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5",
+     "residency derived from ontology: cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "plan_ms": 0.317
+   },
+   "P4 cloud ARN": {
+    "label": "P4 cloud ARN",
+    "plan_version": 7,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "local",
+     "gcp-vertex"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 74.3,
+      "reasons": [
+       "DISABLED"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 71.1583,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "azure-ai: status 'outage' excludes the provider",
+     "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5"
+    ],
+    "plan_ms": 0.181
+   },
+   "P5 40 KB log": {
+    "label": "P5 40 KB log",
+    "plan_version": 7,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "local",
+     "gcp-vertex"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 74.3,
+      "reasons": [
+       "DISABLED"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 71.1583,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "azure-ai: status 'outage' excludes the provider",
+     "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5"
+    ],
+    "plan_ms": 19.693
+   }
+  },
+  "d2": {
+   "P1 clean": {
+    "label": "P1 clean",
+    "plan_version": 20,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "local",
+     "gcp-vertex"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 74.3,
+      "reasons": [
+       "DISABLED"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 71.1583,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "azure-ai: status 'outage' excludes the provider",
+     "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5"
+    ],
+    "plan_ms": 0.301
+   },
+   "P2 email": {
+    "label": "P2 email",
+    "plan_version": 20,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "email"
+    ],
+    "action": "send sanitised text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "local",
+     "gcp-vertex"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 74.3,
+      "reasons": [
+       "DISABLED"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 71.1583,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "azure-ai: status 'outage' excludes the provider",
+     "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5"
+    ],
+    "plan_ms": 0.237
+   },
+   "P3 Aadhaar": {
+    "label": "P3 Aadhaar",
+    "plan_version": 20,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "aadhaar"
+    ],
+    "action": "send sanitised text",
+    "residency": [
+     "IN",
+     "LOCAL"
+    ],
+    "residency_chain": [
+     "cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 74.3,
+      "reasons": [
+       "DISABLED"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": false,
+      "utility": 71.1583,
+      "reasons": [
+       "RESIDENCY_NOT_ALLOWED: US"
+      ]
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "azure-ai: status 'outage' excludes the provider",
+     "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5",
+     "residency derived from ontology: cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "plan_ms": 0.277
+   },
+   "P4 cloud ARN": {
+    "label": "P4 cloud ARN",
+    "plan_version": 20,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "local",
+     "gcp-vertex"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 74.3,
+      "reasons": [
+       "DISABLED"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 71.1583,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "azure-ai: status 'outage' excludes the provider",
+     "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5"
+    ],
+    "plan_ms": 0.239
+   },
+   "P5 40 KB log": {
+    "label": "P5 40 KB log",
+    "plan_version": 20,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "local",
+     "gcp-vertex"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": false,
+      "utility": 74.3,
+      "reasons": [
+       "DISABLED"
+      ]
+     },
+     "gcp-vertex": {
+      "feasible": true,
+      "utility": 71.1583,
+      "reasons": []
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "US",
+      "EU",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 65536,
+     "custom_patterns": 0
+    },
+    "posture": "LOW",
+    "notes": [
+     "azure-ai: status 'outage' excludes the provider",
+     "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5"
+    ],
+    "plan_ms": 19.619
+   }
+  },
+  "diff_d1": [
+   {
+    "prompt": "P1 clean",
+    "before": "ALLOW -> gcp-vertex",
+    "after": "ALLOW -> aws-bedrock",
+    "changed": true,
+    "why": "gcp-vertex utility 76.22->71.16; aws-bedrock now best (U=75.12)",
+    "utility_before": 76.225,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P2 email",
+    "before": "REDACT -> gcp-vertex",
+    "after": "REDACT -> aws-bedrock",
+    "changed": true,
+    "why": "gcp-vertex utility 76.22->71.16; aws-bedrock now best (U=75.12)",
+    "utility_before": 76.225,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P3 Aadhaar",
+    "before": "REDACT -> aws-bedrock",
+    "after": "REDACT -> aws-bedrock",
+    "changed": false,
+    "why": "no change",
+    "utility_before": 75.1167,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P4 cloud ARN",
+    "before": "ALLOW -> gcp-vertex",
+    "after": "ALLOW -> aws-bedrock",
+    "changed": true,
+    "why": "gcp-vertex utility 76.22->71.16; aws-bedrock now best (U=75.12)",
+    "utility_before": 76.225,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P5 40 KB log",
+    "before": "ALLOW -> gcp-vertex",
+    "after": "ALLOW -> aws-bedrock",
+    "changed": true,
+    "why": "gcp-vertex utility 76.22->71.16; aws-bedrock now best (U=75.12)",
+    "utility_before": 76.225,
+    "utility_after": 75.1167
+   }
+  ],
+  "diff_d2": [
+   {
+    "prompt": "P1 clean",
+    "before": "ALLOW -> aws-bedrock",
+    "after": "ALLOW -> aws-bedrock",
+    "changed": false,
+    "why": "no change",
+    "utility_before": 75.1167,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P2 email",
+    "before": "REDACT -> aws-bedrock",
+    "after": "REDACT -> aws-bedrock",
+    "changed": false,
+    "why": "no change",
+    "utility_before": 75.1167,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P3 Aadhaar",
+    "before": "REDACT -> aws-bedrock",
+    "after": "REDACT -> aws-bedrock",
+    "changed": false,
+    "why": "no change",
+    "utility_before": 75.1167,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P4 cloud ARN",
+    "before": "ALLOW -> aws-bedrock",
+    "after": "ALLOW -> aws-bedrock",
+    "changed": false,
+    "why": "no change",
+    "utility_before": 75.1167,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P5 40 KB log",
+    "before": "ALLOW -> aws-bedrock",
+    "after": "ALLOW -> aws-bedrock",
+    "changed": false,
+    "why": "no change",
+    "utility_before": 75.1167,
+    "utility_after": 75.1167
+   }
+  ],
+  "context": {
+   "version": 20,
+   "trigger": "threat.aiid.privacy_per_day: None -> 0.0 (aiid_rss:replay-file:replay)",
+   "posture": "LOW",
+   "max_cost_per_1k_usd": 6.0,
+   "allowed_residency": [
+    "IN",
+    "US",
+    "EU",
+    "LOCAL"
+   ],
+   "max_prompt_bytes": 65536,
+   "custom_redaction_patterns": 0,
+   "provider_status": {
+    "aws-bedrock": "operational",
+    "azure-ai": "outage",
+    "gcp-vertex": "degraded",
+    "local": "operational"
+   },
+   "excluded": [
+    "azure-ai"
+   ],
+   "notes": [
+    "azure-ai: status 'outage' excludes the provider",
+    "gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5"
+   ]
+  },
+  "peak_as_of": "2026-09-24T12:00:00+00:00",
+  "d3": {
+   "P1 clean": {
+    "label": "P1 clean",
+    "plan_version": 12,
+    "decision": "ALLOW",
+    "reasons": [
+     "R4: no policy-triggering sensitive findings"
+    ],
+    "categories": [],
+    "action": "send original text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": false,
+      "utility": 76.225,
+      "reasons": [
+       "RESIDENCY_NOT_ALLOWED: US"
+      ]
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 16384,
+     "custom_patterns": 2
+    },
+    "posture": "HIGH",
+    "notes": [
+     "threat posture restricts all traffic to ['IN', 'LOCAL']",
+     "lockdown RECOMMENDED to operator (not applied automatically)"
+    ],
+    "plan_ms": 0.332
+   },
+   "P2 email": {
+    "label": "P2 email",
+    "plan_version": 12,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "email"
+    ],
+    "action": "send sanitised text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": false,
+      "utility": 76.225,
+      "reasons": [
+       "RESIDENCY_NOT_ALLOWED: US"
+      ]
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 16384,
+     "custom_patterns": 2
+    },
+    "posture": "HIGH",
+    "notes": [
+     "threat posture restricts all traffic to ['IN', 'LOCAL']",
+     "lockdown RECOMMENDED to operator (not applied automatically)"
+    ],
+    "plan_ms": 0.3
+   },
+   "P3 Aadhaar": {
+    "label": "P3 Aadhaar",
+    "plan_version": 12,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "aadhaar"
+    ],
+    "action": "send sanitised text",
+    "residency": [
+     "IN",
+     "LOCAL"
+    ],
+    "residency_chain": [
+     "cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": false,
+      "utility": 76.225,
+      "reasons": [
+       "RESIDENCY_NOT_ALLOWED: US"
+      ]
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 16384,
+     "custom_patterns": 2
+    },
+    "posture": "HIGH",
+    "notes": [
+     "threat posture restricts all traffic to ['IN', 'LOCAL']",
+     "lockdown RECOMMENDED to operator (not applied automatically)",
+     "residency derived from ontology: cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']"
+    ],
+    "plan_ms": 0.287
+   },
+   "P4 cloud ARN": {
+    "label": "P4 cloud ARN",
+    "plan_version": 12,
+    "decision": "REDACT",
+    "reasons": [
+     "R2: PII or custom redaction pattern detected; sanitize before transmission"
+    ],
+    "categories": [
+     "custom_redaction"
+    ],
+    "action": "send sanitised text",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "SELECTED",
+    "selected": "aws-bedrock",
+    "utility": 75.1167,
+    "ranking": [
+     "aws-bedrock",
+     "azure-ai",
+     "local"
+    ],
+    "evaluations": {
+     "aws-bedrock": {
+      "feasible": true,
+      "utility": 75.1167,
+      "reasons": []
+     },
+     "azure-ai": {
+      "feasible": true,
+      "utility": 74.3,
+      "reasons": []
+     },
+     "gcp-vertex": {
+      "feasible": false,
+      "utility": 76.225,
+      "reasons": [
+       "RESIDENCY_NOT_ALLOWED: US"
+      ]
+     },
+     "local": {
+      "feasible": true,
+      "utility": 71.2333,
+      "reasons": []
+     }
+    },
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 16384,
+     "custom_patterns": 2
+    },
+    "posture": "HIGH",
+    "notes": [
+     "threat posture restricts all traffic to ['IN', 'LOCAL']",
+     "lockdown RECOMMENDED to operator (not applied automatically)"
+    ],
+    "plan_ms": 0.216
+   },
+   "P5 40 KB log": {
+    "label": "P5 40 KB log",
+    "plan_version": 12,
+    "decision": "BLOCK",
+    "reasons": [
+     "R5: payload exceeds configured byte limit"
+    ],
+    "categories": [],
+    "action": "do not transmit",
+    "residency": null,
+    "residency_chain": [],
+    "route_status": "NOT_ROUTED",
+    "selected": null,
+    "utility": null,
+    "ranking": [],
+    "evaluations": {},
+    "constraints": {
+     "max_cost_per_1k_usd": 6.0,
+     "allowed_residency": [
+      "IN",
+      "LOCAL"
+     ],
+     "require_local": false,
+     "max_prompt_bytes": 16384,
+     "custom_patterns": 2
+    },
+    "posture": "HIGH",
+    "notes": [
+     "threat posture restricts all traffic to ['IN', 'LOCAL']",
+     "lockdown RECOMMENDED to operator (not applied automatically)"
+    ],
+    "plan_ms": 0.06
+   }
+  },
+  "diff_d3": [
+   {
+    "prompt": "P1 clean",
+    "before": "ALLOW -> gcp-vertex",
+    "after": "ALLOW -> aws-bedrock",
+    "changed": true,
+    "why": "residency IN,LOCAL; gcp-vertex: RESIDENCY_NOT_ALLOWED: US; aws-bedrock now best (U=75.12)",
+    "utility_before": 76.225,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P2 email",
+    "before": "REDACT -> gcp-vertex",
+    "after": "REDACT -> aws-bedrock",
+    "changed": true,
+    "why": "residency IN,LOCAL; gcp-vertex: RESIDENCY_NOT_ALLOWED: US; aws-bedrock now best (U=75.12)",
+    "utility_before": 76.225,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P3 Aadhaar",
+    "before": "REDACT -> aws-bedrock",
+    "after": "REDACT -> aws-bedrock",
+    "changed": false,
+    "why": "no change",
+    "utility_before": 75.1167,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P4 cloud ARN",
+    "before": "ALLOW -> gcp-vertex",
+    "after": "REDACT -> aws-bedrock",
+    "changed": true,
+    "why": "policy ALLOW->REDACT (R2: PII or custom redaction pattern detected; sanitize before transmission); residency IN,LOCAL; gcp-vertex: RESIDENCY_NOT_ALLOWED: US; aws-bedrock now best (U=75.12)",
+    "utility_before": 76.225,
+    "utility_after": 75.1167
+   },
+   {
+    "prompt": "P5 40 KB log",
+    "before": "ALLOW -> gcp-vertex",
+    "after": "BLOCK -> NOT_ROUTED",
+    "changed": true,
+    "why": "policy ALLOW->BLOCK (R5: payload exceeds configured byte limit); residency IN,LOCAL",
+    "utility_before": 76.225,
+    "utility_after": null
+   }
+  ],
+  "peak_reason": "kev_stack: kev.relevant_hits=12 >= 12.0; kev_volume: kev.ratio=2.043 >= 1.89",
+  "peak_context": {
+   "version": 12,
+   "trigger": "policy.lockdown_recommended: None -> True (derived:cm:posture/HIGH)",
+   "posture": "HIGH",
+   "max_cost_per_1k_usd": 6.0,
+   "allowed_residency": [
+    "IN",
+    "LOCAL"
+   ],
+   "max_prompt_bytes": 16384,
+   "custom_redaction_patterns": 2,
+   "provider_status": {
+    "aws-bedrock": "operational",
+    "azure-ai": "operational",
+    "gcp-vertex": "operational",
+    "local": "operational"
+   },
+   "excluded": [],
+   "notes": [
+    "threat posture restricts all traffic to ['IN', 'LOCAL']",
+    "lockdown RECOMMENDED to operator (not applied automatically)"
+   ]
+  },
+  "replay_reason": "no signal group meets an ELEVATED threshold",
+  "properties": {
+   "policy.custom_redaction_patterns": [],
+   "policy.lockdown_recommended": false,
+   "policy.max_prompt_bytes": 65536,
+   "provider.aws-bedrock.recent_incidents": 0,
+   "provider.aws-bedrock.status": "operational",
+   "provider.azure-ai.recent_incidents": 0,
+   "provider.azure-ai.status": "outage",
+   "provider.gcp-vertex.recent_incidents": 0,
+   "provider.gcp-vertex.status": "degraded",
+   "router.restrict_all_traffic_to": [],
+   "threat.aiid.privacy_incidents": 0,
+   "threat.aiid.privacy_per_day": 0.0,
+   "threat.kev.ai_ml_hits": 0,
+   "threat.kev.ransomware_hits": 0,
+   "threat.kev.ratio": 1.611,
+   "threat.kev.relevant_hits": 9,
+   "threat.posture": "LOW",
+   "threat.posture_reason": "no signal group meets an ELEVATED threshold",
+   "threat.posture_signals": []
+  }
+ }
+}

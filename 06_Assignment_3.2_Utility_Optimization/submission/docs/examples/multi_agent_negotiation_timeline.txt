@@ -1,0 +1,69 @@
+CIPHERMESH MULTI-AGENT COORDINATION / CONTRACT-NET-INSPIRED DEMO
+==============================================================================
+Negotiation ID : 7dbbaf8d-1917-42f0-a903-c2807bcfacbe
+Participants  : WORKLOAD_BUYER <-> INSPECTION_SUPPLIER
+Transport     : JSON serialize/validate round-trip (local deterministic message bus)
+Completed rounds: 5
+------------------------------------------------------------------------------
+EXECUTION TIMELINE (each TX has a typed request and a validated typed response)
+------------------------------------------------------------------------------
+[01 | turn 00] WORKLOAD_BUYER -> INSPECTION_SUPPLIER            CALL_FOR_PROPOSAL      511 B
+     CFP carries buyer budget/SLO constraints
+[02 | turn 00] INSPECTION_SUPPLIER -> WORKLOAD_BUYER            PROPOSAL               663 B
+     price=$176.00/1k; supplier U=100.0; illustrative configured profile; not a benchmark result
+[03 | turn 01] WORKLOAD_BUYER -> INSPECTION_SUPPLIER            COUNTEROFFER           730 B
+     price=$121.92/1k; buyer U=85.4; aspiration=83.0; counteroffer: utility below current aspiration
+[04 | turn 01] INSPECTION_SUPPLIER -> WORKLOAD_BUYER            COUNTEROFFER           730 B
+     price=$166.27/1k; supplier U=87.2; aspiration=83.0; counteroffer: offer below current aspiration
+[05 | turn 02] WORKLOAD_BUYER -> INSPECTION_SUPPLIER            COUNTEROFFER           730 B
+     price=$130.35/1k; buyer U=73.0; aspiration=74.0; counteroffer: utility below current aspiration
+[06 | turn 02] INSPECTION_SUPPLIER -> WORKLOAD_BUYER            COUNTEROFFER           730 B
+     price=$158.37/1k; supplier U=76.8; aspiration=74.0; counteroffer: offer below current aspiration
+[07 | turn 03] WORKLOAD_BUYER -> INSPECTION_SUPPLIER            COUNTEROFFER           731 B
+     price=$136.65/1k; buyer U=63.8; aspiration=65.0; counteroffer: utility below current aspiration
+[08 | turn 03] INSPECTION_SUPPLIER -> WORKLOAD_BUYER            COUNTEROFFER           731 B
+     price=$152.72/1k; supplier U=69.4; aspiration=65.0; counteroffer: offer below current aspiration
+[09 | turn 04] WORKLOAD_BUYER -> INSPECTION_SUPPLIER            COUNTEROFFER           729 B
+     price=$140.83/1k; buyer U=57.6; aspiration=56.0; counteroffer: utility below current aspiration
+[10 | turn 04] INSPECTION_SUPPLIER -> WORKLOAD_BUYER            COUNTEROFFER           730 B
+     price=$149.15/1k; supplier U=64.7; aspiration=56.0; counteroffer: offer below current aspiration
+[11 | turn 05] WORKLOAD_BUYER -> INSPECTION_SUPPLIER            COUNTEROFFER           730 B
+     price=$143.28/1k; buyer U=54.0; aspiration=47.0; counteroffer: utility below current aspiration
+[12 | turn 05] INSPECTION_SUPPLIER -> WORKLOAD_BUYER            ACCEPT                 688 B
+     price=$143.28/1k; supplier U=57.0; aspiration=47.0; buyer offer meets supplier aspiration and reservation utility
+[13 | turn 06] NEGOTIATION_COORDINATOR -> WORKLOAD_BUYER        PREPARE                620 B
+     price=$143.28/1k; digest=a614db667781…
+[14 | turn 06] WORKLOAD_BUYER -> NEGOTIATION_COORDINATOR        READY                  456 B
+     utility=54.0; digest=a614db667781…
+[15 | turn 06] NEGOTIATION_COORDINATOR -> INSPECTION_SUPPLIER   PREPARE                625 B
+     price=$143.28/1k; digest=a614db667781…
+[16 | turn 06] INSPECTION_SUPPLIER -> NEGOTIATION_COORDINATOR   READY                  462 B
+     utility=57.0; digest=a614db667781…
+[17 | turn 06] NEGOTIATION_COORDINATOR -> WORKLOAD_BUYER        COMMIT                 381 B
+     digest=a614db667781…
+[18 | turn 06] WORKLOAD_BUYER -> NEGOTIATION_COORDINATOR        COMMIT_ACK             440 B
+     digest=a614db667781…; status=committed
+[19 | turn 06] NEGOTIATION_COORDINATOR -> INSPECTION_SUPPLIER   COMMIT                 386 B
+     digest=a614db667781…
+[20 | turn 06] INSPECTION_SUPPLIER -> NEGOTIATION_COORDINATOR   COMMIT_ACK             445 B
+     digest=a614db667781…; status=committed
+[21 | turn 06] NEGOTIATION_COORDINATOR -> LOCAL_RUNTIME         CONSENSUS_CONFIRMED    local
+     CONSENSUS CONFIRMED: both COMMIT_ACK responses matched the canonical contract digest.
+------------------------------------------------------------------------------
+FINAL RESULT
+------------------------------------------------------------------------------
+Status         : AGREED
+Rounds         : 5
+Wire messages : 20
+Timeline events: 21
+Agreed price   : $143.28 per 1,000 requests
+Service profile: capacity=600 req/s | p95=18.0 ms | estimated recall=97.0%
+Buyer utility  : 54.00/100 (reservation >= 40)
+Supplier utility: 56.95/100 (reservation >= 40)
+Contract digest: a614db66778190572585821716ad920f753fcd9815efa88bb00227a9d7dd4a74
+Termination    : consensus handshake completed: READY and COMMIT_ACK received from both agents
+Notes          : supplier accepted buyer counteroffer | Utilities are scenario-model outputs, not measured production outcomes.
+
+NOTE: service metrics are synthetic, configured demo assumptions—not empirical benchmarks.
+
+Timeline JSON written to: docs/examples/negotiation_result.json

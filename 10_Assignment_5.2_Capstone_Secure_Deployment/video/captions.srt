@@ -1,0 +1,72 @@
+1
+00:00:00,400 --> 00:00:07,600
+CipherMesh v3.0, the capstone of 21CSE525T Agent Technology.
+
+2
+00:00:08,400 --> 00:00:14,800
+Prompts can carry keys, Aadhaar, PAN and internal links.
+
+3
+00:00:15,000 --> 00:00:21,600
+Five units are now one autonomous agent that runs safely on its own.
+
+4
+00:00:22,400 --> 00:00:31,000
+Each AgentHost stacks all five units: trust gate, workers, reflex, BDI with knowledge, cooperation.
+
+5
+00:00:31,200 --> 00:00:39,600
+Two gateways, a security console and an attacker talk over real TCP with Ed25519-signed messages.
+
+6
+00:00:40,400 --> 00:00:45,600
+One command runs all seven phases. Here is the live dashboard.
+
+7
+00:00:47,124 --> 00:00:50,558
+P0 Boot: keys provisioned, both gateways pass self-attestation.
+
+8
+00:00:50,758 --> 00:00:58,489
+P1 Six live feeds update beliefs: posture ELEVATED, USD/INR 94.91, budget and R5 limit adapt; beta learns them.
+
+9
+00:00:58,689 --> 00:01:13,506
+P2 40 prompts through the worker pool; every one gets its own BDI intention.
+
+10
+00:01:13,506 --> 00:01:28,324
+Secrets blocked, PII masked, internal links held for review, India data kept in India.
+
+11
+00:01:28,524 --> 00:01:35,127
+P3 Alpha saturates: Contract-Net announce, bid, award. 10 tasks run on beta with signed results.
+
+12
+00:01:35,327 --> 00:01:40,857
+P4 GCP Vertex fails mid-plan: the intention is dropped and re-planned, the circuit breaker opens.
+
+13
+00:01:40,957 --> 00:01:49,204
+A labelled what-if feed replay takes Azure down too; beta learns the outage from alpha.
+
+14
+00:01:49,404 --> 00:02:08,428
+P5 Signed admin commands accepted; 18 of 18 hostile frames blocked at the gate.
+
+15
+00:02:08,628 --> 00:02:26,200
+P6 Lockdown drill: nothing is sent. Release, graceful drain, evidence ledgers verified.
+
+16
+00:02:26,800 --> 00:02:43,100
+Forged, replayed, tampered and escalated commands stop at C1 to C13 and L0. State is unchanged.
+
+17
+00:02:43,900 --> 00:02:57,100
+82 requests, 1 intention shift, 10 delegated tasks, 18/18 attacks blocked.
+
+18
+00:02:57,900 --> 00:03:05,100
+Protect every prompt. Across every model. Before data leaves.
+

@@ -1,0 +1,62 @@
+# Labeled corpus. {{NAME}} placeholders are expanded at runtime by evaluation._synthetic_values().
+{"id": "K01", "text": "Debug this config: aws_access_key_id={{AWS_KEY}} why does auth fail?", "expected": "BLOCK", "split": "known"}
+{"id": "K02", "text": "aws_secret_access_key = {{AWS_SECRET}}", "expected": "BLOCK", "split": "known"}
+{"id": "K03", "text": "Here is the key file {{PEM}} MIIEowIBAAKCAQEA please fix", "expected": "BLOCK", "split": "known"}
+{"id": "K04", "text": "service account json: { {{GCP_KEY_ID}}, \"type\": \"service_account\" }", "expected": "BLOCK", "split": "known"}
+{"id": "K05", "text": "Blob URL https://acct.blob.core.windows.net/c?sv=2024&sig=abcdefghijklmnop1234567890xyz", "expected": "BLOCK", "split": "known"}
+{"id": "K06", "text": "DefaultEndpointsProtocol=https;AccountName=demo;{{AZURE_KEY}};EndpointSuffix=core.windows.net", "expected": "BLOCK", "split": "known"}
+{"id": "K07", "text": "CI failing with token {{GITHUB}} in the workflow", "expected": "BLOCK", "split": "known"}
+{"id": "K08", "text": "My key {{OPENAI}} returns 401", "expected": "BLOCK", "split": "known"}
+{"id": "K09", "text": "Slack bot token {{SLACK}} cannot post", "expected": "BLOCK", "split": "known"}
+{"id": "K10", "text": "maps key {{GOOGLE}} quota exceeded", "expected": "BLOCK", "split": "known"}
+{"id": "K11", "text": "payments use {{STRIPE}} in prod", "expected": "BLOCK", "split": "known"}
+{"id": "K12", "text": "Decode this session {{JWT}} for me", "expected": "BLOCK", "split": "known"}
+{"id": "K13", "text": "config: api_key=\"Zx81kLmQ09pRtYw3\"", "expected": "BLOCK", "split": "known"}
+{"id": "K14", "text": "DATABASE_URL=postgres://admin:Sup3rS3cret@db.prod.example.com:5432/app", "expected": "BLOCK", "split": "known"}
+{"id": "K15", "text": "login with password=Hunter2!2026 then run tests", "expected": "BLOCK", "split": "known"}
+{"id": "K16", "text": "client_secret: 9f8e7d6c5b4a3f2e1d0c", "expected": "BLOCK", "split": "known"}
+{"id": "K17", "text": "mongodb+srv://svc:pa55word@cluster0.example.net/db", "expected": "BLOCK", "split": "known"}
+{"id": "K18", "text": "Email ops@example.com the key {{AWS_KEY}} today", "expected": "BLOCK", "split": "known"}
+{"id": "K19", "text": "See https://wiki.corp.local/x and token {{GITHUB}}", "expected": "BLOCK", "split": "known"}
+{"id": "K20", "text": "Summarize logs from https://payments.internal/debug", "expected": "REVIEW", "split": "known"}
+{"id": "K21", "text": "Runbook at http://grafana.corp:3000/d/abc?orgId=1", "expected": "REVIEW", "split": "known"}
+{"id": "K22", "text": "See https://intranet.acme.intranet/hr/policy", "expected": "REVIEW", "split": "known"}
+{"id": "K23", "text": "Logs from https://api.internal/v1 on host 10.20.30.40", "expected": "REVIEW", "split": "known"}
+{"id": "K24", "text": "Summarize this note for rahul.student@example.com", "expected": "REDACT", "split": "known"}
+{"id": "K25", "text": "Call the customer at +91 9876543210 tomorrow", "expected": "REDACT", "split": "known"}
+{"id": "K26", "text": "Reach me on 98765 43210 after 6", "expected": "REDACT", "split": "known"}
+{"id": "K27", "text": "Server 192.168.1.20 keeps dropping connections", "expected": "REDACT", "split": "known"}
+{"id": "K28", "text": "Refund card {{CARD}} for duplicate charge", "expected": "REDACT", "split": "known"}
+{"id": "K29", "text": "Customer Aadhaar {{AADHAAR}} needs KYC", "expected": "REDACT", "split": "known"}
+{"id": "K30", "text": "PAN ABCPE1234F belongs to the applicant", "expected": "REDACT", "split": "known"}
+{"id": "K31", "text": "US employee SSN 123-45-6789 on file", "expected": "REDACT", "split": "known"}
+{"id": "K32", "text": "International contact +44 20 7946 0958", "expected": "REDACT", "split": "known"}
+{"id": "K33", "text": "Forward to a.b+tag@mail.example.co.in and cc 10.0.0.5", "expected": "REDACT", "split": "known"}
+{"id": "K34", "text": "Card 5555-5555-5555-4444 expired", "expected": "REDACT", "split": "known"}
+{"id": "K35", "text": "Explain the difference between supervised and unsupervised learning.", "expected": "ALLOW", "split": "known"}
+{"id": "K36", "text": "Write a haiku about monsoon in Chennai.", "expected": "ALLOW", "split": "known"}
+{"id": "K37", "text": "What is the time complexity of quicksort?", "expected": "ALLOW", "split": "known"}
+{"id": "K38", "text": "Draft a polite leave request email to my manager.", "expected": "ALLOW", "split": "known"}
+{"id": "K39", "text": "Convert 25 degrees Celsius to Fahrenheit.", "expected": "ALLOW", "split": "known"}
+{"id": "K40", "text": "Compare AWS Bedrock and Azure AI for summarisation.", "expected": "ALLOW", "split": "known"}
+{"id": "H01", "text": "Release notes for version 2.4.1.7 are ready", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H02", "text": "Upgrade to v1.20.3.4 tonight", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H03", "text": "Order number 1234 5678 9012 3456 shipped", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H04", "text": "password: ******** (masked in screenshot)", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H05", "text": "Timestamp 1712345678901 in the log", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H06", "text": "The pattern AKIA followed by 16 chars is an AWS key format", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H07", "text": "Use https://docs.python.org/3/library/re.html for regex", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H08", "text": "Invoice INV-2026-000123 totals 4,500 INR", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H09", "text": "Aadhaar has 12 digits and uses Verhoeff checksum", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H10", "text": "Set api_key in your .env file, never in code", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H11", "text": "ISBN 978-0-13-468599-1 is a great book", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H12", "text": "Matrix row 2345 6789 0123 sums to 9135", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H13", "text": "The JWT header starts with eyJ in base64", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H14", "text": "Ping localhost to test", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "H15", "text": "My phone has 12345 photos", "expected": "ALLOW", "split": "hard_negative"}
+{"id": "A01", "text": "key: A K I A I O S F O D N N 7 E X A M P L E", "expected": "BLOCK", "split": "adversarial"}
+{"id": "A02", "text": "aws key base64 QUtJQUlPU0ZPRE5ON0VYQU1QTEU=", "expected": "BLOCK", "split": "adversarial"}
+{"id": "A03", "text": "mail rahul [at] example [dot] com", "expected": "REDACT", "split": "adversarial"}
+{"id": "A04", "text": "token is g-h-p_ then AbCdEfGhIjKlMnOpQrStUvWxYz0123456789", "expected": "BLOCK", "split": "adversarial"}
+{"id": "A05", "text": "call nine eight seven six five four three two one zero", "expected": "REDACT", "split": "adversarial"}
+{"id": "A06", "text": "AKIAIOSFODNN (cont.) 7EXAMPLE", "expected": "BLOCK", "split": "adversarial"}

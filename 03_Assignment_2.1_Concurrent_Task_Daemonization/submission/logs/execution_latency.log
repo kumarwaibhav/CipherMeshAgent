@@ -1,0 +1,18 @@
+CipherMesh Assignment 2.1 - Execution Latency Log
+workers=4 mock_provider_ms=120 total_wall_ms=503.702
+request_id,worker,decision,queue_wait_ms,service_ms,end_to_end_ms
+REQ-201,cipher-worker-1,ALLOW,0.178,120.124,120.302
+REQ-202,cipher-worker-4,REDACT,0.219,120.590,120.809
+REQ-203,cipher-worker-2,BLOCK,0.267,120.262,120.529
+REQ-204,cipher-worker-3,BLOCK,0.503,120.366,120.869
+REQ-205,cipher-worker-1,BLOCK,120.386,120.152,240.538
+REQ-206,cipher-worker-2,REVIEW,120.620,120.236,240.856
+REQ-207,cipher-worker-4,ALLOW,120.718,120.281,241.000
+REQ-208,cipher-worker-3,REDACT,120.716,120.209,240.925
+REQ-209,cipher-worker-1,BLOCK,240.473,120.142,360.614
+REQ-210,cipher-worker-2,ALLOW,240.773,120.100,360.873
+REQ-211,cipher-worker-4,REDACT,240.942,120.111,361.053
+REQ-212,cipher-worker-3,REVIEW,241.085,120.120,361.205
+REQ-213,cipher-worker-1,ALLOW,360.660,120.155,480.814
+
+FINAL_SNAPSHOT={"ALLOW": 4, "BLOCK": 4, "REDACT": 3, "REVIEW": 2, "avg_end_to_end_ms": 259.261, "avg_queue_wait_ms": 139.042, "avg_service_ms": 120.219, "completed": 13, "enqueued": 13, "in_flight": 0, "p95_end_to_end_ms": 361.205, "p95_queue_wait_ms": 241.085, "p95_service_ms": 120.366, "parsed": 13, "rejected": 1, "started": 13, "throughput_req_s": 25.815, "uptime_s": 0.5036}

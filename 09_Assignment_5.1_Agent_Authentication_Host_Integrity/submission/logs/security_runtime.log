@@ -1,0 +1,697 @@
+2026-11-02 16:27:08.801Z | WARNING | CIPHERMESH_KEY_PASSPHRASE not set; using the built-in demo passphrase (demo use only)
+2026-11-02 16:27:08.809Z | INFO    | ====================================================================================================
+2026-11-02 16:27:08.810Z | INFO    | CipherMesh Assignment 5.1 - Agent Authentication and Host Integrity Verification
+2026-11-02 16:27:08.810Z | INFO    | Breach simulation (real TCP loopback + system-command spool). All times UTC.
+2026-11-02 16:27:08.810Z | INFO    | ====================================================================================================
+2026-11-02 16:27:08.810Z | INFO    | trust store     : trusted_hosts.json (schema cm-trust/1, 5 hosts, 1 revoked keys)
+2026-11-02 16:27:08.810Z | INFO    |   host ciphermesh-node-01  roles=agent           sources=127.0.0.1/32,local           keys=9f4c3fe21207b40a
+2026-11-02 16:27:08.810Z | INFO    |   host sec-console-01      roles=security-admin  sources=127.0.0.8/29,local           keys=9ddbfb298cae94a6(revoked),98417bb2a3867e6c
+2026-11-02 16:27:08.810Z | INFO    |   host observer-01         roles=observer        sources=127.0.0.20/32                keys=928ea43425c5ec32
+2026-11-02 16:27:08.810Z | INFO    |   host peer-gateway-01     roles=peer-gateway    sources=127.0.0.30/32                keys=98c816a937bd200f
+2026-11-02 16:27:08.810Z | INFO    |   host legacy-console-02   roles=security-admin  sources=127.0.0.40/32                keys=7e52486981f53bf7  [HOST REVOKED]
+2026-11-02 16:27:08.810Z | INFO    | release digest  : 8de694812c7eade89c7d1ff2e76e8eb556cada2c9c0997c5befc1ba27e7ef410
+2026-11-02 16:27:08.810Z | INFO    | attacker key    : 8ed70b342e50472c (not in trust store)
+2026-11-02 16:27:08.815Z | INFO    | [AGENT] self-attestation PASSED: 44 source files match signed release ciphermesh-5.1.0 (digest 8de694812c7eade8...)
+2026-11-02 16:27:08.816Z | INFO    | [SERVER] ciphermesh-node-01 listening on tcp://127.0.0.1:39861 (mode=NORMAL, max_frame=65536 bytes, frame deadline 2 s, 4 connections per IP)
+2026-11-02 16:27:08.816Z | INFO    | ====================================================================================================
+2026-11-02 16:27:08.816Z | INFO    | PART A - legitimate, correctly signed traffic (must be ACCEPTED)
+2026-11-02 16:27:08.817Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.817Z | INFO    | [S01] Security console triggers emergency lockdown  (LEGITIMATE)
+2026-11-02 16:27:08.817Z | INFO    |   threat    : none - authorised SOC action
+2026-11-02 16:27:08.817Z | INFO    |   request   : tcp 127.0.0.10 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=7670c639 frame=653 bytes
+2026-11-02 16:27:08.817Z | INFO    |   expected  : ACCEPT (all 13 checkpoints)
+2026-11-02 16:27:08.819Z | INFO    | [AGENT] ACCEPTED TRIGGER_EMERGENCY_LOCKDOWN from sec-console-01 via tcp://127.0.0.10:37855 (13/13 checkpoints, 987 us) -> lockdown_enabled; state 38b94920e189a1eb -> 324be0a4fb61984c
+2026-11-02 16:27:08.821Z | INFO    |   verdict   : ACCEPTED - all 13 checkpoints passed in 987 us -> lockdown_enabled
+2026-11-02 16:27:08.821Z | INFO    |   state     : fingerprint 38b94920e189a1eb -> 324be0a4fb61984c | lockdown=True patterns=0 (sha 4f53cda18c2b) -> STATE CHANGED as intended (lockdown False->True)
+2026-11-02 16:27:08.821Z | INFO    |   reply     : agent-signed ACCEPTED reply, signature VERIFIED, agent integrity TRUSTED
+2026-11-02 16:27:08.821Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.821Z | INFO    |   check     : clean prompt under lockdown -> BLOCK (expected BLOCK)
+2026-11-02 16:27:08.821Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.821Z | INFO    | [S02] Security console releases lockdown  (LEGITIMATE)
+2026-11-02 16:27:08.821Z | INFO    |   threat    : none - authorised SOC action
+2026-11-02 16:27:08.822Z | INFO    |   request   : tcp 127.0.0.10 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=RELEASE_LOCKDOWN msg_id=1b60c768 frame=628 bytes
+2026-11-02 16:27:08.822Z | INFO    |   expected  : ACCEPT (all 13 checkpoints)
+2026-11-02 16:27:08.823Z | INFO    | [AGENT] ACCEPTED RELEASE_LOCKDOWN from sec-console-01 via tcp://127.0.0.10:36057 (13/13 checkpoints, 684 us) -> lockdown_released; state 324be0a4fb61984c -> 38b94920e189a1eb
+2026-11-02 16:27:08.824Z | INFO    |   verdict   : ACCEPTED - all 13 checkpoints passed in 684 us -> lockdown_released
+2026-11-02 16:27:08.825Z | INFO    |   state     : fingerprint 324be0a4fb61984c -> 38b94920e189a1eb | lockdown=False patterns=0 (sha 4f53cda18c2b) -> STATE CHANGED as intended (lockdown True->False)
+2026-11-02 16:27:08.825Z | INFO    |   reply     : agent-signed ACCEPTED reply, signature VERIFIED, agent integrity TRUSTED
+2026-11-02 16:27:08.825Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.825Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.825Z | INFO    | [S03] Observer requests telemetry dump  (LEGITIMATE)
+2026-11-02 16:27:08.825Z | INFO    |   threat    : none - read-only monitoring
+2026-11-02 16:27:08.825Z | INFO    |   request   : tcp 127.0.0.20 -> agent | claimed_host=observer-01 key_id=928ea43425c5ec32 command=REQUEST_TELEMETRY_DUMP msg_id=715e520b frame=606 bytes
+2026-11-02 16:27:08.825Z | INFO    |   expected  : ACCEPT (all 13 checkpoints)
+2026-11-02 16:27:08.827Z | INFO    | [AGENT] ACCEPTED REQUEST_TELEMETRY_DUMP from observer-01 via tcp://127.0.0.20:58109 (13/13 checkpoints, 747 us) -> telemetry_ready; state 38b94920e189a1eb -> 38b94920e189a1eb
+2026-11-02 16:27:08.829Z | INFO    |   verdict   : ACCEPTED - all 13 checkpoints passed in 747 us -> telemetry_ready
+2026-11-02 16:27:08.829Z | INFO    |   state     : fingerprint 38b94920e189a1eb -> 38b94920e189a1eb | lockdown=False patterns=0 (sha 4f53cda18c2b) -> STATE UNCHANGED
+2026-11-02 16:27:08.829Z | INFO    |   reply     : agent-signed ACCEPTED reply, signature VERIFIED, agent integrity TRUSTED
+2026-11-02 16:27:08.829Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.829Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.829Z | INFO    | [S04] Security console adds a redaction pattern  (LEGITIMATE)
+2026-11-02 16:27:08.829Z | INFO    |   threat    : none - authorised policy change
+2026-11-02 16:27:08.829Z | INFO    |   request   : tcp 127.0.0.10 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=UPDATE_REDACTION_PATTERNS msg_id=7e6c4b98 frame=639 bytes
+2026-11-02 16:27:08.829Z | INFO    |   expected  : ACCEPT (all 13 checkpoints)
+2026-11-02 16:27:08.831Z | INFO    | [AGENT] ACCEPTED UPDATE_REDACTION_PATTERNS from sec-console-01 via tcp://127.0.0.10:41337 (13/13 checkpoints, 719 us) -> patterns_updated; state 38b94920e189a1eb -> 4bed7b186796459d
+2026-11-02 16:27:08.832Z | INFO    |   verdict   : ACCEPTED - all 13 checkpoints passed in 719 us -> patterns_updated
+2026-11-02 16:27:08.833Z | INFO    |   state     : fingerprint 38b94920e189a1eb -> 4bed7b186796459d | lockdown=False patterns=1 (sha f120bf3c3b8b) -> STATE CHANGED as intended (patterns 0->1)
+2026-11-02 16:27:08.833Z | INFO    |   reply     : agent-signed ACCEPTED reply, signature VERIFIED, agent integrity TRUSTED
+2026-11-02 16:27:08.833Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.833Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.833Z | INFO    | [S05] Peer gateway synchronises policy revision 2  (LEGITIMATE)
+2026-11-02 16:27:08.833Z | INFO    |   threat    : none - authorised peer sync
+2026-11-02 16:27:08.833Z | INFO    |   request   : tcp 127.0.0.30 -> agent | claimed_host=peer-gateway-01 key_id=98c816a937bd200f command=STATE_SYNC msg_id=89cc32b9 frame=706 bytes
+2026-11-02 16:27:08.833Z | INFO    |   expected  : ACCEPT (all 13 checkpoints)
+2026-11-02 16:27:08.835Z | INFO    | [AGENT] ACCEPTED STATE_SYNC from peer-gateway-01 via tcp://127.0.0.30:55505 (13/13 checkpoints, 926 us) -> state_applied; state 4bed7b186796459d -> 1de78e9d5945211e
+2026-11-02 16:27:08.837Z | INFO    |   verdict   : ACCEPTED - all 13 checkpoints passed in 926 us -> state_applied
+2026-11-02 16:27:08.837Z | INFO    |   state     : fingerprint 4bed7b186796459d -> 1de78e9d5945211e | lockdown=False patterns=1 (sha f120bf3c3b8b) -> STATE CHANGED as intended (revision 1->2)
+2026-11-02 16:27:08.837Z | INFO    |   reply     : agent-signed ACCEPTED reply, signature VERIFIED, agent integrity TRUSTED
+2026-11-02 16:27:08.837Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.837Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.837Z | INFO    | [S06] Peer gateway asks for a prompt inspection  (LEGITIMATE)
+2026-11-02 16:27:08.837Z | INFO    |   threat    : none - authorised inspection
+2026-11-02 16:27:08.837Z | INFO    |   request   : tcp 127.0.0.30 -> agent | claimed_host=peer-gateway-01 key_id=98c816a937bd200f command=INSPECT msg_id=128091ab frame=643 bytes
+2026-11-02 16:27:08.837Z | INFO    |   expected  : ACCEPT (all 13 checkpoints)
+2026-11-02 16:27:08.839Z | INFO    | [AGENT] ACCEPTED INSPECT from peer-gateway-01 via tcp://127.0.0.30:47549 (13/13 checkpoints, 668 us) -> inspection decision=REDACT; state 1de78e9d5945211e -> 1de78e9d5945211e
+2026-11-02 16:27:08.841Z | INFO    |   verdict   : ACCEPTED - all 13 checkpoints passed in 668 us -> inspection decision=REDACT
+2026-11-02 16:27:08.841Z | INFO    |   state     : fingerprint 1de78e9d5945211e -> 1de78e9d5945211e | lockdown=False patterns=1 (sha f120bf3c3b8b) -> STATE UNCHANGED
+2026-11-02 16:27:08.841Z | INFO    |   reply     : agent-signed ACCEPTED reply, signature VERIFIED, agent integrity TRUSTED
+2026-11-02 16:27:08.841Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.841Z | INFO    |   check     : inspected prompt decision -> REDACT
+2026-11-02 16:27:08.842Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.842Z | INFO    | [S07] Admin pattern update via local system-command spool  (LEGITIMATE)
+2026-11-02 16:27:08.842Z | INFO    |   threat    : none - authorised local operator
+2026-11-02 16:27:08.842Z | INFO    |   request   : system-command spool file (mode 0o600) | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=UPDATE_REDACTION_PATTERNS msg_id=2b1cdb68 frame=639 bytes
+2026-11-02 16:27:08.842Z | INFO    |   expected  : ACCEPT (all 13 checkpoints)
+2026-11-02 16:27:08.843Z | INFO    | [AGENT] ACCEPTED UPDATE_REDACTION_PATTERNS from sec-console-01 via system://s07.json (13/13 checkpoints, 449 us) -> patterns_updated; state 1de78e9d5945211e -> 51c3f3e8e21258c5
+2026-11-02 16:27:08.844Z | INFO    |   verdict   : ACCEPTED - all 13 checkpoints passed in 449 us -> patterns_updated
+2026-11-02 16:27:08.844Z | INFO    |   state     : fingerprint 1de78e9d5945211e -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE CHANGED as intended (patterns 1->2)
+2026-11-02 16:27:08.844Z | INFO    |   reply     : agent-signed ACCEPTED reply, signature VERIFIED, agent integrity TRUSTED
+2026-11-02 16:27:08.844Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.845Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.845Z | INFO    | BASELINE before attacks: fingerprint=51c3f3e8e21258c5 lockdown=False patterns=2 revision=2
+2026-11-02 16:27:08.845Z | INFO    | ====================================================================================================
+2026-11-02 16:27:08.845Z | INFO    | PART B - untrusted input breach attempts (must be REJECTED, state must not change)
+2026-11-02 16:27:08.845Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.845Z | INFO    | [A01] Unsigned command  (ATTACK)
+2026-11-02 16:27:08.845Z | INFO    |   threat    : attacker sends a command with no signature at all
+2026-11-02 16:27:08.845Z | INFO    |   request   : tcp 127.0.0.66 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=af7264c4 frame=555 bytes
+2026-11-02 16:27:08.845Z | INFO    |   expected  : REJECT at C2 STRICT_SCHEMA (SCHEMA_VIOLATION)
+2026-11-02 16:27:08.846Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00001: command=? claimed_host=? origin=tcp://127.0.0.66:36775 checkpoint=C2 STRICT_SCHEMA reason=SCHEMA_VIOLATION (envelope is missing ['signature'])
+2026-11-02 16:27:08.847Z | INFO    |   verdict   : REJECTED at C2 STRICT_SCHEMA reason=SCHEMA_VIOLATION latency=87 us incident=INC-00001
+2026-11-02 16:27:08.847Z | INFO    |   detail    : envelope is missing ['signature']
+2026-11-02 16:27:08.847Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.66 stopped at C2 (SCHEMA_VIOLATION)
+2026-11-02 16:27:08.847Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.847Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.847Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.847Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.847Z | INFO    | [A02] Malformed JSON frame  (ATTACK)
+2026-11-02 16:27:08.847Z | INFO    |   threat    : truncated / garbage JSON to crash the parser
+2026-11-02 16:27:08.848Z | INFO    |   request   : tcp 127.0.0.70 -> agent | claimed_host=- key_id=- command=- msg_id=- frame=86 bytes
+2026-11-02 16:27:08.848Z | INFO    |   expected  : REJECT at C2 STRICT_SCHEMA (JSON_MALFORMED)
+2026-11-02 16:27:08.848Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00002: command=? claimed_host=? origin=tcp://127.0.0.70:40247 checkpoint=C2 STRICT_SCHEMA reason=JSON_MALFORMED (invalid JSON at line 1 column 87)
+2026-11-02 16:27:08.849Z | INFO    |   verdict   : REJECTED at C2 STRICT_SCHEMA reason=JSON_MALFORMED latency=75 us incident=INC-00002
+2026-11-02 16:27:08.849Z | INFO    |   detail    : invalid JSON at line 1 column 87
+2026-11-02 16:27:08.850Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: unparsed frame via 127.0.0.70 stopped at C2 (JSON_MALFORMED)
+2026-11-02 16:27:08.850Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.850Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.850Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.850Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.850Z | INFO    | [A03] Unknown-field injection (role_override)  (ATTACK)
+2026-11-02 16:27:08.850Z | INFO    |   threat    : extra header field to smuggle privileges
+2026-11-02 16:27:08.850Z | INFO    |   request   : tcp 127.0.0.71 -> agent | claimed_host=observer-01 key_id=928ea43425c5ec32 command=REQUEST_TELEMETRY_DUMP msg_id=4e74b986 frame=639 bytes
+2026-11-02 16:27:08.850Z | INFO    |   expected  : REJECT at C2 STRICT_SCHEMA (SCHEMA_VIOLATION)
+2026-11-02 16:27:08.851Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00003: command=? claimed_host=? origin=tcp://127.0.0.71:43197 checkpoint=C2 STRICT_SCHEMA reason=SCHEMA_VIOLATION (header.role_override: Extra inputs are not permitted)
+2026-11-02 16:27:08.852Z | INFO    |   verdict   : REJECTED at C2 STRICT_SCHEMA reason=SCHEMA_VIOLATION latency=454 us incident=INC-00003
+2026-11-02 16:27:08.852Z | INFO    |   detail    : header.role_override: Extra inputs are not permitted
+2026-11-02 16:27:08.852Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: REQUEST_TELEMETRY_DUMP via 127.0.0.71 stopped at C2 (SCHEMA_VIOLATION)
+2026-11-02 16:27:08.852Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.853Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.853Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.853Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.853Z | INFO    | [A04] Duplicate-key smuggling  (ATTACK)
+2026-11-02 16:27:08.853Z | INFO    |   threat    : parser differential: first vs last 'command' key
+2026-11-02 16:27:08.853Z | INFO    |   request   : tcp 127.0.0.71 -> agent | claimed_host=observer-01 key_id=928ea43425c5ec32 command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=7064374f frame=645 bytes
+2026-11-02 16:27:08.853Z | INFO    |   expected  : REJECT at C2 STRICT_SCHEMA (JSON_DUPLICATE_KEY)
+2026-11-02 16:27:08.854Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00004: command=? claimed_host=? origin=tcp://127.0.0.71:34237 checkpoint=C2 STRICT_SCHEMA reason=JSON_DUPLICATE_KEY (duplicate member name 'command')
+2026-11-02 16:27:08.855Z | INFO    |   verdict   : REJECTED at C2 STRICT_SCHEMA reason=JSON_DUPLICATE_KEY latency=50 us incident=INC-00004
+2026-11-02 16:27:08.855Z | INFO    |   detail    : duplicate member name 'command'
+2026-11-02 16:27:08.855Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.71 stopped at C2 (JSON_DUPLICATE_KEY)
+2026-11-02 16:27:08.855Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.855Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.855Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.855Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.855Z | INFO    | [A05] Oversized frame (declares 1 MiB)  (ATTACK)
+2026-11-02 16:27:08.855Z | INFO    |   threat    : memory exhaustion via huge length prefix
+2026-11-02 16:27:08.855Z | INFO    |   request   : tcp 127.0.0.69 -> agent | claimed_host=- key_id=- command=- msg_id=- frame=1048576 bytes
+2026-11-02 16:27:08.855Z | INFO    |   expected  : REJECT at C1 FRAME_SIZE (FRAME_TOO_LARGE)
+2026-11-02 16:27:08.856Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00005: command=? claimed_host=? origin=tcp://127.0.0.69:56699 checkpoint=C1 FRAME_SIZE reason=FRAME_TOO_LARGE (frame of 1048576 bytes exceeds limit of 65536 bytes)
+2026-11-02 16:27:08.857Z | INFO    |   verdict   : REJECTED at C1 FRAME_SIZE reason=FRAME_TOO_LARGE latency=23 us incident=INC-00005
+2026-11-02 16:27:08.857Z | INFO    |   detail    : frame of 1048576 bytes exceeds limit of 65536 bytes
+2026-11-02 16:27:08.857Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: unparsed frame via 127.0.0.69 stopped at C1 (FRAME_TOO_LARGE)
+2026-11-02 16:27:08.857Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.857Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.857Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.857Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.857Z | INFO    | [A06] Protocol downgrade (cm-sig/0)  (ATTACK)
+2026-11-02 16:27:08.858Z | INFO    |   threat    : force a weaker legacy envelope format
+2026-11-02 16:27:08.858Z | INFO    |   request   : tcp 127.0.0.72 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=9e989bfc frame=658 bytes
+2026-11-02 16:27:08.858Z | INFO    |   expected  : REJECT at C3 VERSION (UNSUPPORTED_VERSION)
+2026-11-02 16:27:08.858Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00006: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.72:44329 checkpoint=C3 VERSION reason=UNSUPPORTED_VERSION (envelope version cm-sig/0 not in ['cm-sig/1'])
+2026-11-02 16:27:08.860Z | INFO    |   verdict   : REJECTED at C3 VERSION reason=UNSUPPORTED_VERSION latency=125 us incident=INC-00006
+2026-11-02 16:27:08.860Z | INFO    |   detail    : envelope version cm-sig/0 not in ['cm-sig/1']
+2026-11-02 16:27:08.860Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.72 stopped at C3 (UNSUPPORTED_VERSION)
+2026-11-02 16:27:08.860Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.860Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.860Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.860Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.860Z | INFO    | [A07] Wrong recipient (message for node-02)  (ATTACK)
+2026-11-02 16:27:08.860Z | INFO    |   threat    : re-target a valid command meant for another agent
+2026-11-02 16:27:08.860Z | INFO    |   request   : tcp 127.0.0.15 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=5e321509 frame=658 bytes
+2026-11-02 16:27:08.860Z | INFO    |   expected  : REJECT at C4 RECIPIENT (WRONG_RECIPIENT)
+2026-11-02 16:27:08.861Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00007: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.15:43387 checkpoint=C4 RECIPIENT reason=WRONG_RECIPIENT (addressed to ciphermesh-node-02, this agent is ciphermesh-node-01)
+2026-11-02 16:27:08.862Z | INFO    |   verdict   : REJECTED at C4 RECIPIENT reason=WRONG_RECIPIENT latency=430 us incident=INC-00007
+2026-11-02 16:27:08.862Z | INFO    |   detail    : addressed to ciphermesh-node-02, this agent is ciphermesh-node-01
+2026-11-02 16:27:08.862Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.15 stopped at C4 (WRONG_RECIPIENT)
+2026-11-02 16:27:08.862Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.863Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.863Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.863Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.863Z | INFO    | [A08] Unknown host (rogue-console-99)  (ATTACK)
+2026-11-02 16:27:08.863Z | INFO    |   threat    : attacker presents its own identity and key
+2026-11-02 16:27:08.863Z | INFO    |   request   : tcp 127.0.0.67 -> agent | claimed_host=rogue-console-99 key_id=8ed70b342e50472c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=42cf5276 frame=660 bytes
+2026-11-02 16:27:08.863Z | INFO    |   expected  : REJECT at C5 HOST_TRUST (UNKNOWN_HOST)
+2026-11-02 16:27:08.864Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00008: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=rogue-console-99 origin=tcp://127.0.0.67:51099 checkpoint=C5 HOST_TRUST reason=UNKNOWN_HOST (host rogue-console-99 is not in the trust store)
+2026-11-02 16:27:08.865Z | INFO    |   verdict   : REJECTED at C5 HOST_TRUST reason=UNKNOWN_HOST latency=160 us incident=INC-00008
+2026-11-02 16:27:08.865Z | INFO    |   detail    : host rogue-console-99 is not in the trust store
+2026-11-02 16:27:08.865Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.67 stopped at C5 (UNKNOWN_HOST)
+2026-11-02 16:27:08.865Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.865Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.865Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.865Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.865Z | INFO    | [A09] Decommissioned host (legacy-console-02)  (ATTACK)
+2026-11-02 16:27:08.865Z | INFO    |   threat    : old console with a still-valid key is reused
+2026-11-02 16:27:08.865Z | INFO    |   request   : tcp 127.0.0.40 -> agent | claimed_host=legacy-console-02 key_id=7e52486981f53bf7 command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=7858e526 frame=661 bytes
+2026-11-02 16:27:08.865Z | INFO    |   expected  : REJECT at C5 HOST_TRUST (HOST_REVOKED)
+2026-11-02 16:27:08.866Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00009: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=legacy-console-02 origin=tcp://127.0.0.40:46557 checkpoint=C5 HOST_TRUST reason=HOST_REVOKED (host legacy-console-02 has been revoked (decommissioned))
+2026-11-02 16:27:08.867Z | INFO    |   verdict   : REJECTED at C5 HOST_TRUST reason=HOST_REVOKED latency=164 us incident=INC-00009
+2026-11-02 16:27:08.867Z | INFO    |   detail    : host legacy-console-02 has been revoked (decommissioned)
+2026-11-02 16:27:08.867Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.40 stopped at C5 (HOST_REVOKED)
+2026-11-02 16:27:08.867Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.867Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.867Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.868Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.868Z | INFO    | [A10] Spoofed host_id with attacker key  (ATTACK)
+2026-11-02 16:27:08.868Z | INFO    |   threat    : claims to be sec-console-01, signs with own key
+2026-11-02 16:27:08.868Z | INFO    |   request   : tcp 127.0.0.68 -> agent | claimed_host=sec-console-01 key_id=8ed70b342e50472c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=263fa992 frame=658 bytes
+2026-11-02 16:27:08.868Z | INFO    |   expected  : REJECT at C6 KEY_BINDING (KEY_NOT_BOUND)
+2026-11-02 16:27:08.869Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00010: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.68:53327 checkpoint=C6 KEY_BINDING reason=KEY_NOT_BOUND (key 8ed70b342e50472c is not bound to host sec-console-01)
+2026-11-02 16:27:08.871Z | INFO    |   verdict   : REJECTED at C6 KEY_BINDING reason=KEY_NOT_BOUND latency=160 us incident=INC-00010
+2026-11-02 16:27:08.871Z | INFO    |   detail    : key 8ed70b342e50472c is not bound to host sec-console-01
+2026-11-02 16:27:08.871Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.68 stopped at C6 (KEY_NOT_BOUND)
+2026-11-02 16:27:08.871Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.871Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.871Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.871Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.871Z | INFO    | [A11] Revoked (rotated-out) admin key  (ATTACK)
+2026-11-02 16:27:08.871Z | INFO    |   threat    : leaked old key used after rotation
+2026-11-02 16:27:08.871Z | INFO    |   request   : tcp 127.0.0.9 -> agent | claimed_host=sec-console-01 key_id=9ddbfb298cae94a6 command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=4157a16a frame=658 bytes
+2026-11-02 16:27:08.871Z | INFO    |   expected  : REJECT at C6 KEY_BINDING (KEY_REVOKED)
+2026-11-02 16:27:08.873Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00011: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.9:34231 checkpoint=C6 KEY_BINDING reason=KEY_REVOKED (key 9ddbfb298cae94a6 is revoked (scheduled key rotation (NIST SP 800-57 cryptoperiod)))
+2026-11-02 16:27:08.876Z | INFO    |   verdict   : REJECTED at C6 KEY_BINDING reason=KEY_REVOKED latency=801 us incident=INC-00011
+2026-11-02 16:27:08.876Z | INFO    |   detail    : key 9ddbfb298cae94a6 is revoked (scheduled key rotation (NIST SP 800-57 cryptoperiod))
+2026-11-02 16:27:08.876Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.9 stopped at C6 (KEY_REVOKED)
+2026-11-02 16:27:08.876Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.876Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.876Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.876Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.876Z | INFO    | [A12] Stolen admin key used from untrusted network  (ATTACK)
+2026-11-02 16:27:08.876Z | INFO    |   threat    : valid signature, wrong network origin
+2026-11-02 16:27:08.876Z | INFO    |   request   : tcp 127.0.0.66 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=0087d9e1 frame=658 bytes
+2026-11-02 16:27:08.876Z | INFO    |   expected  : REJECT at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.877Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00012: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.66:53173 checkpoint=C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED (peer 127.0.0.66 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local'])
+2026-11-02 16:27:08.878Z | INFO    |   verdict   : REJECTED at C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED latency=212 us incident=INC-00012
+2026-11-02 16:27:08.879Z | INFO    |   detail    : peer 127.0.0.66 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local']
+2026-11-02 16:27:08.879Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.66 stopped at C7 (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.879Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.879Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.879Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.879Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.879Z | INFO    | [A13] Forged signature (attacker key, admin key_id)  (ATTACK)
+2026-11-02 16:27:08.879Z | INFO    |   threat    : foothold inside admin subnet forges a lockdown
+2026-11-02 16:27:08.879Z | INFO    |   request   : tcp 127.0.0.12 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=4dce4c05 frame=658 bytes
+2026-11-02 16:27:08.879Z | INFO    |   expected  : REJECT at C8 SIGNATURE (BAD_SIGNATURE)
+2026-11-02 16:27:08.880Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00013: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.12:53439 checkpoint=C8 SIGNATURE reason=BAD_SIGNATURE (Ed25519 signature does not verify over the canonical bytes)
+2026-11-02 16:27:08.882Z | INFO    |   verdict   : REJECTED at C8 SIGNATURE reason=BAD_SIGNATURE latency=470 us incident=INC-00013
+2026-11-02 16:27:08.882Z | INFO    |   detail    : Ed25519 signature does not verify over the canonical bytes
+2026-11-02 16:27:08.882Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.12 stopped at C8 (BAD_SIGNATURE)
+2026-11-02 16:27:08.882Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.882Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.882Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.883Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.883Z | INFO    | [A14] Payload tampered after signing  (ATTACK)
+2026-11-02 16:27:08.883Z | INFO    |   threat    : on-path attacker swaps the pattern list
+2026-11-02 16:27:08.883Z | INFO    |   request   : tcp 127.0.0.13 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=UPDATE_REDACTION_PATTERNS msg_id=9efd03c8 frame=639 bytes
+2026-11-02 16:27:08.883Z | INFO    |   expected  : REJECT at C8 SIGNATURE (BAD_SIGNATURE)
+2026-11-02 16:27:08.885Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00014: command=UPDATE_REDACTION_PATTERNS claimed_host=sec-console-01 origin=tcp://127.0.0.13:48547 checkpoint=C8 SIGNATURE reason=BAD_SIGNATURE (Ed25519 signature does not verify over the canonical bytes)
+2026-11-02 16:27:08.886Z | INFO    |   verdict   : REJECTED at C8 SIGNATURE reason=BAD_SIGNATURE latency=393 us incident=INC-00014
+2026-11-02 16:27:08.886Z | INFO    |   detail    : Ed25519 signature does not verify over the canonical bytes
+2026-11-02 16:27:08.886Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: UPDATE_REDACTION_PATTERNS via 127.0.0.13 stopped at C8 (BAD_SIGNATURE)
+2026-11-02 16:27:08.886Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.886Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.886Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.886Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.886Z | INFO    | [A15] Payload tampered and digest recomputed  (ATTACK)
+2026-11-02 16:27:08.886Z | INFO    |   threat    : attacker also fixes payload_sha256
+2026-11-02 16:27:08.886Z | INFO    |   request   : tcp 127.0.0.14 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=UPDATE_REDACTION_PATTERNS msg_id=8b4150c6 frame=639 bytes
+2026-11-02 16:27:08.886Z | INFO    |   expected  : REJECT at C8 SIGNATURE (BAD_SIGNATURE)
+2026-11-02 16:27:08.888Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00015: command=UPDATE_REDACTION_PATTERNS claimed_host=sec-console-01 origin=tcp://127.0.0.14:47905 checkpoint=C8 SIGNATURE reason=BAD_SIGNATURE (Ed25519 signature does not verify over the canonical bytes)
+2026-11-02 16:27:08.889Z | INFO    |   verdict   : REJECTED at C8 SIGNATURE reason=BAD_SIGNATURE latency=384 us incident=INC-00015
+2026-11-02 16:27:08.889Z | INFO    |   detail    : Ed25519 signature does not verify over the canonical bytes
+2026-11-02 16:27:08.890Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: UPDATE_REDACTION_PATTERNS via 127.0.0.14 stopped at C8 (BAD_SIGNATURE)
+2026-11-02 16:27:08.890Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.890Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.890Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.890Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.890Z | INFO    | [A16] Header digest does not match payload  (ATTACK)
+2026-11-02 16:27:08.890Z | INFO    |   threat    : trusted but faulty client binds the wrong body
+2026-11-02 16:27:08.890Z | INFO    |   request   : tcp 127.0.0.10 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=UPDATE_REDACTION_PATTERNS msg_id=ad6f16de frame=639 bytes
+2026-11-02 16:27:08.890Z | INFO    |   expected  : REJECT at C9 PAYLOAD_HASH (PAYLOAD_HASH_MISMATCH)
+2026-11-02 16:27:08.893Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00016: command=UPDATE_REDACTION_PATTERNS claimed_host=sec-console-01 origin=tcp://127.0.0.10:44425 checkpoint=C9 PAYLOAD_HASH reason=PAYLOAD_HASH_MISMATCH (payload_sha256 in the signed header does not match the payload)
+2026-11-02 16:27:08.895Z | INFO    |   verdict   : REJECTED at C9 PAYLOAD_HASH reason=PAYLOAD_HASH_MISMATCH latency=856 us incident=INC-00016
+2026-11-02 16:27:08.895Z | INFO    |   detail    : payload_sha256 in the signed header does not match the payload
+2026-11-02 16:27:08.895Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: UPDATE_REDACTION_PATTERNS via 127.0.0.10 stopped at C9 (PAYLOAD_HASH_MISMATCH)
+2026-11-02 16:27:08.895Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.895Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.895Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.895Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.895Z | INFO    | [A17] Stale command (issued 10 minutes ago)  (ATTACK)
+2026-11-02 16:27:08.895Z | INFO    |   threat    : old captured command replayed much later
+2026-11-02 16:27:08.895Z | INFO    |   request   : tcp 127.0.0.11 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=56e338be frame=658 bytes
+2026-11-02 16:27:08.895Z | INFO    |   expected  : REJECT at C10 FRESHNESS (STALE_MESSAGE)
+2026-11-02 16:27:08.897Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00017: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.11:53149 checkpoint=C10 FRESHNESS reason=STALE_MESSAGE (issued 600 s ago; window is +/-60 s)
+2026-11-02 16:27:08.899Z | INFO    |   verdict   : REJECTED at C10 FRESHNESS reason=STALE_MESSAGE latency=520 us incident=INC-00017
+2026-11-02 16:27:08.899Z | INFO    |   detail    : issued 600 s ago; window is +/-60 s
+2026-11-02 16:27:08.899Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.11 stopped at C10 (STALE_MESSAGE)
+2026-11-02 16:27:08.899Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.899Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.899Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.900Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.900Z | INFO    | [A18] Expired command (ttl 5 s, sent after 20 s)  (ATTACK)
+2026-11-02 16:27:08.900Z | INFO    |   threat    : delayed delivery past expires_at
+2026-11-02 16:27:08.900Z | INFO    |   request   : tcp 127.0.0.11 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=868a3461 frame=658 bytes
+2026-11-02 16:27:08.900Z | INFO    |   expected  : REJECT at C10 FRESHNESS (EXPIRED_MESSAGE)
+2026-11-02 16:27:08.902Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00018: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.11:55661 checkpoint=C10 FRESHNESS reason=EXPIRED_MESSAGE (expired 15.0 s ago)
+2026-11-02 16:27:08.904Z | INFO    |   verdict   : REJECTED at C10 FRESHNESS reason=EXPIRED_MESSAGE latency=902 us incident=INC-00018
+2026-11-02 16:27:08.904Z | INFO    |   detail    : expired 15.0 s ago
+2026-11-02 16:27:08.904Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.11 stopped at C10 (EXPIRED_MESSAGE)
+2026-11-02 16:27:08.904Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.904Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.904Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.905Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.905Z | INFO    | [A19] Future-dated command (+5 minutes)  (ATTACK)
+2026-11-02 16:27:08.905Z | INFO    |   threat    : pre-signed command to beat the freshness window
+2026-11-02 16:27:08.905Z | INFO    |   request   : tcp 127.0.0.14 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=7496c503 frame=658 bytes
+2026-11-02 16:27:08.905Z | INFO    |   expected  : REJECT at C10 FRESHNESS (FUTURE_MESSAGE)
+2026-11-02 16:27:08.906Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00019: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.14:60715 checkpoint=C10 FRESHNESS reason=FUTURE_MESSAGE (issued 300 s in the future)
+2026-11-02 16:27:08.908Z | INFO    |   verdict   : REJECTED at C10 FRESHNESS reason=FUTURE_MESSAGE latency=424 us incident=INC-00019
+2026-11-02 16:27:08.908Z | INFO    |   detail    : issued 300 s in the future
+2026-11-02 16:27:08.908Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.14 stopped at C10 (FUTURE_MESSAGE)
+2026-11-02 16:27:08.908Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.908Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.908Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.909Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.909Z | INFO    | [A20] Replay of the captured S01 lockdown  (ATTACK)
+2026-11-02 16:27:08.909Z | INFO    |   threat    : byte-identical copy of an accepted command
+2026-11-02 16:27:08.909Z | INFO    |   request   : tcp 127.0.0.11 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=7670c639 frame=653 bytes
+2026-11-02 16:27:08.909Z | INFO    |   expected  : REJECT at C11 REPLAY (REPLAY_MSG_ID)
+2026-11-02 16:27:08.911Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00020: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.11:40085 checkpoint=C11 REPLAY reason=REPLAY_MSG_ID (message id or nonce already used inside the replay window)
+2026-11-02 16:27:08.913Z | INFO    |   verdict   : REJECTED at C11 REPLAY reason=REPLAY_MSG_ID latency=1151 us incident=INC-00020
+2026-11-02 16:27:08.913Z | INFO    |   detail    : message id or nonce already used inside the replay window
+2026-11-02 16:27:08.913Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.11 stopped at C11 (REPLAY_MSG_ID)
+2026-11-02 16:27:08.913Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.913Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.913Z | INFO    |   note      : the original S01 frame was accepted earlier; lockdown was then released in S02, so an accepted replay would have re-locked the gateway
+2026-11-02 16:27:08.913Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.921Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.921Z | INFO    | [A21] Compromised console (tampered host code)  (ATTACK)
+2026-11-02 16:27:08.921Z | INFO    |   threat    : console runs a backdoored policy.py
+2026-11-02 16:27:08.921Z | INFO    |   request   : tcp 127.0.0.10 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=f2c659b9 frame=658 bytes
+2026-11-02 16:27:08.921Z | INFO    |   expected  : REJECT at C12 HOST_INTEGRITY (ATTESTATION_MISMATCH)
+2026-11-02 16:27:08.922Z | ERROR   | [AGENT] SECURITY ALERT HOST_INTEGRITY_FAILURE: origin=tcp://127.0.0.10:48671 claimed_host=sec-console-01 - sender code digest 55ac241b22133037... is not a trusted release for sec-console-01
+2026-11-02 16:27:08.923Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00021: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.10:48671 checkpoint=C12 HOST_INTEGRITY reason=ATTESTATION_MISMATCH (sender code digest 55ac241b22133037... is not a trusted release for sec-console-01)
+2026-11-02 16:27:08.925Z | INFO    |   verdict   : REJECTED at C12 HOST_INTEGRITY reason=ATTESTATION_MISMATCH latency=683 us incident=INC-00021
+2026-11-02 16:27:08.925Z | INFO    |   detail    : sender code digest 55ac241b22133037... is not a trusted release for sec-console-01
+2026-11-02 16:27:08.925Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.10 stopped at C12 (ATTESTATION_MISMATCH)
+2026-11-02 16:27:08.925Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.925Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.925Z | INFO    |   note      : console attestation digest 55ac241b22133037... vs trusted release 8de694812c7eade8...
+2026-11-02 16:27:08.925Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.926Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.926Z | INFO    | [A22] Observer privilege escalation (lockdown)  (ATTACK)
+2026-11-02 16:27:08.926Z | INFO    |   threat    : valid observer key asks for an admin action
+2026-11-02 16:27:08.926Z | INFO    |   request   : tcp 127.0.0.20 -> agent | claimed_host=observer-01 key_id=928ea43425c5ec32 command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=d645f8da frame=655 bytes
+2026-11-02 16:27:08.926Z | INFO    |   expected  : REJECT at C13 AUTHORIZATION (COMMAND_NOT_PERMITTED)
+2026-11-02 16:27:08.929Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00022: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=observer-01 origin=tcp://127.0.0.20:39697 checkpoint=C13 AUTHORIZATION reason=COMMAND_NOT_PERMITTED (TRIGGER_EMERGENCY_LOCKDOWN is not granted to roles ['observer'] of observer-01)
+2026-11-02 16:27:08.931Z | INFO    |   verdict   : REJECTED at C13 AUTHORIZATION reason=COMMAND_NOT_PERMITTED latency=920 us incident=INC-00022
+2026-11-02 16:27:08.931Z | INFO    |   detail    : TRIGGER_EMERGENCY_LOCKDOWN is not granted to roles ['observer'] of observer-01
+2026-11-02 16:27:08.931Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.20 stopped at C13 (COMMAND_NOT_PERMITTED)
+2026-11-02 16:27:08.931Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.931Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.931Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.931Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.931Z | INFO    | [A23] World-writable command file in spool  (ATTACK)
+2026-11-02 16:27:08.931Z | INFO    |   threat    : another local user could have swapped the file
+2026-11-02 16:27:08.931Z | INFO    |   request   : system-command spool file (mode 0o666) | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=e91bed9c frame=658 bytes
+2026-11-02 16:27:08.931Z | INFO    |   expected  : REJECT at C7 NETWORK_ORIGIN (LOCAL_SOURCE_UNTRUSTED)
+2026-11-02 16:27:08.932Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00023: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=system://a23.json checkpoint=C7 NETWORK_ORIGIN reason=LOCAL_SOURCE_UNTRUSTED (command file mode 0o666 is writable by group/others)
+2026-11-02 16:27:08.933Z | INFO    |   verdict   : REJECTED at C7 NETWORK_ORIGIN reason=LOCAL_SOURCE_UNTRUSTED latency=196 us incident=INC-00023
+2026-11-02 16:27:08.933Z | INFO    |   detail    : command file mode 0o666 is writable by group/others
+2026-11-02 16:27:08.933Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via local spool stopped at C7 (LOCAL_SOURCE_UNTRUSTED)
+2026-11-02 16:27:08.933Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.933Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.933Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.934Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.934Z | INFO    | [A24] Forged command file in spool  (ATTACK)
+2026-11-02 16:27:08.934Z | INFO    |   threat    : local attacker drops a forged admin command
+2026-11-02 16:27:08.934Z | INFO    |   request   : system-command spool file (mode 0o600) | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=UPDATE_REDACTION_PATTERNS msg_id=28199b1f frame=636 bytes
+2026-11-02 16:27:08.934Z | INFO    |   expected  : REJECT at C8 SIGNATURE (BAD_SIGNATURE)
+2026-11-02 16:27:08.934Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00024: command=UPDATE_REDACTION_PATTERNS claimed_host=sec-console-01 origin=system://a24.json checkpoint=C8 SIGNATURE reason=BAD_SIGNATURE (Ed25519 signature does not verify over the canonical bytes)
+2026-11-02 16:27:08.935Z | INFO    |   verdict   : REJECTED at C8 SIGNATURE reason=BAD_SIGNATURE latency=317 us incident=INC-00024
+2026-11-02 16:27:08.935Z | INFO    |   detail    : Ed25519 signature does not verify over the canonical bytes
+2026-11-02 16:27:08.935Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: UPDATE_REDACTION_PATTERNS via local spool stopped at C8 (BAD_SIGNATURE)
+2026-11-02 16:27:08.936Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.936Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.936Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.936Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.936Z | INFO    | [A25] Brute-force burst: 8 forged admin lockdowns from 127.0.0.99 (lockout after 5 failures)
+2026-11-02 16:27:08.936Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.936Z | INFO    | [A25.1] Brute-force attempt 1/8  (ATTACK)
+2026-11-02 16:27:08.936Z | INFO    |   threat    : rapid forged commands from one source
+2026-11-02 16:27:08.936Z | INFO    |   request   : tcp 127.0.0.99 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=5c5f5858 frame=658 bytes
+2026-11-02 16:27:08.936Z | INFO    |   expected  : REJECT at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.937Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00025: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.99:44651 checkpoint=C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED (peer 127.0.0.99 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local'])
+2026-11-02 16:27:08.939Z | INFO    |   verdict   : REJECTED at C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED latency=215 us incident=INC-00025
+2026-11-02 16:27:08.939Z | INFO    |   detail    : peer 127.0.0.99 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local']
+2026-11-02 16:27:08.939Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.99 stopped at C7 (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.939Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.939Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.939Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.940Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.940Z | INFO    | [A25.2] Brute-force attempt 2/8  (ATTACK)
+2026-11-02 16:27:08.940Z | INFO    |   threat    : rapid forged commands from one source
+2026-11-02 16:27:08.940Z | INFO    |   request   : tcp 127.0.0.99 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=71c35675 frame=658 bytes
+2026-11-02 16:27:08.940Z | INFO    |   expected  : REJECT at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.942Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00026: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.99:34207 checkpoint=C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED (peer 127.0.0.99 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local'])
+2026-11-02 16:27:08.944Z | INFO    |   verdict   : REJECTED at C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED latency=343 us incident=INC-00026
+2026-11-02 16:27:08.944Z | INFO    |   detail    : peer 127.0.0.99 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local']
+2026-11-02 16:27:08.944Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.99 stopped at C7 (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.944Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.944Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.944Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.945Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.945Z | INFO    | [A25.3] Brute-force attempt 3/8  (ATTACK)
+2026-11-02 16:27:08.945Z | INFO    |   threat    : rapid forged commands from one source
+2026-11-02 16:27:08.945Z | INFO    |   request   : tcp 127.0.0.99 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=bbb3af0e frame=658 bytes
+2026-11-02 16:27:08.945Z | INFO    |   expected  : REJECT at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.946Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00027: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.99:55081 checkpoint=C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED (peer 127.0.0.99 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local'])
+2026-11-02 16:27:08.947Z | INFO    |   verdict   : REJECTED at C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED latency=203 us incident=INC-00027
+2026-11-02 16:27:08.948Z | INFO    |   detail    : peer 127.0.0.99 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local']
+2026-11-02 16:27:08.948Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.99 stopped at C7 (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.948Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.948Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.948Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.949Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.949Z | INFO    | [A25.4] Brute-force attempt 4/8  (ATTACK)
+2026-11-02 16:27:08.949Z | INFO    |   threat    : rapid forged commands from one source
+2026-11-02 16:27:08.949Z | INFO    |   request   : tcp 127.0.0.99 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=df30316f frame=658 bytes
+2026-11-02 16:27:08.949Z | INFO    |   expected  : REJECT at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.951Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00028: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.99:50383 checkpoint=C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED (peer 127.0.0.99 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local'])
+2026-11-02 16:27:08.953Z | INFO    |   verdict   : REJECTED at C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED latency=349 us incident=INC-00028
+2026-11-02 16:27:08.953Z | INFO    |   detail    : peer 127.0.0.99 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local']
+2026-11-02 16:27:08.953Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.99 stopped at C7 (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.953Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.953Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.953Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.953Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.953Z | INFO    | [A25.5] Brute-force attempt 5/8  (ATTACK)
+2026-11-02 16:27:08.953Z | INFO    |   threat    : rapid forged commands from one source
+2026-11-02 16:27:08.953Z | INFO    |   request   : tcp 127.0.0.99 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=3fd9cff8 frame=658 bytes
+2026-11-02 16:27:08.953Z | INFO    |   expected  : REJECT at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.954Z | ERROR   | [AGENT] SECURITY ALERT SOURCE_LOCKOUT: origin=tcp://127.0.0.99:34843 claimed_host=sec-console-01 - 5 failed requests within 60 s; 127.0.0.99/sec-console-01 locked for 300 s
+2026-11-02 16:27:08.955Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00029: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.99:34843 checkpoint=C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED (peer 127.0.0.99 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local'])
+2026-11-02 16:27:08.956Z | INFO    |   verdict   : REJECTED at C7 NETWORK_ORIGIN reason=ORIGIN_NOT_ALLOWED latency=394 us incident=INC-00029
+2026-11-02 16:27:08.956Z | INFO    |   detail    : peer 127.0.0.99 is outside sec-console-01 allowed sources ['127.0.0.8/29', 'local']
+2026-11-02 16:27:08.957Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.99 stopped at C7 (ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.957Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.957Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.957Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.957Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.957Z | INFO    | [A25.6] Brute-force attempt 6/8  (ATTACK)
+2026-11-02 16:27:08.957Z | INFO    |   threat    : rapid forged commands from one source
+2026-11-02 16:27:08.957Z | INFO    |   request   : tcp 127.0.0.99 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=d1ccdd05 frame=658 bytes
+2026-11-02 16:27:08.957Z | INFO    |   expected  : REJECT at L0 SOURCE_LOCKOUT (SOURCE_LOCKED_OUT)
+2026-11-02 16:27:08.959Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00030: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.99:51219 checkpoint=L0 SOURCE_LOCKOUT reason=SOURCE_LOCKED_OUT (127.0.0.99/sec-console-01 is locked out for another 300 s (request would also fail C7 ORIGIN_NOT_ALLOWED))
+2026-11-02 16:27:08.961Z | INFO    |   verdict   : REJECTED at L0 SOURCE_LOCKOUT reason=SOURCE_LOCKED_OUT latency=355 us incident=INC-00030
+2026-11-02 16:27:08.961Z | INFO    |   detail    : 127.0.0.99/sec-console-01 is locked out for another 300 s (request would also fail C7 ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.961Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.99 stopped at L0 (SOURCE_LOCKED_OUT)
+2026-11-02 16:27:08.961Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.961Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.961Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.961Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.961Z | INFO    | [A25.7] Brute-force attempt 7/8  (ATTACK)
+2026-11-02 16:27:08.961Z | INFO    |   threat    : rapid forged commands from one source
+2026-11-02 16:27:08.961Z | INFO    |   request   : tcp 127.0.0.99 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=a575d226 frame=658 bytes
+2026-11-02 16:27:08.961Z | INFO    |   expected  : REJECT at L0 SOURCE_LOCKOUT (SOURCE_LOCKED_OUT)
+2026-11-02 16:27:08.962Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00031: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.99:57229 checkpoint=L0 SOURCE_LOCKOUT reason=SOURCE_LOCKED_OUT (127.0.0.99/sec-console-01 is locked out for another 300 s (request would also fail C7 ORIGIN_NOT_ALLOWED))
+2026-11-02 16:27:08.963Z | INFO    |   verdict   : REJECTED at L0 SOURCE_LOCKOUT reason=SOURCE_LOCKED_OUT latency=168 us incident=INC-00031
+2026-11-02 16:27:08.963Z | INFO    |   detail    : 127.0.0.99/sec-console-01 is locked out for another 300 s (request would also fail C7 ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.963Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.99 stopped at L0 (SOURCE_LOCKED_OUT)
+2026-11-02 16:27:08.963Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.963Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.963Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.964Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.964Z | INFO    | [A25.8] Brute-force attempt 8/8  (ATTACK)
+2026-11-02 16:27:08.964Z | INFO    |   threat    : rapid forged commands from one source
+2026-11-02 16:27:08.964Z | INFO    |   request   : tcp 127.0.0.99 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=e033a8f8 frame=658 bytes
+2026-11-02 16:27:08.964Z | INFO    |   expected  : REJECT at L0 SOURCE_LOCKOUT (SOURCE_LOCKED_OUT)
+2026-11-02 16:27:08.965Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00032: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.99:56929 checkpoint=L0 SOURCE_LOCKOUT reason=SOURCE_LOCKED_OUT (127.0.0.99/sec-console-01 is locked out for another 300 s (request would also fail C7 ORIGIN_NOT_ALLOWED))
+2026-11-02 16:27:08.966Z | INFO    |   verdict   : REJECTED at L0 SOURCE_LOCKOUT reason=SOURCE_LOCKED_OUT latency=134 us incident=INC-00032
+2026-11-02 16:27:08.967Z | INFO    |   detail    : 127.0.0.99/sec-console-01 is locked out for another 300 s (request would also fail C7 ORIGIN_NOT_ALLOWED)
+2026-11-02 16:27:08.967Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.99 stopped at L0 (SOURCE_LOCKED_OUT)
+2026-11-02 16:27:08.967Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.967Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.967Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.968Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.968Z | INFO    | [A26] Peer gateway STATE_SYNC weakens policy  (ATTACK)
+2026-11-02 16:27:08.968Z | INFO    |   threat    : valid peer key switches off secret blocking and PII redaction
+2026-11-02 16:27:08.968Z | INFO    |   request   : tcp 127.0.0.30 -> agent | claimed_host=peer-gateway-01 key_id=98c816a937bd200f command=STATE_SYNC msg_id=a4947e09 frame=719 bytes
+2026-11-02 16:27:08.968Z | INFO    |   expected  : REJECT at C13 AUTHORIZATION (STATE_FIELD_NOT_PERMITTED)
+2026-11-02 16:27:08.970Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00033: command=STATE_SYNC claimed_host=peer-gateway-01 origin=tcp://127.0.0.30:48777 checkpoint=C13 AUTHORIZATION reason=STATE_FIELD_NOT_PERMITTED (STATE_SYNC fields ['block_critical_secrets', 'custom_redaction_patterns', 'redact_email_phone_ip'] may weaken policy; only security-admin may change them)
+2026-11-02 16:27:08.972Z | INFO    |   verdict   : REJECTED at C13 AUTHORIZATION reason=STATE_FIELD_NOT_PERMITTED latency=1140 us incident=INC-00033
+2026-11-02 16:27:08.972Z | INFO    |   detail    : STATE_SYNC fields ['block_critical_secrets', 'custom_redaction_patterns', 'redact_email_phone_ip'] may weaken policy; only security-admin may change them
+2026-11-02 16:27:08.972Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: STATE_SYNC via 127.0.0.30 stopped at C13 (STATE_FIELD_NOT_PERMITTED)
+2026-11-02 16:27:08.972Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.972Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.972Z | INFO    |   note      : peer-gateway may only sync policy_revision, policy_version, provider_allowlist, max_prompt_bytes; other fields need security-admin
+2026-11-02 16:27:08.972Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.972Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.972Z | INFO    | [A27] Lockout abuse: 5 forged commands claiming sec-console-01 from 127.0.0.8 (inside its range)
+2026-11-02 16:27:08.973Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.973Z | INFO    | [A27.1] Forged burst to lock out the console 1/5  (ATTACK)
+2026-11-02 16:27:08.973Z | INFO    |   threat    : attacker tries to get the real console locked out
+2026-11-02 16:27:08.973Z | INFO    |   request   : tcp 127.0.0.8 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=ddbbca53 frame=658 bytes
+2026-11-02 16:27:08.973Z | INFO    |   expected  : REJECT at C8 SIGNATURE (BAD_SIGNATURE)
+2026-11-02 16:27:08.974Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00034: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.8:33681 checkpoint=C8 SIGNATURE reason=BAD_SIGNATURE (Ed25519 signature does not verify over the canonical bytes)
+2026-11-02 16:27:08.976Z | INFO    |   verdict   : REJECTED at C8 SIGNATURE reason=BAD_SIGNATURE latency=526 us incident=INC-00034
+2026-11-02 16:27:08.976Z | INFO    |   detail    : Ed25519 signature does not verify over the canonical bytes
+2026-11-02 16:27:08.976Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.8 stopped at C8 (BAD_SIGNATURE)
+2026-11-02 16:27:08.976Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.976Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.976Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.977Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.977Z | INFO    | [A27.2] Forged burst to lock out the console 2/5  (ATTACK)
+2026-11-02 16:27:08.977Z | INFO    |   threat    : attacker tries to get the real console locked out
+2026-11-02 16:27:08.977Z | INFO    |   request   : tcp 127.0.0.8 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=3a7187e4 frame=658 bytes
+2026-11-02 16:27:08.977Z | INFO    |   expected  : REJECT at C8 SIGNATURE (BAD_SIGNATURE)
+2026-11-02 16:27:08.982Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00035: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.8:55637 checkpoint=C8 SIGNATURE reason=BAD_SIGNATURE (Ed25519 signature does not verify over the canonical bytes)
+2026-11-02 16:27:08.984Z | INFO    |   verdict   : REJECTED at C8 SIGNATURE reason=BAD_SIGNATURE latency=836 us incident=INC-00035
+2026-11-02 16:27:08.984Z | INFO    |   detail    : Ed25519 signature does not verify over the canonical bytes
+2026-11-02 16:27:08.984Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.8 stopped at C8 (BAD_SIGNATURE)
+2026-11-02 16:27:08.984Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.984Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.984Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.984Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.984Z | INFO    | [A27.3] Forged burst to lock out the console 3/5  (ATTACK)
+2026-11-02 16:27:08.984Z | INFO    |   threat    : attacker tries to get the real console locked out
+2026-11-02 16:27:08.984Z | INFO    |   request   : tcp 127.0.0.8 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=1c253937 frame=658 bytes
+2026-11-02 16:27:08.984Z | INFO    |   expected  : REJECT at C8 SIGNATURE (BAD_SIGNATURE)
+2026-11-02 16:27:08.986Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00036: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.8:40659 checkpoint=C8 SIGNATURE reason=BAD_SIGNATURE (Ed25519 signature does not verify over the canonical bytes)
+2026-11-02 16:27:08.987Z | INFO    |   verdict   : REJECTED at C8 SIGNATURE reason=BAD_SIGNATURE latency=397 us incident=INC-00036
+2026-11-02 16:27:08.987Z | INFO    |   detail    : Ed25519 signature does not verify over the canonical bytes
+2026-11-02 16:27:08.987Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.8 stopped at C8 (BAD_SIGNATURE)
+2026-11-02 16:27:08.987Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.987Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.987Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.987Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.987Z | INFO    | [A27.4] Forged burst to lock out the console 4/5  (ATTACK)
+2026-11-02 16:27:08.987Z | INFO    |   threat    : attacker tries to get the real console locked out
+2026-11-02 16:27:08.987Z | INFO    |   request   : tcp 127.0.0.8 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=5bdcfc9c frame=658 bytes
+2026-11-02 16:27:08.987Z | INFO    |   expected  : REJECT at C8 SIGNATURE (BAD_SIGNATURE)
+2026-11-02 16:27:08.989Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00037: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.8:35621 checkpoint=C8 SIGNATURE reason=BAD_SIGNATURE (Ed25519 signature does not verify over the canonical bytes)
+2026-11-02 16:27:08.990Z | INFO    |   verdict   : REJECTED at C8 SIGNATURE reason=BAD_SIGNATURE latency=450 us incident=INC-00037
+2026-11-02 16:27:08.990Z | INFO    |   detail    : Ed25519 signature does not verify over the canonical bytes
+2026-11-02 16:27:08.990Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.8 stopped at C8 (BAD_SIGNATURE)
+2026-11-02 16:27:08.990Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.990Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.990Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.990Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.990Z | INFO    | [A27.5] Forged burst to lock out the console 5/5  (ATTACK)
+2026-11-02 16:27:08.990Z | INFO    |   threat    : attacker tries to get the real console locked out
+2026-11-02 16:27:08.990Z | INFO    |   request   : tcp 127.0.0.8 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=337e47d4 frame=658 bytes
+2026-11-02 16:27:08.990Z | INFO    |   expected  : REJECT at C8 SIGNATURE (BAD_SIGNATURE)
+2026-11-02 16:27:08.991Z | ERROR   | [AGENT] SECURITY ALERT SOURCE_LOCKOUT: origin=tcp://127.0.0.8:57841 claimed_host=sec-console-01 - 5 failed requests within 60 s; 127.0.0.8/sec-console-01 locked for 300 s
+2026-11-02 16:27:08.992Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00038: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.8:57841 checkpoint=C8 SIGNATURE reason=BAD_SIGNATURE (Ed25519 signature does not verify over the canonical bytes)
+2026-11-02 16:27:08.993Z | INFO    |   verdict   : REJECTED at C8 SIGNATURE reason=BAD_SIGNATURE latency=607 us incident=INC-00038
+2026-11-02 16:27:08.993Z | INFO    |   detail    : Ed25519 signature does not verify over the canonical bytes
+2026-11-02 16:27:08.993Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.8 stopped at C8 (BAD_SIGNATURE)
+2026-11-02 16:27:08.993Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.993Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity TRUSTED; body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:08.993Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.993Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.993Z | INFO    | [S09] Real console from the locked address 127.0.0.8  (LEGITIMATE)
+2026-11-02 16:27:08.993Z | INFO    |   threat    : none - authentic request while (127.0.0.8, sec-console-01) is locked
+2026-11-02 16:27:08.993Z | INFO    |   request   : tcp 127.0.0.8 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=REQUEST_TELEMETRY_DUMP msg_id=bc790b43 frame=609 bytes
+2026-11-02 16:27:08.993Z | INFO    |   expected  : ACCEPT (all 13 checkpoints)
+2026-11-02 16:27:08.995Z | INFO    | [AGENT] ACCEPTED REQUEST_TELEMETRY_DUMP from sec-console-01 via tcp://127.0.0.8:50907 (13/13 checkpoints, 594 us) -> telemetry_ready; state 51c3f3e8e21258c5 -> 51c3f3e8e21258c5
+2026-11-02 16:27:08.997Z | INFO    |   verdict   : ACCEPTED - all 13 checkpoints passed in 594 us -> telemetry_ready
+2026-11-02 16:27:08.997Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:08.997Z | INFO    |   reply     : agent-signed ACCEPTED reply, signature VERIFIED, agent integrity TRUSTED
+2026-11-02 16:27:08.997Z | INFO    |   result    : PASS
+2026-11-02 16:27:08.997Z | INFO    |   check     : lockout cleared by the authentic request -> True
+2026-11-02 16:27:08.997Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:08.997Z | INFO    | [A28] Slow-client exhaustion: 5 connections from 127.0.0.72 each send 1 byte and stall
+2026-11-02 16:27:08.997Z | INFO    |   expected  : 4 connections REJECT at L0 (FRAME_TIMEOUT after 2 s), the 5th at L0 (CONNECTION_LIMIT, cap 4 per IP); other clients still served
+2026-11-02 16:27:08.999Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00039: origin=tcp://127.0.0.72:39835 checkpoint=L0 reason=CONNECTION_LIMIT (more than 4 open connections from this address)
+2026-11-02 16:27:09.300Z | INFO    | [AGENT] ACCEPTED PING from sec-console-01 via tcp://127.0.0.10:51907 (13/13 checkpoints, 589 us) -> ok; state 51c3f3e8e21258c5 -> 51c3f3e8e21258c5
+2026-11-02 16:27:09.302Z | INFO    |   check     : console PING from 127.0.0.10 during the stall -> ACCEPTED in 4.0 ms
+2026-11-02 16:27:11.001Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00040: origin=tcp://127.0.0.72:32855 checkpoint=L0 reason=FRAME_TIMEOUT (frame incomplete after deadline (1/4 bytes))
+2026-11-02 16:27:11.001Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00041: origin=tcp://127.0.0.72:50517 checkpoint=L0 reason=FRAME_TIMEOUT (frame incomplete after deadline (1/4 bytes))
+2026-11-02 16:27:11.001Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00042: origin=tcp://127.0.0.72:56427 checkpoint=L0 reason=FRAME_TIMEOUT (frame incomplete after deadline (1/4 bytes))
+2026-11-02 16:27:11.002Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00043: origin=tcp://127.0.0.72:43555 checkpoint=L0 reason=FRAME_TIMEOUT (frame incomplete after deadline (1/4 bytes))
+2026-11-02 16:27:11.002Z | ERROR   | [AGENT] SECURITY ALERT SOURCE_LOCKOUT: origin=tcp://127.0.0.72:43555 claimed_host=? - 5 failed connections; 127.0.0.72/- locked
+2026-11-02 16:27:11.903Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: 4 connection(s) from 127.0.0.72 stopped at L0 (FRAME_TIMEOUT)
+2026-11-02 16:27:11.903Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: 1 connection(s) from 127.0.0.72 stopped at L0 (CONNECTION_LIMIT)
+2026-11-02 16:27:11.903Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 -> STATE UNCHANGED
+2026-11-02 16:27:11.903Z | INFO    |   result    : PASS
+2026-11-02 16:27:11.903Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:11.903Z | INFO    | AFTER all attacks: fingerprint=51c3f3e8e21258c5 lockdown=False patterns=2 -> STATE UNCHANGED BY EVERY REJECTED COMMAND
+2026-11-02 16:27:11.904Z | INFO    | ====================================================================================================
+2026-11-02 16:27:11.904Z | INFO    | PART C - prompts are still processed correctly after the attacks
+2026-11-02 16:27:11.904Z | INFO    |   prompt clean business prompt        expected=ALLOW  got=ALLOW  PASS
+2026-11-02 16:27:11.904Z | INFO    |   prompt email address                expected=REDACT got=REDACT PASS
+2026-11-02 16:27:11.904Z | INFO    |   prompt custom pattern PRJ-xxxx      expected=REDACT got=REDACT PASS
+2026-11-02 16:27:11.904Z | INFO    |   prompt custom pattern EMP-xxxxxx    expected=REDACT got=REDACT PASS
+2026-11-02 16:27:11.904Z | INFO    |   prompt AWS access key               expected=BLOCK  got=BLOCK  PASS
+2026-11-02 16:27:11.905Z | INFO    |   prompt internal URL                 expected=REVIEW got=REVIEW PASS
+2026-11-02 16:27:11.905Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:11.905Z | INFO    | [S08] Peer gateway inspection after the attacks  (LEGITIMATE)
+2026-11-02 16:27:11.905Z | INFO    |   threat    : none - authorised inspection
+2026-11-02 16:27:11.905Z | INFO    |   request   : tcp 127.0.0.30 -> agent | claimed_host=peer-gateway-01 key_id=98c816a937bd200f command=INSPECT msg_id=2130d737 frame=634 bytes
+2026-11-02 16:27:11.905Z | INFO    |   expected  : ACCEPT (all 13 checkpoints)
+2026-11-02 16:27:11.908Z | INFO    | [AGENT] ACCEPTED INSPECT from peer-gateway-01 via tcp://127.0.0.30:60437 (13/13 checkpoints, 789 us) -> inspection decision=REDACT; state 51c3f3e8e21258c5 -> 51c3f3e8e21258c5
+2026-11-02 16:27:11.910Z | INFO    |   verdict   : ACCEPTED - all 13 checkpoints passed in 789 us -> inspection decision=REDACT
+2026-11-02 16:27:11.910Z | INFO    |   state     : fingerprint 51c3f3e8e21258c5 -> 51c3f3e8e21258c5 | lockdown=False patterns=2 (sha e417d2a432e3) -> STATE UNCHANGED
+2026-11-02 16:27:11.910Z | INFO    |   reply     : agent-signed ACCEPTED reply, signature VERIFIED, agent integrity TRUSTED
+2026-11-02 16:27:11.910Z | INFO    |   result    : PASS
+2026-11-02 16:27:11.910Z | INFO    |   check     : signed INSPECT over TCP after attacks -> REDACT (expected REDACT)
+2026-11-02 16:27:12.158Z | INFO    | ====================================================================================================
+2026-11-02 16:27:12.158Z | INFO    | PART D - host integrity: agent started from tampered code (self-attestation)
+2026-11-02 16:27:12.171Z | INFO    |   tampered copy : ciphermesh/policy.py now contains an ALLOW backdoor
+2026-11-02 16:27:12.175Z | ERROR   | [AGENT] self-attestation FAILED: 1 source file(s) modified since release
+2026-11-02 16:27:12.175Z | WARNING |   [I01] strict mode: IntegrityError raised, agent REFUSED TO START (agent refuses to start: 1 source file(s) modified since release)
+2026-11-02 16:27:12.179Z | ERROR   | [AGENT] self-attestation FAILED: 1 source file(s) modified since release
+2026-11-02 16:27:12.179Z | WARNING | [AGENT] entering SAFE MODE: only ['PING', 'REQUEST_TELEMETRY_DUMP'] will be executed
+2026-11-02 16:27:12.180Z | INFO    |   [I02] non-strict mode: agent started in SAFE_MODE; mismatched files: policy.py
+2026-11-02 16:27:12.180Z | INFO    | [SERVER] ciphermesh-node-01 listening on tcp://127.0.0.1:34113 (mode=SAFE_MODE, max_frame=65536 bytes, frame deadline 5 s, 4 connections per IP)
+2026-11-02 16:27:12.181Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:12.181Z | INFO    | [I02a] SAFE MODE agent receives a valid admin lockdown  (ATTACK)
+2026-11-02 16:27:12.181Z | INFO    |   threat    : tampered node must not execute state-changing commands
+2026-11-02 16:27:12.181Z | INFO    |   request   : tcp 127.0.0.10 -> agent | claimed_host=sec-console-01 key_id=98417bb2a3867e6c command=TRIGGER_EMERGENCY_LOCKDOWN msg_id=93c74d28 frame=641 bytes
+2026-11-02 16:27:12.181Z | INFO    |   expected  : REJECT at C13 AUTHORIZATION (SAFE_MODE_RESTRICTED)
+2026-11-02 16:27:12.183Z | WARNING | [AGENT] BLOCKED UNAUTHORIZED REQUEST INC-00001: command=TRIGGER_EMERGENCY_LOCKDOWN claimed_host=sec-console-01 origin=tcp://127.0.0.10:48183 checkpoint=C13 AUTHORIZATION reason=SAFE_MODE_RESTRICTED (agent is in SAFE MODE (failed self-attestation); TRIGGER_EMERGENCY_LOCKDOWN refused)
+2026-11-02 16:27:12.184Z | INFO    |   verdict   : REJECTED at C13 AUTHORIZATION reason=SAFE_MODE_RESTRICTED latency=551 us incident=INC-00001
+2026-11-02 16:27:12.184Z | INFO    |   detail    : agent is in SAFE MODE (failed self-attestation); TRIGGER_EMERGENCY_LOCKDOWN refused
+2026-11-02 16:27:12.184Z | WARNING |   >>> BLOCKED UNAUTHORIZED REQUEST: TRIGGER_EMERGENCY_LOCKDOWN via 127.0.0.10 stopped at C13 (SAFE_MODE_RESTRICTED)
+2026-11-02 16:27:12.184Z | INFO    |   state     : fingerprint 38b94920e189a1eb -> 38b94920e189a1eb | lockdown=False patterns=0 (sha 4f53cda18c2b) -> STATE UNCHANGED
+2026-11-02 16:27:12.184Z | INFO    |   reply     : agent-signed REJECTED reply, signature VERIFIED, agent integrity UNTRUSTED (agent code differs from release; client treats reply as unverified); body is a generic error (no checkpoint leaked to sender)
+2026-11-02 16:27:12.184Z | INFO    |   result    : PASS
+2026-11-02 16:27:12.184Z | INFO    | ----------------------------------------------------------------------------------------------------
+2026-11-02 16:27:12.184Z | INFO    | [I02b] SAFE MODE agent still serves read-only telemetry  (LEGITIMATE)
+2026-11-02 16:27:12.184Z | INFO    |   threat    : none - telemetry stays available for incident response
+2026-11-02 16:27:12.184Z | INFO    |   request   : tcp 127.0.0.20 -> agent | claimed_host=observer-01 key_id=928ea43425c5ec32 command=REQUEST_TELEMETRY_DUMP msg_id=f377645a frame=606 bytes
+2026-11-02 16:27:12.184Z | INFO    |   expected  : ACCEPT (all 13 checkpoints)
+2026-11-02 16:27:12.186Z | INFO    | [AGENT] ACCEPTED REQUEST_TELEMETRY_DUMP from observer-01 via tcp://127.0.0.20:51941 (13/13 checkpoints, 462 us) -> telemetry_ready; state 38b94920e189a1eb -> 38b94920e189a1eb
+2026-11-02 16:27:12.188Z | INFO    |   verdict   : ACCEPTED - all 13 checkpoints passed in 462 us -> telemetry_ready
+2026-11-02 16:27:12.188Z | INFO    |   state     : fingerprint 38b94920e189a1eb -> 38b94920e189a1eb | lockdown=False patterns=0 (sha 4f53cda18c2b) -> STATE UNCHANGED
+2026-11-02 16:27:12.188Z | INFO    |   reply     : agent-signed ACCEPTED reply, signature VERIFIED, agent integrity UNTRUSTED (agent code differs from release; client treats reply as unverified)
+2026-11-02 16:27:12.188Z | INFO    |   result    : PASS
+2026-11-02 16:27:12.443Z | INFO    | ID      Scenario                                             Expected  Actual  Reason                     State      Result
+2026-11-02 16:27:12.443Z | INFO    | ---------------------------------------------------------------------------------------------------------------------------
+2026-11-02 16:27:12.443Z | INFO    | S01     Security console triggers emergency lockdown         ACCEPT    ACCEPT  ACCEPTED                   changed    PASS  
+2026-11-02 16:27:12.443Z | INFO    | S02     Security console releases lockdown                   ACCEPT    ACCEPT  ACCEPTED                   changed    PASS  
+2026-11-02 16:27:12.443Z | INFO    | S03     Observer requests telemetry dump                     ACCEPT    ACCEPT  ACCEPTED                   unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | S04     Security console adds a redaction pattern            ACCEPT    ACCEPT  ACCEPTED                   changed    PASS  
+2026-11-02 16:27:12.443Z | INFO    | S05     Peer gateway synchronises policy revision 2          ACCEPT    ACCEPT  ACCEPTED                   changed    PASS  
+2026-11-02 16:27:12.443Z | INFO    | S06     Peer gateway asks for a prompt inspection            ACCEPT    ACCEPT  ACCEPTED                   unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | S07     Admin pattern update via local system-command spool  ACCEPT    ACCEPT  ACCEPTED                   changed    PASS  
+2026-11-02 16:27:12.443Z | INFO    | A01     Unsigned command                                     C2        C2      SCHEMA_VIOLATION           unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A02     Malformed JSON frame                                 C2        C2      JSON_MALFORMED             unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A03     Unknown-field injection (role_override)              C2        C2      SCHEMA_VIOLATION           unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A04     Duplicate-key smuggling                              C2        C2      JSON_DUPLICATE_KEY         unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A05     Oversized frame (declares 1 MiB)                     C1        C1      FRAME_TOO_LARGE            unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A06     Protocol downgrade (cm-sig/0)                        C3        C3      UNSUPPORTED_VERSION        unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A07     Wrong recipient (message for node-02)                C4        C4      WRONG_RECIPIENT            unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A08     Unknown host (rogue-console-99)                      C5        C5      UNKNOWN_HOST               unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A09     Decommissioned host (legacy-console-02)              C5        C5      HOST_REVOKED               unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A10     Spoofed host_id with attacker key                    C6        C6      KEY_NOT_BOUND              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A11     Revoked (rotated-out) admin key                      C6        C6      KEY_REVOKED                unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A12     Stolen admin key used from untrusted network         C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A13     Forged signature (attacker key, admin key_id)        C8        C8      BAD_SIGNATURE              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A14     Payload tampered after signing                       C8        C8      BAD_SIGNATURE              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A15     Payload tampered and digest recomputed               C8        C8      BAD_SIGNATURE              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A16     Header digest does not match payload                 C9        C9      PAYLOAD_HASH_MISMATCH      unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A17     Stale command (issued 10 minutes ago)                C10       C10     STALE_MESSAGE              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A18     Expired command (ttl 5 s, sent after 20 s)           C10       C10     EXPIRED_MESSAGE            unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A19     Future-dated command (+5 minutes)                    C10       C10     FUTURE_MESSAGE             unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A20     Replay of the captured S01 lockdown                  C11       C11     REPLAY_MSG_ID              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A21     Compromised console (tampered host code)             C12       C12     ATTESTATION_MISMATCH       unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A22     Observer privilege escalation (lockdown)             C13       C13     COMMAND_NOT_PERMITTED      unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A23     World-writable command file in spool                 C7        C7      LOCAL_SOURCE_UNTRUSTED     unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A24     Forged command file in spool                         C8        C8      BAD_SIGNATURE              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A25.1   Brute-force attempt 1/8                              C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A25.2   Brute-force attempt 2/8                              C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A25.3   Brute-force attempt 3/8                              C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A25.4   Brute-force attempt 4/8                              C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A25.5   Brute-force attempt 5/8                              C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A25.6   Brute-force attempt 6/8                              L0        L0      SOURCE_LOCKED_OUT          unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A25.7   Brute-force attempt 7/8                              L0        L0      SOURCE_LOCKED_OUT          unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A25.8   Brute-force attempt 8/8                              L0        L0      SOURCE_LOCKED_OUT          unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A26     Peer gateway STATE_SYNC weakens policy               C13       C13     STATE_FIELD_NOT_PERMITTED  unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A27.1   Forged burst to lock out the console 1/5             C8        C8      BAD_SIGNATURE              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A27.2   Forged burst to lock out the console 2/5             C8        C8      BAD_SIGNATURE              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A27.3   Forged burst to lock out the console 3/5             C8        C8      BAD_SIGNATURE              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A27.4   Forged burst to lock out the console 4/5             C8        C8      BAD_SIGNATURE              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A27.5   Forged burst to lock out the console 5/5             C8        C8      BAD_SIGNATURE              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | S09     Real console from the locked address 127.0.0.8       ACCEPT    ACCEPT  ACCEPTED                   unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A28.1   Slow-drip connections hit frame deadline             L0        L0      FRAME_TIMEOUT              unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | A28.2   5th connection from same IP refused                  L0        L0      CONNECTION_LIMIT           unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | S08     Peer gateway inspection after the attacks            ACCEPT    ACCEPT  ACCEPTED                   unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | I02a    SAFE MODE agent receives a valid admin lockdown      C13       C13     SAFE_MODE_RESTRICTED       unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | I02b    SAFE MODE agent still serves read-only telemetry     ACCEPT    ACCEPT  ACCEPTED                   unchanged  PASS  
+2026-11-02 16:27:12.443Z | INFO    | ---------------------------------------------------------------------------------------------------------------------------
+2026-11-02 16:27:12.443Z | INFO    | legitimate accepted 10/10; attacks blocked 41/41; state unchanged by every rejection: True; overall PASS
+2026-11-02 16:27:12.443Z | INFO    | ====================================================================================================
+2026-11-02 16:27:12.443Z | INFO    | SUMMARY: 51 cases | legitimate accepted 10/10 | attacks blocked 41/41 (all at expected checkpoint: True)
+2026-11-02 16:27:12.443Z | INFO    | SUMMARY: state unchanged by every rejected command: True | prompts correct 6/6 | alerts raised 4
+2026-11-02 16:27:12.444Z | INFO    | SUMMARY: blocked by checkpoint: C1=1, C2=4, C3=1, C4=1, C5=2, C6=2, C7=7, C8=9, C9=1, C10=3, C11=1, C12=1, C13=3, L0=5
+2026-11-02 16:27:12.444Z | INFO    | SUMMARY: OVERALL PASS

@@ -1,0 +1,471 @@
+2026-11-03 03:41:15.418 | INFO  | [gateway-alpha] ATTEST    self-attestation PASSED: 86 source files match signed release ciphermesh-3.0.0 (digest a3fa5bbc7009b4e1...)
+2026-11-03 03:41:15.430 | INFO  | [gateway-beta] ATTEST    self-attestation PASSED: 86 source files match signed release ciphermesh-3.0.0 (digest a3fa5bbc7009b4e1...)
+2026-11-03 03:41:15.431 | INFO  | CipherMesh v3.0 production execution cycle | Kumar Waibhav Akshat (RA2212704010027) | pace=2.00 offline=False
+2026-11-03 03:41:15.431 | INFO  | ====================================================================================================
+2026-11-03 03:41:15.431 | INFO  | PHASE P0  BOOT, TRUST PROVISIONING AND SELF-ATTESTATION
+2026-11-03 03:41:15.431 | INFO  | ====================================================================================================
+2026-11-03 03:41:15.442 | INFO  | [P0] runtime trust directory provisioned (private keys: encrypted PKCS#8, mode 0600, not shipped)
+2026-11-03 03:41:15.442 | INFO  | [P0]   trust store: gateway-alpha     roles=peer-gateway    sources=127.0.0.11/32   key=1578bf8d8f0a8733
+2026-11-03 03:41:15.442 | INFO  | [P0]   trust store: gateway-beta      roles=peer-gateway    sources=127.0.0.12/32   key=69b93a4a92b56475
+2026-11-03 03:41:15.442 | INFO  | [P0]   trust store: security-console  roles=security-admin  sources=127.0.0.20/30   key=8074ad4365f4c056
+2026-11-03 03:41:15.442 | INFO  | [P0] release manifest ciphermesh-3.0.0 signed by the release key over 86 source files (digest a3fa5bbc7009b4e1...)
+2026-11-03 03:41:15.442 | INFO  | [P0] gateway-alpha self-attestation PASSED: 86 files, manifest signature valid, mode NORMAL
+2026-11-03 03:41:15.442 | INFO  | [P0] gateway-beta self-attestation PASSED: 86 files, manifest signature valid, mode NORMAL
+2026-11-03 03:41:15.577 | INFO  | [gateway-alpha] KNOWLEDGE ontology graph loaded: 1170 triples, 29 classes
+2026-11-03 03:41:15.710 | INFO  | [gateway-beta] KNOWLEDGE ontology graph loaded: 1170 triples, 29 classes
+2026-11-03 03:41:15.714 | INFO  | [gateway-alpha] BOOT      gateway-alpha online at tcp://127.0.0.11:42569 with 4 workers, queue 32, high-water 6
+2026-11-03 03:41:15.716 | INFO  | [gateway-beta] BOOT      gateway-beta online at tcp://127.0.0.12:41381 with 4 workers, queue 32, high-water 6
+2026-11-03 03:41:15.717 | INFO  | [P0] gateway-alpha listening on tcp://127.0.0.11:42569 (workers=4, queue=32, high-water=6)
+2026-11-03 03:41:15.717 | INFO  | [P0] gateway-beta listening on tcp://127.0.0.12:41381 (workers=4, queue=32, high-water=6)
+2026-11-03 03:41:15.717 | INFO  | [P0] Contract-Net capacity contract local        AGREED  USD 0.3300/1k (list 0.40)
+2026-11-03 03:41:15.717 | INFO  | [P0] Contract-Net capacity contract aws-bedrock  AGREED  USD 2.2800/1k (list 2.80)
+2026-11-03 03:41:15.717 | INFO  | [P0] Contract-Net capacity contract azure-ai     AGREED  USD 2.6900/1k (list 3.30)
+2026-11-03 03:41:15.717 | INFO  | [P0] Contract-Net capacity contract gcp-vertex   AGREED  USD 1.7900/1k (list 2.20)
+2026-11-03 03:41:16.719 | INFO  | [gateway-alpha] PEER      first signed heartbeat from gateway-beta (attested=True)
+2026-11-03 03:41:16.722 | INFO  | [gateway-beta] PEER      first signed heartbeat from gateway-alpha (attested=True)
+2026-11-03 03:41:16.722 | INFO  | [gateway-beta] SECURITY  ACCEPTED STATE_SYNC/policy from gateway-alpha via 127.0.0.11 (13/13 checkpoints, 1047 us) -> ACCEPTED
+2026-11-03 03:41:16.725 | INFO  | [gateway-alpha] PEER      peer gateway-beta is ONLINE
+2026-11-03 03:41:16.725 | INFO  | [gateway-alpha] SECURITY  ACCEPTED STATE_SYNC/policy from gateway-beta via 127.0.0.12 (13/13 checkpoints, 2061 us) -> ACCEPTED
+2026-11-03 03:41:16.726 | INFO  | [gateway-beta] PEER      peer gateway-alpha is ONLINE
+2026-11-03 03:41:19.722 | INFO  | [P0] phase complete in 4.29 s
+2026-11-03 03:41:19.722 | INFO  | ====================================================================================================
+2026-11-03 03:41:19.722 | INFO  | PHASE P1  LIVE KNOWLEDGE AND BELIEF UPDATE
+2026-11-03 03:41:19.722 | INFO  | ====================================================================================================
+2026-11-03 03:41:20.179 | INFO  | [gateway-alpha] FEED      gcp_status: live HTTP 200 251,117 B, 8 items (0 relevant), 1 belief change(s)
+2026-11-03 03:41:20.431 | INFO  | [gateway-alpha] FEED      azure_status: live HTTP 200 577 B, 0 items (0 relevant), 1 belief change(s)
+2026-11-03 03:41:20.790 | INFO  | [gateway-alpha] FEED      aws_health: live HTTP 200 231,276 B, 2 items (0 relevant), 1 belief change(s)
+2026-11-03 03:41:21.368 | WARNING | [gateway-alpha] POSTURE   threat posture - -> LOW
+2026-11-03 03:41:21.369 | INFO  | [gateway-alpha] FEED      cisa_kev: live HTTP 200 1,826,755 B, 1766 items (3 relevant), 11 belief change(s)
+2026-11-03 03:41:21.492 | INFO  | [gateway-alpha] BUDGET    budget.max_cost_per_1k <- USD 3.1609 (derived:budget-rule)
+2026-11-03 03:41:21.493 | INFO  | [gateway-alpha] FEED      fx_usd_inr: live HTTP 200 69 B, 1 items (1 relevant), 4 belief change(s)
+2026-11-03 03:41:21.755 | INFO  | [gateway-beta] BELIEF    budget.max_cost_per_1k = 3.1609 learned from gateway-alpha (origin bridge:derived:budget-rule)
+2026-11-03 03:41:21.755 | INFO  | [gateway-beta] BELIEF    fx.usd_inr = 94.91 learned from gateway-alpha (origin fx_usd_inr:live)
+2026-11-03 03:41:21.755 | INFO  | [gateway-beta] BELIEF    threat.level = low learned from gateway-alpha (origin bridge:derived:posture-rule)
+2026-11-03 03:41:21.755 | WARNING | [gateway-beta] POSTURE   threat posture - -> LOW
+2026-11-03 03:41:21.755 | INFO  | [gateway-beta] BELIEF    threat.posture = LOW learned from gateway-alpha (origin derived:posture-rule)
+2026-11-03 03:41:21.755 | INFO  | [gateway-beta] BELIEF    threat.posture_reason = no signal group meets an ELEVATED threshold learned from gateway-alpha (origin derived:posture-rule)
+2026-11-03 03:41:21.755 | INFO  | [gateway-beta] SYNC      signed heartbeat from gateway-alpha: 5 belief change(s) [budget.max_cost_per_1k, fx.usd_inr, threat.level...]
+2026-11-03 03:41:21.824 | WARNING | [gateway-alpha] POSTURE   threat posture LOW -> ELEVATED
+2026-11-03 03:41:21.825 | INFO  | [gateway-alpha] POLICY    R5 prompt limit set to 32,768 bytes
+2026-11-03 03:41:21.825 | INFO  | [gateway-alpha] POLICY    2 posture redaction pattern(s) active
+2026-11-03 03:41:21.825 | INFO  | [gateway-alpha] FEED      aiid_rss: live HTTP 200 88,482 B, 100 items (18 relevant), 8 belief change(s)
+2026-11-03 03:41:21.825 | INFO  | [P1] feed gcp_status    mode=live      HTTP 200    251,117 B  439.5 ms  items=8     relevant=0    changes=1
+2026-11-03 03:41:21.825 | INFO  | [P1] feed azure_status  mode=live      HTTP 200        577 B  248.5 ms  items=0     relevant=0    changes=1
+2026-11-03 03:41:21.825 | INFO  | [P1] feed aws_health    mode=live      HTTP 200    231,276 B  341.7 ms  items=2     relevant=0    changes=1
+2026-11-03 03:41:21.825 | INFO  | [P1] feed cisa_kev      mode=live      HTTP 200  1,826,755 B  526.2 ms  items=1766  relevant=3    changes=11
+2026-11-03 03:41:21.825 | INFO  | [P1] feed fx_usd_inr    mode=live      HTTP 200         69 B  121.4 ms  items=1     relevant=1    changes=4
+2026-11-03 03:41:21.825 | INFO  | [P1] feed aiid_rss      mode=live      HTTP 200     88,482 B  309.4 ms  items=100   relevant=18   changes=8
+2026-11-03 03:41:21.826 | INFO  | [P1] threat posture -> ELEVATED (ai_incidents: aiid.privacy_per_day=0.5743 >= 0.5)
+2026-11-03 03:41:21.826 | INFO  | [P1] fx USD/INR 94.91 -> budget USD 3.1609 per 1k (was 6.0); R5 prompt limit 65,536 -> 32,768 bytes
+2026-11-03 03:41:21.826 | INFO  | [P1] custom redaction patterns from posture: 2
+2026-11-03 03:41:22.755 | INFO  | [gateway-beta] POLICY    STATE_SYNC from gateway-alpha (rev 2): R5 prompt limit tightened 65,536 -> 32,768 bytes
+2026-11-03 03:41:22.755 | INFO  | [gateway-beta] SECURITY  ACCEPTED STATE_SYNC/policy from gateway-alpha via 127.0.0.11 (13/13 checkpoints, 452 us) -> ACCEPTED
+2026-11-03 03:41:22.759 | INFO  | [gateway-beta] BELIEF    threat.level = elevated learned from gateway-alpha (origin bridge:derived:posture-rule)
+2026-11-03 03:41:22.759 | WARNING | [gateway-beta] POSTURE   threat posture LOW -> ELEVATED
+2026-11-03 03:41:22.759 | INFO  | [gateway-beta] BELIEF    threat.posture = ELEVATED learned from gateway-alpha (origin derived:posture-rule)
+2026-11-03 03:41:22.759 | INFO  | [gateway-beta] BELIEF    threat.posture_reason = ai_incidents: aiid.privacy_per_day=0.5743 >= 0.5 learned from gateway-alpha (origin derived:posture-rule)
+2026-11-03 03:41:22.759 | INFO  | [gateway-beta] SYNC      signed heartbeat from gateway-alpha: 3 belief change(s) [threat.level, threat.posture, threat.posture_reason]
+2026-11-03 03:41:22.760 | INFO  | [gateway-alpha] SECURITY  ACCEPTED STATE_SYNC/policy from gateway-beta via 127.0.0.12 (13/13 checkpoints, 358 us) -> ACCEPTED
+2026-11-03 03:41:23.834 | INFO  | [P1] gateway-beta learned posture=ELEVATED budget=3.1609 from alpha's signed heartbeat replies (synced=True)
+2026-11-03 03:41:23.834 | INFO  | [P1] policy STATE_SYNC alpha -> beta (fields policy_revision, policy_version, max_prompt_bytes only): beta R5 limit now 32,768 bytes (applied=True)
+2026-11-03 03:41:27.837 | INFO  | [P1] phase complete in 8.11 s
+2026-11-03 03:41:27.838 | INFO  | ====================================================================================================
+2026-11-03 03:41:27.838 | INFO  | PHASE P2  AUTONOMOUS PROCESSING ON GATEWAY-ALPHA
+2026-11-03 03:41:27.838 | INFO  | ====================================================================================================
+2026-11-03 03:41:27.875 | INFO  | [gateway-alpha] REQUEST   p2-01 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:41:28.606 | INFO  | [gateway-alpha] REQUEST   p2-02 REDACT -> dispatch_local_only(provider=local) COMPLETED U=70.29 (66 ms)
+2026-11-03 03:41:29.243 | WARNING | [gateway-alpha] REQUEST   p2-03 BLOCK -> block_and_advise_rotation BLOCKED (1 ms)
+2026-11-03 03:41:30.007 | INFO  | [gateway-alpha] REQUEST   p2-04 REDACT -> dispatch_local_only(provider=local) COMPLETED U=70.29 (65 ms)
+2026-11-03 03:41:30.675 | INFO  | [gateway-alpha] REQUEST   p2-05 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:41:31.344 | INFO  | [gateway-alpha] REQUEST   p2-06 REVIEW -> hold_for_review PENDING_REVIEW (1 ms)
+2026-11-03 03:41:32.076 | INFO  | [gateway-alpha] REQUEST   p2-07 REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:41:32.779 | INFO  | [gateway-alpha] REQUEST   p2-08 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (36 ms)
+2026-11-03 03:41:33.509 | INFO  | [gateway-alpha] REQUEST   p2-09 REDACT -> dispatch_local_only(provider=local) COMPLETED U=70.29 (65 ms)
+2026-11-03 03:41:34.146 | WARNING | [gateway-alpha] REQUEST   p2-10 BLOCK -> block_and_advise_rotation BLOCKED (1 ms)
+2026-11-03 03:41:34.879 | INFO  | [gateway-alpha] REQUEST   p2-11 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:41:35.548 | WARNING | [gateway-alpha] REQUEST   p2-12 BLOCK -> block_and_advise_rotation BLOCKED (2 ms)
+2026-11-03 03:41:36.314 | INFO  | [gateway-alpha] REQUEST   p2-13 REDACT -> dispatch_local_only(provider=local) COMPLETED U=70.29 (67 ms)
+2026-11-03 03:41:36.981 | INFO  | [gateway-alpha] REQUEST   p2-14 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (35 ms)
+2026-11-03 03:41:37.648 | INFO  | [gateway-alpha] REQUEST   p2-15 REVIEW -> hold_for_review PENDING_REVIEW (1 ms)
+2026-11-03 03:41:38.412 | INFO  | [gateway-alpha] REQUEST   p2-16 REDACT -> dispatch_local_only(provider=local) COMPLETED U=70.29 (65 ms)
+2026-11-03 03:41:39.081 | INFO  | [gateway-alpha] REQUEST   p2-17 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:41:39.782 | INFO  | [gateway-alpha] REQUEST   p2-18 REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:41:40.484 | INFO  | [gateway-alpha] REQUEST   p2-19 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:41:41.151 | WARNING | [gateway-alpha] REQUEST   p2-20 BLOCK -> block_and_advise_rotation BLOCKED (2 ms)
+2026-11-03 03:41:41.884 | INFO  | [gateway-alpha] REQUEST   p2-21 REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (35 ms)
+2026-11-03 03:41:42.584 | INFO  | [gateway-alpha] REQUEST   p2-22 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:41:43.317 | INFO  | [gateway-alpha] REQUEST   p2-23 REDACT -> dispatch_local_only(provider=local) COMPLETED U=70.29 (66 ms)
+2026-11-03 03:41:43.953 | INFO  | [gateway-alpha] REQUEST   p2-24 REVIEW -> hold_for_review PENDING_REVIEW (2 ms)
+2026-11-03 03:41:44.686 | INFO  | [gateway-alpha] REQUEST   p2-25 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:41:45.353 | WARNING | [gateway-alpha] REQUEST   p2-26 BLOCK -> block_and_advise_rotation BLOCKED (1 ms)
+2026-11-03 03:41:46.119 | INFO  | [gateway-alpha] REQUEST   p2-27 REDACT -> dispatch_local_only(provider=local) COMPLETED U=70.29 (66 ms)
+2026-11-03 03:41:46.753 | WARNING | [gateway-alpha] REQUEST   p2-28 BLOCK -> no applicable plan BLOCKED (1 ms)
+2026-11-03 03:41:47.488 | INFO  | [gateway-alpha] REQUEST   p2-29 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:41:48.218 | INFO  | [gateway-alpha] REQUEST   p2-30 REDACT -> dispatch_local_only(provider=local) COMPLETED U=70.29 (65 ms)
+2026-11-03 03:41:48.888 | INFO  | [gateway-alpha] REQUEST   p2-31 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:41:49.555 | WARNING | [gateway-alpha] REQUEST   p2-32 BLOCK -> block_and_advise_rotation BLOCKED (1 ms)
+2026-11-03 03:41:50.256 | INFO  | [gateway-alpha] REQUEST   p2-33 REVIEW -> hold_for_review PENDING_REVIEW (1 ms)
+2026-11-03 03:41:50.990 | INFO  | [gateway-alpha] REQUEST   p2-34 REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:41:51.691 | INFO  | [gateway-alpha] REQUEST   p2-35 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (35 ms)
+2026-11-03 03:41:52.422 | INFO  | [gateway-alpha] REQUEST   p2-36 REDACT -> dispatch_local_only(provider=local) COMPLETED U=70.29 (65 ms)
+2026-11-03 03:41:53.091 | INFO  | [gateway-alpha] REQUEST   p2-37 REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:41:53.791 | INFO  | [gateway-alpha] REQUEST   p2-38 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:41:54.524 | INFO  | [gateway-alpha] REQUEST   p2-39 REDACT -> dispatch_local_only(provider=local) COMPLETED U=70.29 (66 ms)
+2026-11-03 03:41:55.194 | INFO  | [gateway-alpha] REQUEST   p2-40 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (35 ms)
+2026-11-03 03:41:55.857 | INFO  |   id      workload item (synthetic)          policy  BDI intention (final)                        status          provider         U      ms
+2026-11-03 03:41:55.857 | INFO  |   p2-01   Q3 cloud spend summary             ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    34.3
+2026-11-03 03:41:55.857 | INFO  |   p2-02   Phone number to customer           REDACT  dispatch_local_only(provider=local)          COMPLETED       local        70.29    65.5
+2026-11-03 03:41:55.857 | INFO  |   p2-03   Leaked AWS key                     BLOCK   block_and_advise_rotation                    BLOCKED         -                -     1.4
+2026-11-03 03:41:55.857 | INFO  |   p2-04   Aadhaar KYC update                 REDACT  dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.6
+2026-11-03 03:41:55.857 | INFO  |   p2-05   Kubernetes explainer               ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    33.1
+2026-11-03 03:41:55.857 | INFO  |   p2-06   Internal runbook link              REVIEW  hold_for_review                              PENDING_REVIEW  -                -     1.2
+2026-11-03 03:41:55.857 | INFO  |   p2-07   Support e-mail draft               REDACT  redact_then_dispatch(provider=gcp-vertex)    COMPLETED       gcp-vertex   71.23    33.1
+2026-11-03 03:41:55.857 | INFO  |   p2-08   SQL tuning                         ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    35.5
+2026-11-03 03:41:55.857 | INFO  |   p2-09   PAN card on invoice                REDACT  dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.9
+2026-11-03 03:41:55.857 | INFO  |   p2-10   Spaced-out AWS key (obfuscated)    BLOCK   block_and_advise_rotation                    BLOCKED         -                -     1.2
+2026-11-03 03:41:55.857 | INFO  |   p2-11   Meeting agenda                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    33.4
+2026-11-03 03:41:55.858 | INFO  |   p2-12   GitHub token in log                BLOCK   block_and_advise_rotation                    BLOCKED         -                -     1.8
+2026-11-03 03:41:55.858 | INFO  |   p2-13   Phone and e-mail together          REDACT  dispatch_local_only(provider=local)          COMPLETED       local        70.29    67.0
+2026-11-03 03:41:55.858 | INFO  |   p2-14   Policy FAQ                         ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    34.6
+2026-11-03 03:41:55.858 | INFO  |   p2-15   Jira ticket link                   REVIEW  hold_for_review                              PENDING_REVIEW  -                -     1.0
+2026-11-03 03:41:55.858 | INFO  |   p2-16   Aadhaar with phone                 REDACT  dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.7
+2026-11-03 03:41:55.858 | INFO  |   p2-17   Python retry helper                ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    33.7
+2026-11-03 03:41:55.858 | INFO  |   p2-18   At-dot obfuscated e-mail           REDACT  redact_then_dispatch(provider=gcp-vertex)    COMPLETED       gcp-vertex   71.23    33.7
+2026-11-03 03:41:55.858 | INFO  |   p2-19   Release notes                      ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    33.1
+2026-11-03 03:41:55.858 | INFO  |   p2-20   Database password                  BLOCK   block_and_advise_rotation                    BLOCKED         -                -     1.8
+2026-11-03 03:41:55.858 | INFO  |   p2-21   Customer e-mail list               REDACT  redact_then_dispatch(provider=gcp-vertex)    COMPLETED       gcp-vertex   71.23    34.8
+2026-11-03 03:41:55.858 | INFO  |   p2-22   Cost comparison                    ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    33.9
+2026-11-03 03:41:55.858 | INFO  |   p2-23   PAN in vendor master               REDACT  dispatch_local_only(provider=local)          COMPLETED       local        70.29    66.3
+2026-11-03 03:41:55.858 | INFO  |   p2-24   Intranet HR page                   REVIEW  hold_for_review                              PENDING_REVIEW  -                -     1.5
+2026-11-03 03:41:55.858 | INFO  |   p2-25   Incident timeline                  ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    34.3
+2026-11-03 03:41:55.858 | INFO  |   p2-26   Base64-encoded AWS key (obfuscated BLOCK   block_and_advise_rotation                    BLOCKED         -                -     1.2
+2026-11-03 03:41:55.858 | INFO  |   p2-27   Phone in escalation                REDACT  dispatch_local_only(provider=local)          COMPLETED       local        70.29    65.8
+2026-11-03 03:41:55.858 | INFO  |   p2-28   Oversized log upload               BLOCK   -                                            BLOCKED         -                -     0.5
+2026-11-03 03:41:55.858 | INFO  |   p2-29   Regex question                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    34.3
+2026-11-03 03:41:55.858 | INFO  |   p2-30   Aadhaar re-verification            REDACT  dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.8
+2026-11-03 03:41:55.858 | INFO  |   p2-31   Training plan                      ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    33.9
+2026-11-03 03:41:55.858 | INFO  |   p2-32   Slack token                        BLOCK   block_and_advise_rotation                    BLOCKED         -                -     1.1
+2026-11-03 03:41:55.858 | INFO  |   p2-33   Internal dashboard URL             REVIEW  hold_for_review                              PENDING_REVIEW  -                -     1.0
+2026-11-03 03:41:55.858 | INFO  |   p2-34   E-mail in complaint                REDACT  redact_then_dispatch(provider=gcp-vertex)    COMPLETED       gcp-vertex   71.23    34.2
+2026-11-03 03:41:55.858 | INFO  |   p2-35   Architecture review                ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    34.6
+2026-11-03 03:41:55.858 | INFO  |   p2-36   Spaced phone digits (obfuscated)   REDACT  dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.7
+2026-11-03 03:41:55.858 | INFO  |   p2-37   Budget email                       REDACT  redact_then_dispatch(provider=gcp-vertex)    COMPLETED       gcp-vertex   71.23    34.0
+2026-11-03 03:41:55.858 | INFO  |   p2-38   Data retention                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    33.0
+2026-11-03 03:41:55.858 | INFO  |   p2-39   PAN and Aadhaar together           REDACT  dispatch_local_only(provider=local)          COMPLETED       local        70.29    65.8
+2026-11-03 03:41:55.858 | INFO  |   p2-40   Ticket triage                      ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    35.1
+2026-11-03 03:41:55.858 | INFO  | [P2] BDI deliberation trace of p2-03 (decision, intention, steps; no prompt text):
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.241  c00  PERCEIVE   request p2-03 received: 99 bytes, policy BLOCK ['aws_access_key']
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.241  c01  DELIBERATE options ['D1', 'D3']; pursue ['D1']; pre-empted: D3 by D1; constraints ['D4']
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.241  c01  DELIBERATE means-ends for D1: 1 applicable option(s): block_and_advise_rotation U=100.00
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.242  c01  INTEND     I1 adopted for D1: block_and_advise_rotation U=100.00 [seal_evidence -> advise_rotation -> notify_user]
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.242  c01  STEP       I1 block_and_advise_rotation [1/3] seal_evidence -> OK: evidence 'block_and_advise_rotation' sealed as record #4 (hmac 1ca90ff68013)
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.242  c02  STEP       I1 block_and_advise_rotation [2/3] advise_rotation -> OK: rotation advice prepared for ['aws_access_key']
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.242  c03  STEP       I1 block_and_advise_rotation [3/3] notify_user -> OK: user notified; request.status=BLOCKED
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.242  c03  COMPLETE   I1 block_and_advise_rotation succeeded (3 steps) for D1
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.242  c03  FINISH     request p2-03 finished: BLOCKED after 3 cycles, 3 steps, 0 intention shift(s), 0 transmission(s)
+2026-11-03 03:41:55.858 | INFO  | [P2] BDI deliberation trace of p2-04 (decision, intention, steps; no prompt text):
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.942  c00  PERCEIVE   request p2-04 received: 73 bytes, policy REDACT ['aadhaar']
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.942  c01  DELIBERATE options ['D3']; pursue ['D3']; pre-empted: none; constraints ['D2', 'D4']
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.942  c01  DELIBERATE means-ends for D3: 3 applicable option(s): dispatch_local_only(provider=local) U=70.29, redact_then_dispatch(provider=aws-bedrock) U=68.75, redact_the
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.942  c01  INTEND     I1 adopted for D3: dispatch_local_only(provider=local) U=70.29 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dis
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.943  c01  STEP       I1 dispatch_local_only(provider=local) [1/7] prepare_payload -> OK: policy REDACT; payload sanitized (1 spans masked), sha256=cd967f62cd91f784
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.943  c02  STEP       I1 dispatch_local_only(provider=local) [2/7] procure_contract -> OK: contract AGREED with local: effective $0.33/1k (list $0.40, 5 rounds)
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.944  c03  STEP       I1 dispatch_local_only(provider=local) [3/7] route_and_verify -> OK: router: local feasible, U=70.29, rank 1/1 [local]
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:29.944  c04  STEP       I1 dispatch_local_only(provider=local) [4/7] seal_dispatch_record -> OK: evidence record #5 sealed (hmac 9cd5ed409429)
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:30.005  c05  STEP       I1 dispatch_local_only(provider=local) [5/7] dispatch -> OK: transmitted to local (LOCAL); reply in 60.2 ms
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:30.005  c05  RECONSIDER I1 kept after ['response.received']: 2 remaining condition(s) still hold
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:30.006  c06  STEP       I1 dispatch_local_only(provider=local) [6/7] inspect_response -> OK: reply inspected: ALLOW (clean)
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:30.006  c06  RECONSIDER I1 kept after ['response.decision']: 2 remaining condition(s) still hold
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:30.006  c07  STEP       I1 dispatch_local_only(provider=local) [7/7] deliver -> OK: answer delivered to user (20 words)
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:30.006  c07  COMPLETE   I1 dispatch_local_only(provider=local) succeeded (7 steps) for D3
+2026-11-03 03:41:55.858 | INFO  | [P2]   03:41:30.006  c07  FINISH     request p2-04 finished: COMPLETED after 7 cycles, 7 steps, 0 intention shift(s), 1 transmission(s)
+2026-11-03 03:41:55.859 | INFO  | [P2] 40 prompts: decisions {'ALLOW': 14, 'REDACT': 15, 'BLOCK': 7, 'REVIEW': 4}; outcomes {'COMPLETED': 29, 'BLOCKED': 7, 'PENDING_REVIEW': 4}; p50 34.0 ms, p95 65.8 ms; providers {'gcp-vertex': 19, 'local': 10}
+2026-11-03 03:41:55.859 | INFO  | [P2] India personal data routed outside IN/LOCAL: 0; policy decisions differing from the workload expectation: none
+2026-11-03 03:41:59.862 | INFO  | [P2] phase complete in 32.02 s
+2026-11-03 03:41:59.862 | INFO  | ====================================================================================================
+2026-11-03 03:41:59.862 | INFO  | PHASE P3  MULTI-HOST COORDINATION AND LOAD SHARING
+2026-11-03 03:41:59.862 | INFO  | ====================================================================================================
+2026-11-03 03:41:59.864 | INFO  | [gateway-alpha] CFP       task-alpha-001: queue saturated (depth >= 6); call for proposals for one ALLOW task (66 B) sent to 1 peer(s) as signed PING
+2026-11-03 03:41:59.865 | INFO  | [gateway-alpha] CFP       task-alpha-002: queue saturated (depth >= 6); call for proposals for one ALLOW task (67 B) sent to 1 peer(s) as signed PING
+2026-11-03 03:41:59.867 | INFO  | [gateway-alpha] CFP       task-alpha-003: queue saturated (depth >= 6); call for proposals for one ALLOW task (67 B) sent to 1 peer(s) as signed PING
+2026-11-03 03:41:59.868 | INFO  | [gateway-alpha] KEEP      p3-21 REVIEW kept on gateway-alpha while saturated: BLOCK and REVIEW never leave the host
+2026-11-03 03:41:59.868 | INFO  | [gateway-alpha] KEEP      p3-22 BLOCK kept on gateway-alpha while saturated: BLOCK and REVIEW never leave the host
+2026-11-03 03:41:59.869 | INFO  | [P3] burst of 22 submitted while alpha's workers were held; queue reached the high-water mark of 6
+2026-11-03 03:41:59.876 | INFO  | [gateway-alpha] BID       task-alpha-001: gateway-beta bids accept=True est 20 ms (queue 0) [signed reply verified]
+2026-11-03 03:41:59.877 | INFO  | [gateway-alpha] AWARD     task-alpha-001 awarded to gateway-beta as signed INSPECT (ALLOW)
+2026-11-03 03:41:59.879 | INFO  | [gateway-alpha] BID       task-alpha-002: gateway-beta bids accept=True est 20 ms (queue 0) [signed reply verified]
+2026-11-03 03:41:59.879 | INFO  | [gateway-alpha] AWARD     task-alpha-002 awarded to gateway-beta as signed INSPECT (ALLOW)
+2026-11-03 03:41:59.880 | INFO  | [gateway-beta] AWARD     peer-cf53942b accepted from gateway-alpha: processing one ALLOW task (re-inspected locally)
+2026-11-03 03:41:59.895 | INFO  | [gateway-alpha] BID       task-alpha-003: gateway-beta bids accept=True est 20 ms (queue 0) [signed reply verified]
+2026-11-03 03:41:59.895 | INFO  | [gateway-alpha] AWARD     task-alpha-003 awarded to gateway-beta as signed INSPECT (ALLOW)
+2026-11-03 03:41:59.896 | INFO  | [gateway-beta] AWARD     peer-d8fccddb accepted from gateway-alpha: processing one ALLOW task (re-inspected locally)
+2026-11-03 03:41:59.900 | INFO  | [gateway-beta] AWARD     peer-0d9bb4b3 accepted from gateway-alpha: processing one ALLOW task (re-inspected locally)
+2026-11-03 03:41:59.914 | INFO  | [gateway-beta] REQUEST   peer-cf53942b ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:41:59.916 | INFO  | [gateway-alpha] RESULT    task-alpha-001: signed result from gateway-beta verified -> COMPLETED via gcp-vertex in 52 ms (peer re-inspected ALLOW)
+2026-11-03 03:41:59.916 | INFO  | [gateway-alpha] REQUEST   p3-07 ALLOW -> allow_then_dispatch(provider=gcp-vertex) on gateway-beta COMPLETED U=71.23 (52 ms)
+2026-11-03 03:41:59.916 | INFO  | [gateway-alpha] CFP       task-alpha-004: queue saturated (depth >= 6); call for proposals for one ALLOW task (67 B) sent to 1 peer(s) as signed PING
+2026-11-03 03:41:59.919 | INFO  | [gateway-alpha] REQUEST   p3-01 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (46 ms)
+2026-11-03 03:41:59.927 | INFO  | [gateway-alpha] BID       task-alpha-004: gateway-beta bids accept=True est 26 ms (queue 0) [signed reply verified]
+2026-11-03 03:41:59.927 | INFO  | [gateway-alpha] AWARD     task-alpha-004 awarded to gateway-beta as signed INSPECT (ALLOW)
+2026-11-03 03:41:59.932 | INFO  | [gateway-alpha] REQUEST   p3-03 REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (57 ms)
+2026-11-03 03:41:59.936 | INFO  | [gateway-alpha] REQUEST   p3-02 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (58 ms)
+2026-11-03 03:41:59.937 | INFO  | [gateway-beta] REQUEST   peer-d8fccddb ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (38 ms)
+2026-11-03 03:41:59.939 | INFO  | [gateway-beta] REQUEST   peer-0d9bb4b3 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (36 ms)
+2026-11-03 03:41:59.940 | INFO  | [gateway-alpha] REQUEST   p3-04 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (56 ms)
+2026-11-03 03:41:59.950 | INFO  | [gateway-alpha] RESULT    task-alpha-003: signed result from gateway-beta verified -> COMPLETED via gcp-vertex in 84 ms (peer re-inspected ALLOW)
+2026-11-03 03:41:59.950 | INFO  | [gateway-alpha] RESULT    task-alpha-002: signed result from gateway-beta verified -> COMPLETED via gcp-vertex in 86 ms (peer re-inspected ALLOW)
+2026-11-03 03:41:59.951 | INFO  | [gateway-alpha] REQUEST   p3-13 ALLOW -> allow_then_dispatch(provider=gcp-vertex) on gateway-beta COMPLETED U=71.23 (84 ms)
+2026-11-03 03:41:59.951 | INFO  | [gateway-alpha] CFP       task-alpha-005: queue saturated (depth >= 6); call for proposals for one REDACT task (69 B) sent to 1 peer(s) as signed PING
+2026-11-03 03:41:59.951 | INFO  | [gateway-beta] AWARD     peer-b2f3bf3b accepted from gateway-alpha: processing one ALLOW task (re-inspected locally)
+2026-11-03 03:41:59.955 | INFO  | [gateway-alpha] REQUEST   p3-10 ALLOW -> allow_then_dispatch(provider=gcp-vertex) on gateway-beta COMPLETED U=71.23 (86 ms)
+2026-11-03 03:41:59.955 | INFO  | [gateway-alpha] CFP       task-alpha-006: queue saturated (depth >= 6); call for proposals for one ALLOW task (67 B) sent to 1 peer(s) as signed PING
+2026-11-03 03:41:59.965 | INFO  | [gateway-alpha] REQUEST   p3-05 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (44 ms)
+2026-11-03 03:41:59.971 | INFO  | [gateway-alpha] BID       task-alpha-005: gateway-beta bids accept=True est 19 ms (queue 0) [signed reply verified]
+2026-11-03 03:41:59.971 | INFO  | [gateway-alpha] AWARD     task-alpha-005 awarded to gateway-beta as signed INSPECT (REDACT, sanitised text only)
+2026-11-03 03:41:59.974 | INFO  | [gateway-beta] AWARD     peer-3e2ed8c1 accepted from gateway-alpha: processing one ALLOW task (re-inspected locally)
+2026-11-03 03:41:59.977 | INFO  | [gateway-alpha] BID       task-alpha-006: gateway-beta bids accept=True est 19 ms (queue 0) [signed reply verified]
+2026-11-03 03:41:59.978 | INFO  | [gateway-alpha] AWARD     task-alpha-006 awarded to gateway-beta as signed INSPECT (ALLOW)
+2026-11-03 03:41:59.981 | INFO  | [gateway-alpha] REQUEST   p3-08 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (36 ms)
+2026-11-03 03:41:59.986 | INFO  | [gateway-alpha] REQUEST   p3-06 REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (43 ms)
+2026-11-03 03:41:59.989 | INFO  | [gateway-alpha] REQUEST   p3-09 REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (36 ms)
+2026-11-03 03:41:59.990 | INFO  | [gateway-beta] AWARD     peer-dedd082b accepted from gateway-alpha: processing one ALLOW task (re-inspected locally)
+2026-11-03 03:41:59.991 | INFO  | [gateway-alpha] REQUEST   p3-21 REVIEW -> hold_for_review PENDING_REVIEW (4 ms)
+2026-11-03 03:41:59.993 | WARNING | [gateway-alpha] REQUEST   p3-22 BLOCK -> block_and_advise_rotation BLOCKED (1 ms)
+2026-11-03 03:41:59.998 | INFO  | [gateway-beta] REQUEST   peer-b2f3bf3b ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (40 ms)
+2026-11-03 03:42:00.001 | INFO  | [gateway-alpha] REQUEST   p3-11 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:42:00.002 | INFO  | [gateway-alpha] RESULT    task-alpha-004: signed result from gateway-beta verified -> COMPLETED via gcp-vertex in 86 ms (peer re-inspected ALLOW)
+2026-11-03 03:42:00.002 | INFO  | [gateway-alpha] REQUEST   p3-14 ALLOW -> allow_then_dispatch(provider=gcp-vertex) on gateway-beta COMPLETED U=71.23 (86 ms)
+2026-11-03 03:42:00.002 | INFO  | [gateway-alpha] CFP       task-alpha-007: queue saturated (depth >= 6); call for proposals for one ALLOW task (67 B) sent to 1 peer(s) as signed PING
+2026-11-03 03:42:00.005 | INFO  | [gateway-alpha] BID       task-alpha-007: gateway-beta bids accept=True est 29 ms (queue 0) [signed reply verified]
+2026-11-03 03:42:00.005 | INFO  | [gateway-alpha] AWARD     task-alpha-007 awarded to gateway-beta as signed INSPECT (ALLOW)
+2026-11-03 03:42:00.007 | INFO  | [gateway-beta] REQUEST   peer-3e2ed8c1 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (32 ms)
+2026-11-03 03:42:00.009 | INFO  | [gateway-alpha] RESULT    task-alpha-005: signed result from gateway-beta verified -> COMPLETED via gcp-vertex in 58 ms (peer re-inspected ALLOW)
+2026-11-03 03:42:00.009 | INFO  | [gateway-alpha] REQUEST   p3-15 REDACT -> allow_then_dispatch(provider=gcp-vertex) on gateway-beta COMPLETED U=71.23 (59 ms)
+2026-11-03 03:42:00.010 | INFO  | [gateway-alpha] CFP       task-alpha-008: queue saturated (depth >= 6); call for proposals for one REDACT task (69 B) sent to 1 peer(s) as signed PING
+2026-11-03 03:42:00.011 | INFO  | [gateway-beta] AWARD     peer-81d984cb accepted from gateway-alpha: processing one ALLOW task (re-inspected locally)
+2026-11-03 03:42:00.016 | INFO  | [gateway-alpha] REQUEST   p3-12 REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:42:00.018 | INFO  | [gateway-alpha] BID       task-alpha-008: gateway-beta bids accept=True est 28 ms (queue 0) [signed reply verified]
+2026-11-03 03:42:00.019 | INFO  | [gateway-alpha] AWARD     task-alpha-008 awarded to gateway-beta as signed INSPECT (REDACT, sanitised text only)
+2026-11-03 03:42:00.020 | INFO  | [gateway-beta] AWARD     peer-2a3c458f accepted from gateway-alpha: processing one ALLOW task (re-inspected locally)
+2026-11-03 03:42:00.029 | INFO  | [gateway-beta] REQUEST   peer-dedd082b ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:42:00.032 | INFO  | [gateway-alpha] RESULT    task-alpha-006: signed result from gateway-beta verified -> COMPLETED via gcp-vertex in 77 ms (peer re-inspected ALLOW)
+2026-11-03 03:42:00.032 | INFO  | [gateway-alpha] REQUEST   p3-16 ALLOW -> allow_then_dispatch(provider=gcp-vertex) on gateway-beta COMPLETED U=71.23 (77 ms)
+2026-11-03 03:42:00.032 | INFO  | [gateway-alpha] CFP       task-alpha-009: queue saturated (depth >= 6); call for proposals for one ALLOW task (67 B) sent to 1 peer(s) as signed PING
+2026-11-03 03:42:00.034 | INFO  | [gateway-alpha] BID       task-alpha-009: gateway-beta bids accept=True est 28 ms (queue 0) [signed reply verified]
+2026-11-03 03:42:00.035 | INFO  | [gateway-alpha] AWARD     task-alpha-009 awarded to gateway-beta as signed INSPECT (ALLOW)
+2026-11-03 03:42:00.036 | INFO  | [gateway-beta] AWARD     peer-c876dea2 accepted from gateway-alpha: processing one ALLOW task (re-inspected locally)
+2026-11-03 03:42:00.044 | INFO  | [gateway-beta] REQUEST   peer-81d984cb ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:42:00.046 | INFO  | [gateway-alpha] RESULT    task-alpha-007: signed result from gateway-beta verified -> COMPLETED via gcp-vertex in 44 ms (peer re-inspected ALLOW)
+2026-11-03 03:42:00.046 | INFO  | [gateway-alpha] REQUEST   p3-17 ALLOW -> allow_then_dispatch(provider=gcp-vertex) on gateway-beta COMPLETED U=71.23 (44 ms)
+2026-11-03 03:42:00.047 | INFO  | [gateway-alpha] CFP       task-alpha-010: queue saturated (depth >= 6); call for proposals for one ALLOW task (67 B) sent to 1 peer(s) as signed PING
+2026-11-03 03:42:00.049 | INFO  | [gateway-alpha] BID       task-alpha-010: gateway-beta bids accept=True est 28 ms (queue 0) [signed reply verified]
+2026-11-03 03:42:00.049 | INFO  | [gateway-alpha] AWARD     task-alpha-010 awarded to gateway-beta as signed INSPECT (ALLOW)
+2026-11-03 03:42:00.050 | INFO  | [gateway-beta] AWARD     peer-6f2efc1d accepted from gateway-alpha: processing one ALLOW task (re-inspected locally)
+2026-11-03 03:42:00.056 | INFO  | [gateway-beta] REQUEST   peer-2a3c458f ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (35 ms)
+2026-11-03 03:42:00.058 | INFO  | [gateway-alpha] RESULT    task-alpha-008: signed result from gateway-beta verified -> COMPLETED via gcp-vertex in 49 ms (peer re-inspected ALLOW)
+2026-11-03 03:42:00.058 | INFO  | [gateway-alpha] REQUEST   p3-18 REDACT -> allow_then_dispatch(provider=gcp-vertex) on gateway-beta COMPLETED U=71.23 (49 ms)
+2026-11-03 03:42:00.070 | INFO  | [gateway-beta] REQUEST   peer-c876dea2 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:42:00.071 | INFO  | [gateway-alpha] RESULT    task-alpha-009: signed result from gateway-beta verified -> COMPLETED via gcp-vertex in 39 ms (peer re-inspected ALLOW)
+2026-11-03 03:42:00.071 | INFO  | [gateway-alpha] REQUEST   p3-19 ALLOW -> allow_then_dispatch(provider=gcp-vertex) on gateway-beta COMPLETED U=71.23 (39 ms)
+2026-11-03 03:42:00.097 | INFO  | [gateway-beta] REQUEST   peer-6f2efc1d ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (35 ms)
+2026-11-03 03:42:00.099 | INFO  | [gateway-alpha] RESULT    task-alpha-010: signed result from gateway-beta verified -> COMPLETED via gcp-vertex in 52 ms (peer re-inspected ALLOW)
+2026-11-03 03:42:00.099 | INFO  | [gateway-alpha] REQUEST   p3-20 ALLOW -> allow_then_dispatch(provider=gcp-vertex) on gateway-beta COMPLETED U=71.23 (52 ms)
+2026-11-03 03:42:00.099 | INFO  |   id      workload item (synthetic)          policy  BDI intention (final)                        status          provider         U      ms
+2026-11-03 03:42:00.099 | INFO  |   p3-01   Burst 01 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    46.1
+2026-11-03 03:42:00.099 | INFO  |   p3-02   Burst 02 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    57.9
+2026-11-03 03:42:00.099 | INFO  |   p3-03   Burst 03 redact                    REDACT  redact_then_dispatch(provider=gcp-vertex)    COMPLETED       gcp-vertex   71.23    57.2
+2026-11-03 03:42:00.099 | INFO  |   p3-04   Burst 04 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    55.8
+2026-11-03 03:42:00.099 | INFO  |   p3-05   Burst 05 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    43.7
+2026-11-03 03:42:00.099 | INFO  |   p3-06   Burst 06 redact                    REDACT  redact_then_dispatch(provider=gcp-vertex)    COMPLETED       gcp-vertex   71.23    42.9
+2026-11-03 03:42:00.099 | INFO  |   p3-07   Burst 07 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    52.1
+2026-11-03 03:42:00.099 | INFO  |   p3-08   Burst 08 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    36.1
+2026-11-03 03:42:00.099 | INFO  |   p3-09   Burst 09 redact                    REDACT  redact_then_dispatch(provider=gcp-vertex)    COMPLETED       gcp-vertex   71.23    35.6
+2026-11-03 03:42:00.099 | INFO  |   p3-10   Burst 10 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    85.7
+2026-11-03 03:42:00.099 | INFO  |   p3-11   Burst 11 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    32.9
+2026-11-03 03:42:00.099 | INFO  |   p3-12   Burst 12 redact                    REDACT  redact_then_dispatch(provider=gcp-vertex)    COMPLETED       gcp-vertex   71.23    33.7
+2026-11-03 03:42:00.099 | INFO  |   p3-13   Burst 13 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    84.2
+2026-11-03 03:42:00.099 | INFO  |   p3-14   Burst 14 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    86.1
+2026-11-03 03:42:00.099 | INFO  |   p3-15   Burst 15 redact                    REDACT  allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    58.5
+2026-11-03 03:42:00.099 | INFO  |   p3-16   Burst 16 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    76.7
+2026-11-03 03:42:00.099 | INFO  |   p3-17   Burst 17 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    43.8
+2026-11-03 03:42:00.099 | INFO  |   p3-18   Burst 18 redact                    REDACT  allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    48.6
+2026-11-03 03:42:00.100 | INFO  |   p3-19   Burst 19 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    39.4
+2026-11-03 03:42:00.100 | INFO  |   p3-20   Burst 20 clean                     ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    52.3
+2026-11-03 03:42:00.100 | INFO  |   p3-21   Burst internal link                REVIEW  hold_for_review                              PENDING_REVIEW  -                -     3.7
+2026-11-03 03:42:00.100 | INFO  |   p3-22   Burst secret                       BLOCK   block_and_advise_rotation                    BLOCKED         -                -     0.8
+2026-11-03 03:42:03.107 | INFO  | [P3] 10 of 22 burst requests delegated to gateway-beta via Contract-Net (cfp 10, bids 10, awards 10, signed results 10)
+2026-11-03 03:42:03.107 | INFO  | [P3] BLOCK/REVIEW requests in the burst: 2, all kept on gateway-alpha (left the host: 0)
+2026-11-03 03:42:03.107 | INFO  | [P3] every cfp, bid, award and result travelled as a signed PING / INSPECT with a signed reply
+2026-11-03 03:42:03.107 | INFO  | [P3] heartbeats: alpha sent 49 / answered 49, beta sent 49 / answered 59 (signed PING + signed reply, 13 checkpoints each)
+2026-11-03 03:42:07.111 | INFO  | [P3] phase complete in 7.25 s
+2026-11-03 03:42:07.111 | INFO  | ====================================================================================================
+2026-11-03 03:42:07.112 | INFO  | PHASE P4  ENVIRONMENTAL CHANGE: PROVIDER OUTAGE
+2026-11-03 03:42:07.112 | INFO  | ====================================================================================================
+2026-11-03 03:42:07.117 | WARNING | [gateway-alpha] OUTAGE    [SIMULATED] gcp-vertex adapter now answers HTTP 503 (outage drill)
+2026-11-03 03:42:07.119 | WARNING | [gateway-alpha] SHIFT     INTENTION SHIFT p4-01: allow_then_dispatch(provider=gcp-vertex) -> dispatch_local_only(provider=local) (requires 'provider gcp-vertex is usable' but believed provider.gcp-vertex.status=major_outage)
+2026-11-03 03:42:07.184 | INFO  | [gateway-alpha] REQUEST   p4-01 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (70 ms)
+2026-11-03 03:42:07.279 | INFO  | [gateway-alpha] REQUEST   p4-02 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (64 ms)
+2026-11-03 03:42:07.385 | INFO  | [gateway-alpha] REQUEST   p4-03 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (66 ms)
+2026-11-03 03:42:07.482 | INFO  | [gateway-alpha] REQUEST   p4-04 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (66 ms)
+2026-11-03 03:42:07.581 | INFO  | [gateway-alpha] REQUEST   p4-05 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (64 ms)
+2026-11-03 03:42:07.682 | INFO  | [gateway-alpha] REQUEST   p4-06 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (64 ms)
+2026-11-03 03:42:07.782 | INFO  | [gateway-alpha] REQUEST   p4-07 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (64 ms)
+2026-11-03 03:42:07.883 | INFO  | [gateway-alpha] REQUEST   p4-08 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (65 ms)
+2026-11-03 03:42:07.984 | INFO  | [gateway-alpha] REQUEST   p4-09 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (65 ms)
+2026-11-03 03:42:08.061 | WARNING | [gateway-beta] BELIEF    provider.gcp-vertex.status = major_outage learned from gateway-alpha (origin monitor:simulated-outage-drill)
+2026-11-03 03:42:08.061 | INFO  | [gateway-beta] SYNC      signed heartbeat from gateway-alpha: 1 belief change(s) [provider.gcp-vertex.status]
+2026-11-03 03:42:08.083 | INFO  | [gateway-alpha] REQUEST   p4-10 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (64 ms)
+2026-11-03 03:42:08.117 | INFO  |   id      workload item (synthetic)          policy  BDI intention (final)                        status          provider         U      ms
+2026-11-03 03:42:08.117 | INFO  |   p4-01   Outage wave 01                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    69.7
+2026-11-03 03:42:08.118 | INFO  |   p4-02   Outage wave 02                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.0
+2026-11-03 03:42:08.118 | INFO  |   p4-03   Outage wave 03                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    66.4
+2026-11-03 03:42:08.118 | INFO  |   p4-04   Outage wave 04                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    66.1
+2026-11-03 03:42:08.118 | INFO  |   p4-05   Outage wave 05                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.0
+2026-11-03 03:42:08.118 | INFO  |   p4-06   Outage wave 06                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.2
+2026-11-03 03:42:08.118 | INFO  |   p4-07   Outage wave 07                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.1
+2026-11-03 03:42:08.118 | INFO  |   p4-08   Outage wave 08                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    65.1
+2026-11-03 03:42:08.118 | INFO  |   p4-09   Outage wave 09                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.5
+2026-11-03 03:42:08.118 | INFO  |   p4-10   Outage wave 10                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.0
+2026-11-03 03:42:08.118 | INFO  | [P4] BDI trace of p4-01 around the outage:
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.113  c00  PERCEIVE   request p4-01 received: 59 bytes, policy ALLOW
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.115  c01  INTEND     I1 adopted for D3: allow_then_dispatch(provider=gcp-vertex) U=71.23 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspec
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.116  c03  STEP       I1 allow_then_dispatch(provider=gcp-vertex) [3/7] route_and_verify -> OK: router: gcp-vertex feasible, U=71.23, rank 1/4 [gcp-vertex > local > aws-bedrock > azure-ai]
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.116  c03  BELIEF     route.selected: None -> gcp-vertex (source intention:I1/route_and_verify)
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.116  c03  BELIEF     route.utility: None -> 71.2343 (source intention:I1/route_and_verify)
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.116  c03  BELIEF     route.ranking: None -> ['gcp-vertex', 'local', 'aws-bedrock', 'azure-ai'] (source intention:I1/route_and_verify)
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.117  c05  PERCEIVE   environment: [SIMULATED] gcp-vertex starts returning HTTP 503 mid-execution
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.117  c05  RECONSIDER I1 invalidated by ['provider.gcp-vertex.status']
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.117  c05  DROP       I1 allow_then_dispatch(provider=gcp-vertex) dropped before 'dispatch' (4/7 done): requires 'provider gcp-vertex is usable' but believed provider.gcp-vertex.status=major_o
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.119  c06  INTEND     I2 adopted for D3: dispatch_local_only(provider=local) U=70.29 [prepare_payload -> procure_contract -> route_and_verify -> seal_dispatch_record -> dispatch -> inspect_res
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.119  c06  REPLAN     I1 allow_then_dispatch(provider=gcp-vertex) [DROPPED] -> I2 dispatch_local_only(provider=local)
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.121  c08  STEP       I2 dispatch_local_only(provider=local) [3/7] route_and_verify -> OK: router: local feasible, U=70.29, rank 1/1 [local]
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.121  c08  BELIEF     route.selected: gcp-vertex -> local (source intention:I2/route_and_verify)
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.121  c08  BELIEF     route.utility: 71.2343 -> 70.29 (source intention:I2/route_and_verify)
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.121  c08  BELIEF     route.ranking: ['gcp-vertex', 'local', 'aws-bedrock', 'azure-ai'] -> ['local'] (source intention:I2/route_and_verify)
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.182  c10  STEP       I2 dispatch_local_only(provider=local) [5/7] dispatch -> OK: transmitted to local (LOCAL); reply in 60.1 ms
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.182  c10  RECONSIDER I2 kept after ['response.received']: 2 remaining condition(s) still hold
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.183  c11  RECONSIDER I2 kept after ['response.decision']: 2 remaining condition(s) still hold
+2026-11-03 03:42:08.118 | INFO  | [P4]   03:42:07.183  c12  COMPLETE   I2 dispatch_local_only(provider=local) succeeded (7 steps) for D3
+2026-11-03 03:42:08.118 | INFO  | [P4] outage drill fired at p4-01's dispatch step, on the provider it was bound to: gcp-vertex
+2026-11-03 03:42:08.118 | WARNING | [gateway-alpha] CIRCUIT   circuit breaker OPEN for gcp-vertex after 3 consecutive failures
+2026-11-03 03:42:08.120 | INFO  | [P4] circuit breaker for gcp-vertex: OPEN (consecutive failed health probes)
+2026-11-03 03:42:12.128 | WARNING | [gateway-alpha] FEED      azure_status [WHAT-IF REPLAY, not live]: replay-file HTTP - 1,683 B, 2 items (1 relevant), 2 belief change(s)
+2026-11-03 03:42:12.129 | INFO  | [P4] labelled what-if replay of the Azure status feed (as_of 2026-02-27T13:00:00+00:00): beliefs changed ['provider.azure-ai.status', 'threat.posture_reason']
+2026-11-03 03:42:12.129 | INFO  | [P4] provider beliefs now: {'local': 'operational', 'aws-bedrock': 'operational', 'azure-ai': 'outage', 'gcp-vertex': 'major_outage'}
+2026-11-03 03:42:12.197 | INFO  | [gateway-alpha] REQUEST   p4-r1 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (65 ms)
+2026-11-03 03:42:12.264 | INFO  | [gateway-alpha] REQUEST   p4-r2 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (64 ms)
+2026-11-03 03:42:12.330 | INFO  | [gateway-alpha] REQUEST   p4-r3 ALLOW -> dispatch_local_only(provider=local) COMPLETED U=70.29 (64 ms)
+2026-11-03 03:42:12.330 | INFO  |   id      workload item (synthetic)          policy  BDI intention (final)                        status          provider         U      ms
+2026-11-03 03:42:12.330 | INFO  |   p4-r1   Outage wave 01                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    65.2
+2026-11-03 03:42:12.330 | INFO  |   p4-r2   Outage wave 02                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    64.1
+2026-11-03 03:42:12.330 | INFO  |   p4-r3   Outage wave 03                     ALLOW   dispatch_local_only(provider=local)          COMPLETED       local        70.29    63.7
+2026-11-03 03:42:12.337 | WARNING | [gateway-beta] BELIEF    provider.azure-ai.status = outage learned from gateway-alpha (origin azure_status:replay-file:replay)
+2026-11-03 03:42:12.337 | INFO  | [gateway-beta] BELIEF    threat.posture_reason = ai_incidents: aiid.privacy_per_day=0.5743 >= ... learned from gateway-alpha (origin derived:posture-rule)
+2026-11-03 03:42:12.337 | INFO  | [gateway-beta] SYNC      signed heartbeat from gateway-alpha: 2 belief change(s) [provider.azure-ai.status, threat.posture_reason]
+2026-11-03 03:42:12.337 | INFO  | [P4] gateway-beta learned provider.gcp-vertex.status=major_outage from alpha: True
+2026-11-03 03:42:17.338 | INFO  | [gateway-alpha] OUTAGE    [SIMULATED] gcp-vertex adapter restored; waiting for a healthy probe
+2026-11-03 03:42:17.345 | INFO  | [gateway-alpha] CIRCUIT   circuit breaker CLOSED for gcp-vertex (health probe succeeded)
+2026-11-03 03:42:17.352 | INFO  | [gateway-alpha] FEED      azure_status [restored from the P1 live snapshot]: snapshot HTTP 200 244 B, 0 items (0 relevant), 1 belief change(s)
+2026-11-03 03:42:17.352 | INFO  | [P4] recovery: gcp-vertex circuit CLOSED and belief operational=True; azure restored from P1 live snapshot (changes ['provider.azure-ai.status'])
+2026-11-03 03:42:17.387 | INFO  | [gateway-alpha] REQUEST   p4-after ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:42:17.387 | INFO  | [P4] after recovery p4-after routed to gcp-vertex (U=71.2343)
+2026-11-03 03:42:17.387 | INFO  | [P4] successful transmissions to gcp-vertex while it was down: 0
+2026-11-03 03:42:17.387 | INFO  | [P4] INTENTION SHIFT p4-01: allow_then_dispatch(provider=gcp-vertex) -> dispatch_local_only(provider=local) | requires 'provider gcp-vertex is usable' but believed provider.gcp-vertex.status=major_outage
+2026-11-03 03:42:18.102 | INFO  | [gateway-beta] BELIEF    provider.azure-ai.status = operational learned from gateway-alpha (origin azure_status:snapshot)
+2026-11-03 03:42:18.103 | INFO  | [gateway-beta] BELIEF    provider.gcp-vertex.status = operational learned from gateway-alpha (origin monitor:circuit-breaker)
+2026-11-03 03:42:18.103 | INFO  | [gateway-beta] SYNC      signed heartbeat from gateway-alpha: 2 belief change(s) [provider.azure-ai.status, provider.gcp-vertex.status]
+2026-11-03 03:42:21.389 | INFO  | [P4] phase complete in 14.28 s
+2026-11-03 03:42:21.390 | INFO  | ====================================================================================================
+2026-11-03 03:42:21.390 | INFO  | PHASE P5  SECURITY: SIGNED COMMANDS AND ATTACK BATTERY
+2026-11-03 03:42:21.390 | INFO  | ====================================================================================================
+2026-11-03 03:42:21.393 | INFO  | [gateway-alpha] POLICY    1 redaction pattern(s) added by security-console; 3 active
+2026-11-03 03:42:21.394 | INFO  | [gateway-alpha] SECURITY  ACCEPTED UPDATE_REDACTION_PATTERNS from security-console via 127.0.0.21 (13/13 checkpoints, 570 us) -> ACCEPTED
+2026-11-03 03:42:21.395 | INFO  | [P5] console UPDATE_REDACTION_PATTERNS -> alpha: ACCEPTED, reply signature VERIFIED, patterns_updated
+2026-11-03 03:42:21.431 | INFO  | [gateway-alpha] REQUEST   p5-probe REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:42:21.432 | INFO  | [P5] project-codename probe after the update: policy REDACT -> COMPLETED via gcp-vertex
+2026-11-03 03:42:21.435 | INFO  | [gateway-alpha] SECURITY  ACCEPTED REQUEST_TELEMETRY_DUMP from security-console via 127.0.0.21 (13/13 checkpoints, 687 us) -> ACCEPTED
+2026-11-03 03:42:21.439 | INFO  | [P5] console REQUEST_TELEMETRY_DUMP -> alpha: ACCEPTED (verified=True; 77 decisions counted, ledger records 116)
+2026-11-03 03:42:21.441 | INFO  | [gateway-beta] SECURITY  ACCEPTED PING from security-console via 127.0.0.21 (13/13 checkpoints, 570 us) -> ACCEPTED
+2026-11-03 03:42:21.442 | INFO  | [P5] console PING -> beta: ACCEPTED (verified=True)
+2026-11-03 03:42:25.443 | INFO  | [P5] attack battery against gateway-alpha (state fingerprint 7adfaa88b9f29963)
+2026-11-03 03:42:25.445 | WARNING | [gateway-alpha] SECURITY  BLOCKED UPDATE_REDACTION_PATTERNS claimed_host=security-console via 127.0.0.22 at C11 REPLAY (REPLAY_MSG_ID); incident ALPHA-INC-0001; state UNCHANGED
+2026-11-03 03:42:25.447 | WARNING | [gateway-alpha] SECURITY  BLOCKED TRIGGER_EMERGENCY_LOCKDOWN claimed_host=security-console via 127.0.0.22 at C8 SIGNATURE (BAD_SIGNATURE); incident ALPHA-INC-0002; state UNCHANGED
+2026-11-03 03:42:25.449 | WARNING | [gateway-alpha] SECURITY  BLOCKED UPDATE_REDACTION_PATTERNS claimed_host=security-console via 127.0.0.22 at C8 SIGNATURE (BAD_SIGNATURE); incident ALPHA-INC-0003; state UNCHANGED
+2026-11-03 03:42:25.451 | WARNING | [gateway-alpha] SECURITY  BLOCKED unparsed frame claimed_host=? via 127.0.0.66 at C2 STRICT_SCHEMA (SCHEMA_VIOLATION); incident ALPHA-INC-0004; state UNCHANGED
+2026-11-03 03:42:25.453 | WARNING | [gateway-alpha] SECURITY  BLOCKED TRIGGER_EMERGENCY_LOCKDOWN claimed_host=rogue-node-66 via 127.0.0.66 at C5 HOST_TRUST (UNKNOWN_HOST); incident ALPHA-INC-0005; state UNCHANGED
+2026-11-03 03:42:25.455 | WARNING | [gateway-alpha] SECURITY  BLOCKED UPDATE_REDACTION_PATTERNS claimed_host=security-console via 127.0.0.66 at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED); incident ALPHA-INC-0006; state UNCHANGED
+2026-11-03 03:42:25.457 | WARNING | [gateway-alpha] SECURITY  BLOCKED unparsed frame claimed_host=? via 127.0.0.66 at C1 FRAME_SIZE (FRAME_TOO_LARGE); incident ALPHA-INC-0007; state UNCHANGED
+2026-11-03 03:42:25.458 | WARNING | [gateway-alpha] SECURITY  BLOCKED PING claimed_host=rogue-node-66 via 127.0.0.67 at C3 VERSION (UNSUPPORTED_VERSION); incident ALPHA-INC-0008; state UNCHANGED
+2026-11-03 03:42:25.460 | WARNING | [gateway-alpha] SECURITY  BLOCKED PING claimed_host=rogue-node-66 via 127.0.0.67 at C4 RECIPIENT (WRONG_RECIPIENT); incident ALPHA-INC-0009; state UNCHANGED
+2026-11-03 03:42:25.462 | WARNING | [gateway-alpha] SECURITY  BLOCKED TRIGGER_EMERGENCY_LOCKDOWN claimed_host=gateway-beta via 127.0.0.12 at C13 AUTHORIZATION (COMMAND_NOT_PERMITTED); incident ALPHA-INC-0010; state UNCHANGED
+2026-11-03 03:42:25.464 | WARNING | [gateway-alpha] ALERT     SECURITY ALERT HOST_INTEGRITY_FAILURE: origin=tcp://127.0.0.12:49571 claimed_host=gateway-beta
+2026-11-03 03:42:25.464 | WARNING | [gateway-alpha] SECURITY  BLOCKED PING claimed_host=gateway-beta via 127.0.0.12 at C12 HOST_INTEGRITY (ATTESTATION_MISMATCH); incident ALPHA-INC-0011; state UNCHANGED
+2026-11-03 03:42:25.466 | WARNING | [gateway-alpha] SECURITY  BLOCKED PING claimed_host=gateway-beta via 127.0.0.12 at C10 FRESHNESS (STALE_MESSAGE); incident ALPHA-INC-0012; state UNCHANGED
+2026-11-03 03:42:25.468 | WARNING | [gateway-alpha] SECURITY  BLOCKED TRIGGER_EMERGENCY_LOCKDOWN claimed_host=security-console via 127.0.0.77 at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED); incident ALPHA-INC-0013; state UNCHANGED
+2026-11-03 03:42:25.470 | WARNING | [gateway-alpha] SECURITY  BLOCKED TRIGGER_EMERGENCY_LOCKDOWN claimed_host=security-console via 127.0.0.77 at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED); incident ALPHA-INC-0014; state UNCHANGED
+2026-11-03 03:42:25.472 | WARNING | [gateway-alpha] SECURITY  BLOCKED TRIGGER_EMERGENCY_LOCKDOWN claimed_host=security-console via 127.0.0.77 at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED); incident ALPHA-INC-0015; state UNCHANGED
+2026-11-03 03:42:25.473 | WARNING | [gateway-alpha] SECURITY  BLOCKED TRIGGER_EMERGENCY_LOCKDOWN claimed_host=security-console via 127.0.0.77 at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED); incident ALPHA-INC-0016; state UNCHANGED
+2026-11-03 03:42:25.475 | WARNING | [gateway-alpha] ALERT     SECURITY ALERT SOURCE_LOCKOUT: origin=tcp://127.0.0.77:39665 claimed_host=security-console
+2026-11-03 03:42:25.475 | WARNING | [gateway-alpha] SECURITY  BLOCKED TRIGGER_EMERGENCY_LOCKDOWN claimed_host=security-console via 127.0.0.77 at C7 NETWORK_ORIGIN (ORIGIN_NOT_ALLOWED); incident ALPHA-INC-0017; state UNCHANGED
+2026-11-03 03:42:25.477 | WARNING | [gateway-alpha] SECURITY  BLOCKED TRIGGER_EMERGENCY_LOCKDOWN claimed_host=security-console via 127.0.0.77 at L0 SOURCE_LOCKOUT (SOURCE_LOCKED_OUT); incident ALPHA-INC-0018; state UNCHANGED
+2026-11-03 03:42:25.478 | WARNING | [P5]   A01 Replay of a captured console command           src=127.0.0.22  claimed=security-console  UPDATE_REDACTION_PATTERNS   -> BLOCKED at C11 REPLAY          REPLAY_MSG_ID          state UNCHANGED PASS
+2026-11-03 03:42:26.178 | WARNING | [P5]   A02 Forged console signature                       src=127.0.0.22  claimed=security-console  TRIGGER_EMERGENCY_LOCKDOWN  -> BLOCKED at C8  SIGNATURE       BAD_SIGNATURE          state UNCHANGED PASS
+2026-11-03 03:42:26.879 | WARNING | [P5]   A03 Payload tampered after signing                 src=127.0.0.22  claimed=security-console  UPDATE_REDACTION_PATTERNS   -> BLOCKED at C8  SIGNATURE       BAD_SIGNATURE          state UNCHANGED PASS
+2026-11-03 03:42:27.579 | WARNING | [P5]   A04 Unsigned garbage command                       src=127.0.0.66  claimed=-                 -                           -> BLOCKED at C2  STRICT_SCHEMA   SCHEMA_VIOLATION       state UNCHANGED PASS
+2026-11-03 03:42:28.279 | WARNING | [P5]   A05 Unknown host identity                          src=127.0.0.66  claimed=rogue-node-66     TRIGGER_EMERGENCY_LOCKDOWN  -> BLOCKED at C5  HOST_TRUST      UNKNOWN_HOST           state UNCHANGED PASS
+2026-11-03 03:42:28.980 | WARNING | [P5]   A06 Captured console frame replayed from outside   src=127.0.0.66  claimed=security-console  UPDATE_REDACTION_PATTERNS   -> BLOCKED at C7  NETWORK_ORIGIN  ORIGIN_NOT_ALLOWED     state UNCHANGED PASS
+2026-11-03 03:42:29.680 | WARNING | [P5]   A07 Oversized frame (declares 1 MiB)               src=127.0.0.66  claimed=-                 -                           -> BLOCKED at C1  FRAME_SIZE      FRAME_TOO_LARGE        state UNCHANGED PASS
+2026-11-03 03:42:30.380 | WARNING | [P5]   A08 Protocol downgrade (cm-sig/0)                  src=127.0.0.67  claimed=rogue-node-66     PING                        -> BLOCKED at C3  VERSION         UNSUPPORTED_VERSION    state UNCHANGED PASS
+2026-11-03 03:42:31.083 | WARNING | [P5]   A09 Wrong recipient                                src=127.0.0.67  claimed=rogue-node-66     PING                        -> BLOCKED at C4  RECIPIENT       WRONG_RECIPIENT        state UNCHANGED PASS
+2026-11-03 03:42:31.783 | WARNING | [P5]   A10 Privilege escalation with a peer key           src=127.0.0.12  claimed=gateway-beta      TRIGGER_EMERGENCY_LOCKDOWN  -> BLOCKED at C13 AUTHORIZATION   COMMAND_NOT_PERMITTED  state UNCHANGED PASS
+2026-11-03 03:42:32.483 | WARNING | [P5]   A11 Compromised peer code                          src=127.0.0.12  claimed=gateway-beta      PING                        -> BLOCKED at C12 HOST_INTEGRITY  ATTESTATION_MISMATCH   state UNCHANGED PASS
+2026-11-03 03:42:33.184 | WARNING | [P5]   A12 Stale command (issued 10 minutes ago)          src=127.0.0.12  claimed=gateway-beta      PING                        -> BLOCKED at C10 FRESHNESS       STALE_MESSAGE          state UNCHANGED PASS
+2026-11-03 03:42:33.884 | WARNING | [P5]   B01 Brute-force forged admin command               src=127.0.0.77  claimed=security-console  TRIGGER_EMERGENCY_LOCKDOWN  -> BLOCKED at C7  NETWORK_ORIGIN  ORIGIN_NOT_ALLOWED     state UNCHANGED PASS
+2026-11-03 03:42:34.584 | WARNING | [P5]   B02 Brute-force forged admin command               src=127.0.0.77  claimed=security-console  TRIGGER_EMERGENCY_LOCKDOWN  -> BLOCKED at C7  NETWORK_ORIGIN  ORIGIN_NOT_ALLOWED     state UNCHANGED PASS
+2026-11-03 03:42:35.284 | WARNING | [P5]   B03 Brute-force forged admin command               src=127.0.0.77  claimed=security-console  TRIGGER_EMERGENCY_LOCKDOWN  -> BLOCKED at C7  NETWORK_ORIGIN  ORIGIN_NOT_ALLOWED     state UNCHANGED PASS
+2026-11-03 03:42:35.985 | WARNING | [P5]   B04 Brute-force forged admin command               src=127.0.0.77  claimed=security-console  TRIGGER_EMERGENCY_LOCKDOWN  -> BLOCKED at C7  NETWORK_ORIGIN  ORIGIN_NOT_ALLOWED     state UNCHANGED PASS
+2026-11-03 03:42:36.685 | WARNING | [P5]   B05 Brute-force forged admin command               src=127.0.0.77  claimed=security-console  TRIGGER_EMERGENCY_LOCKDOWN  -> BLOCKED at C7  NETWORK_ORIGIN  ORIGIN_NOT_ALLOWED     state UNCHANGED PASS
+2026-11-03 03:42:37.385 | WARNING | [P5]   B06 Brute-force forged admin command               src=127.0.0.77  claimed=security-console  TRIGGER_EMERGENCY_LOCKDOWN  -> BLOCKED at L0  SOURCE_LOCKOUT  SOURCE_LOCKED_OUT      state UNCHANGED PASS
+2026-11-03 03:42:38.086 | INFO  | [P5] battery: 18 hostile frames, 18 blocked, 18 at the expected checkpoint, state 7adfaa88b9f29963 -> 7adfaa88b9f29963 (UNCHANGED)
+2026-11-03 03:42:38.123 | INFO  | [gateway-alpha] REQUEST   p5-after REDACT -> redact_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:42:38.123 | INFO  | [P5] engine still serves correctly after the battery: probe REDACT -> COMPLETED
+2026-11-03 03:42:42.125 | INFO  | [P5] phase complete in 20.73 s
+2026-11-03 03:42:42.126 | INFO  | ====================================================================================================
+2026-11-03 03:42:42.126 | INFO  | PHASE P6  LOCKDOWN DRILL, RECOVERY AND GRACEFUL SHUTDOWN
+2026-11-03 03:42:42.126 | INFO  | ====================================================================================================
+2026-11-03 03:42:42.128 | WARNING | [gateway-alpha] LOCKDOWN  EMERGENCY LOCKDOWN enabled by security-console: every outbound prompt is blocked (reason: quarterly lockdown drill)
+2026-11-03 03:42:42.129 | INFO  | [gateway-alpha] SECURITY  ACCEPTED TRIGGER_EMERGENCY_LOCKDOWN from security-console via 127.0.0.21 (13/13 checkpoints, 491 us) -> ACCEPTED
+2026-11-03 03:42:42.131 | INFO  | [P6] console TRIGGER_EMERGENCY_LOCKDOWN -> alpha: ACCEPTED (verified=True)
+2026-11-03 03:42:42.232 | WARNING | [gateway-beta] PEER      peer gateway-alpha is LOCKDOWN
+2026-11-03 03:42:45.135 | WARNING | [gateway-alpha] REQUEST   p6-l1 BLOCK -> enforce_lockdown_block BLOCKED (2 ms)
+2026-11-03 03:42:46.139 | WARNING | [gateway-alpha] REQUEST   p6-l2 BLOCK -> enforce_lockdown_block BLOCKED (2 ms)
+2026-11-03 03:42:47.142 | WARNING | [gateway-alpha] REQUEST   p6-l3 BLOCK -> enforce_lockdown_block BLOCKED (1 ms)
+2026-11-03 03:42:48.142 | INFO  |   id      workload item (synthetic)          policy  BDI intention (final)                        status          provider         U      ms
+2026-11-03 03:42:48.142 | INFO  |   p6-l1   During lockdown 1                  BLOCK   enforce_lockdown_block                       BLOCKED         -                -     1.5
+2026-11-03 03:42:48.143 | INFO  |   p6-l2   During lockdown 2                  BLOCK   enforce_lockdown_block                       BLOCKED         -                -     1.5
+2026-11-03 03:42:48.143 | INFO  |   p6-l3   During lockdown 3                  BLOCK   enforce_lockdown_block                       BLOCKED         -                -     1.0
+2026-11-03 03:42:48.144 | INFO  | [P6] during lockdown: 3 clean prompts -> {'BLOCKED': 3}; provider transmissions: 0; delegations: none
+2026-11-03 03:42:52.146 | INFO  | [gateway-alpha] LOCKDOWN  emergency lockdown RELEASED by security-console (reason: drill complete)
+2026-11-03 03:42:52.146 | INFO  | [gateway-alpha] SECURITY  ACCEPTED RELEASE_LOCKDOWN from security-console via 127.0.0.21 (13/13 checkpoints, 499 us) -> ACCEPTED
+2026-11-03 03:42:52.147 | INFO  | [P6] console RELEASE_LOCKDOWN -> alpha: ACCEPTED (verified=True)
+2026-11-03 03:42:52.183 | INFO  | [gateway-alpha] REQUEST   p6-r1 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (34 ms)
+2026-11-03 03:42:52.219 | INFO  | [gateway-alpha] REQUEST   p6-r2 ALLOW -> allow_then_dispatch(provider=gcp-vertex) COMPLETED U=71.23 (33 ms)
+2026-11-03 03:42:52.222 | INFO  |   id      workload item (synthetic)          policy  BDI intention (final)                        status          provider         U      ms
+2026-11-03 03:42:52.222 | INFO  |   p6-r1   After release 1                    ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    34.2
+2026-11-03 03:42:52.222 | INFO  |   p6-r2   After release 2                    ALLOW   allow_then_dispatch(provider=gcp-vertex)     COMPLETED       gcp-vertex   71.23    33.2
+2026-11-03 03:42:52.285 | INFO  | [gateway-beta] PEER      peer gateway-alpha is ONLINE
+2026-11-03 03:42:56.225 | INFO  | [P6] graceful drain of both gateways ...
+2026-11-03 03:42:56.225 | INFO  | [gateway-alpha] DRAIN     draining: 0 queued, 0 in flight
+2026-11-03 03:42:56.298 | INFO  | [gateway-alpha] STOP      gateway-alpha stopped cleanly; 73 requests completed, 0 failed
+2026-11-03 03:42:56.299 | INFO  | [gateway-beta] DRAIN     draining: 0 queued, 0 in flight
+2026-11-03 03:42:56.382 | INFO  | [gateway-beta] STOP      gateway-beta stopped cleanly; 10 requests completed, 0 failed
+2026-11-03 03:42:56.386 | INFO  | [P6] gateway-alpha drained: submitted=73 completed=73 failed=0 p50=36.8 ms p95=122.7 ms
+2026-11-03 03:42:56.386 | INFO  | [P6] gateway-beta drained: submitted=10 completed=10 failed=0 p50=35.8 ms p95=46.4 ms
+2026-11-03 03:42:56.386 | INFO  | [P6] gateway-alpha evidence ledger: 125 HMAC-chained records, verification PASSED
+2026-11-03 03:42:56.386 | INFO  | [P6] gateway-beta evidence ledger: 20 HMAC-chained records, verification PASSED
+2026-11-03 03:42:56.386 | INFO  | [P6] gateway-alpha security audit: {'SELF_ATTESTATION': 1, 'COMMAND_ACCEPTED': 108, 'COMMAND_REJECTED': 18}
+2026-11-03 03:42:56.386 | INFO  | [P6] gateway-beta security audit: {'SELF_ATTESTATION': 1, 'COMMAND_ACCEPTED': 125}
+2026-11-03 03:42:56.387 | INFO  | [P6] phase complete in 14.26 s
+2026-11-03 03:42:56.398 | INFO  | ====================================================================================================
+2026-11-03 03:42:56.398 | INFO  | CYCLE COMPLETE in 101.0 s: 82 requests {'ALLOW': 44, 'REDACT': 22, 'BLOCK': 11, 'REVIEW': 5} | 1 intention shifts | 10 tasks delegated | 18/18 attacks blocked | ledgers verified True
+2026-11-03 03:42:56.398 | INFO  | ====================================================================================================

@@ -1,0 +1,268 @@
+{
+ "generated_at": "2026-11-02T21:42:19+00:00",
+ "mode": "live",
+ "transport": "HTTPS (TLS 1.2+, certificate verification on), urllib, timeout 20 s, 2 retries, 8 MiB cap",
+ "endpoints": [
+  {
+   "feed": "gcp_status",
+   "url": "https://status.cloud.google.com/incidents.json",
+   "doc": "https://status.cloud.google.com/",
+   "mode": "live",
+   "http_status": 200,
+   "bytes": 251117,
+   "latency_ms": 426.8,
+   "parse_ms": 5.63,
+   "sha256_stored": "5e979a2555c2cf1adacb3da57cf2e35ee54bc7ff72ea6b436dba8db507c43f9d",
+   "original_sha256": "5e979a2555c2cf1adacb3da57cf2e35ee54bc7ff72ea6b436dba8db507c43f9d",
+   "final_url": "https://status.cloud.google.com/incidents.json",
+   "stale": false,
+   "fetched_at": "2026-11-02T21:42:15.104+00:00",
+   "facts_extracted": 1,
+   "triples_added": 0,
+   "property_changes": 2,
+   "items_seen": 8,
+   "items_relevant": 0,
+   "signals": {
+    "provider_status": {
+     "gcp-vertex": {
+      "status": "operational",
+      "confidence": 0.8,
+      "incidents": [],
+      "evidence": "no active incident in feed"
+     }
+    },
+    "recent_incidents": {
+     "gcp-vertex": 0
+    },
+    "active_total": 0,
+    "recent_total": 2,
+    "regions_seen": [
+     "europe-west2",
+     "us-central1"
+    ]
+   },
+   "snapshot": "data/snapshots/gcp_status.derived.json",
+   "warnings": []
+  },
+  {
+   "feed": "azure_status",
+   "url": "https://azure.status.microsoft/en-us/status/feed/",
+   "doc": "https://azure.status.microsoft/en-us/status/",
+   "mode": "live",
+   "http_status": 200,
+   "bytes": 577,
+   "latency_ms": 275.1,
+   "parse_ms": 0.31,
+   "sha256_stored": "439d001adcddd9e4b18b6daa63d4b5dfcba93f1463708b63832343812956939c",
+   "original_sha256": "439d001adcddd9e4b18b6daa63d4b5dfcba93f1463708b63832343812956939c",
+   "final_url": "https://azure.status.microsoft/en-us/status/feed/",
+   "stale": false,
+   "fetched_at": "2026-11-02T21:42:15.397+00:00",
+   "facts_extracted": 1,
+   "triples_added": 0,
+   "property_changes": 2,
+   "items_seen": 0,
+   "items_relevant": 0,
+   "signals": {
+    "provider_status": {
+     "azure-ai": {
+      "status": "operational",
+      "confidence": 0.8,
+      "incidents": [],
+      "evidence": "no active incident in feed"
+     }
+    },
+    "recent_incidents": {
+     "azure-ai": 0
+    },
+    "active_total": 0,
+    "recent_total": 0,
+    "regions_seen": []
+   },
+   "snapshot": "data/snapshots/azure_status.derived.xml",
+   "warnings": []
+  },
+  {
+   "feed": "aws_health",
+   "url": "https://health.aws.amazon.com/public/currentevents",
+   "doc": "https://health.aws.amazon.com/health/status",
+   "mode": "live",
+   "http_status": 200,
+   "bytes": 231276,
+   "latency_ms": 660.2,
+   "parse_ms": 5.27,
+   "sha256_stored": "ead64c82685dba23d0f7224cd5a4ce3d11c6900f34ed594c76c832749ab11d90",
+   "original_sha256": "ead64c82685dba23d0f7224cd5a4ce3d11c6900f34ed594c76c832749ab11d90",
+   "final_url": "https://health.aws.amazon.com/public/currentevents",
+   "stale": false,
+   "fetched_at": "2026-11-02T21:42:16.063+00:00",
+   "facts_extracted": 11,
+   "triples_added": 10,
+   "property_changes": 2,
+   "items_seen": 2,
+   "items_relevant": 0,
+   "signals": {
+    "provider_status": {
+     "aws-bedrock": {
+      "status": "operational",
+      "confidence": 0.8,
+      "incidents": [],
+      "evidence": "no active incident in feed"
+     }
+    },
+    "recent_incidents": {
+     "aws-bedrock": 0
+    },
+    "active_total": 2,
+    "recent_total": 0,
+    "regions_seen": [
+     "me-central-1",
+     "me-south-1"
+    ]
+   },
+   "snapshot": "data/snapshots/aws_health.derived.json",
+   "warnings": []
+  },
+  {
+   "feed": "cisa_kev",
+   "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+   "doc": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+   "mode": "live",
+   "http_status": 200,
+   "bytes": 1826755,
+   "latency_ms": 589.1,
+   "parse_ms": 11.37,
+   "sha256_stored": "3aa9cf3c01f116362a29d111702979175453c425e3733bde80fc4f6f8e2294e5",
+   "original_sha256": "3aa9cf3c01f116362a29d111702979175453c425e3733bde80fc4f6f8e2294e5",
+   "final_url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+   "stale": false,
+   "fetched_at": "2026-11-02T21:42:16.667+00:00",
+   "facts_extracted": 19,
+   "triples_added": 19,
+   "property_changes": 11,
+   "items_seen": 1766,
+   "items_relevant": 3,
+   "signals": {
+    "catalog_version": "2026.10.30",
+    "catalog_count": 1766,
+    "as_of": "2026-11-02",
+    "recent": 33,
+    "baseline_monthly_median": 23.5,
+    "ratio": 1.404,
+    "relevant_hits": 3,
+    "ai_ml_hits": 0,
+    "ransomware_hits": 0,
+    "relevant": [
+     {
+      "cve": "CVE-2026-46300",
+      "vendor": "Linux",
+      "product": "Kernel",
+      "date_added": "2026-10-28",
+      "ransomware": "Unknown"
+     },
+     {
+      "cve": "CVE-2026-111497",
+      "vendor": "Google",
+      "product": "Brotli",
+      "date_added": "2026-10-27",
+      "ransomware": "Unknown"
+     },
+     {
+      "cve": "CVE-2026-96951",
+      "vendor": "Microsoft",
+      "product": "Windows",
+      "date_added": "2026-10-13",
+      "ransomware": "Unknown"
+     }
+    ],
+    "ai_ml": [],
+    "top_vendors_recent": [
+     [
+      "Plex",
+      4
+     ],
+     [
+      "Ivanti",
+      3
+     ],
+     [
+      "Ahsay",
+      2
+     ],
+     [
+      "Cisco",
+      2
+     ],
+     [
+      "PHP Group",
+      2
+     ],
+     [
+      "Adobe",
+      1
+     ]
+    ]
+   },
+   "snapshot": "data/snapshots/cisa_kev.derived.json",
+   "warnings": []
+  },
+  {
+   "feed": "fx_usd_inr",
+   "url": "https://api.frankfurter.dev/v1/latest?from=USD&to=INR",
+   "doc": "https://frankfurter.dev/",
+   "mode": "live",
+   "http_status": 200,
+   "bytes": 69,
+   "latency_ms": 161.9,
+   "parse_ms": 0.11,
+   "sha256_stored": "750d255e986c5698b542d9d69877f77a730a05ff88fdb8c46388e5e1420d8179",
+   "original_sha256": "750d255e986c5698b542d9d69877f77a730a05ff88fdb8c46388e5e1420d8179",
+   "final_url": "https://api.frankfurter.dev/v1/latest?from=USD&to=INR",
+   "stale": false,
+   "fetched_at": "2026-11-02T21:42:16.885+00:00",
+   "facts_extracted": 2,
+   "triples_added": 2,
+   "property_changes": 3,
+   "items_seen": 1,
+   "items_relevant": 1,
+   "signals": {
+    "pair": "USD/INR",
+    "rate": 94.91,
+    "rate_date": "2026-11-02"
+   },
+   "snapshot": "data/snapshots/fx_usd_inr.json",
+   "warnings": []
+  },
+  {
+   "feed": "aiid_rss",
+   "url": "https://incidentdatabase.ai/rss.xml",
+   "doc": "https://incidentdatabase.ai/",
+   "mode": "live",
+   "http_status": 200,
+   "bytes": 88482,
+   "latency_ms": 298.3,
+   "parse_ms": 10.01,
+   "sha256_stored": "6e40f9f733b405cb5f9f36118ebb0536533ffc8ee8c8a78bda217279c4e0bf45",
+   "original_sha256": "6e40f9f733b405cb5f9f36118ebb0536533ffc8ee8c8a78bda217279c4e0bf45",
+   "final_url": "https://incidentdatabase.ai/rss.xml",
+   "stale": false,
+   "fetched_at": "2026-11-02T21:42:17.195+00:00",
+   "facts_extracted": 72,
+   "triples_added": 72,
+   "property_changes": 7,
+   "items_seen": 100,
+   "items_relevant": 18,
+   "signals": {
+    "items_in_window": 100,
+    "privacy_incidents": 11,
+    "intrusion_incidents": 10,
+    "window_days": 30,
+    "covered_days": 18.9,
+    "privacy_per_day": 0.5819,
+    "intrusion_per_day": 0.529
+   },
+   "snapshot": "data/snapshots/aiid_rss.derived.xml",
+   "warnings": []
+  }
+ ]
+}

@@ -1,0 +1,185 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>CipherMesh 5.1 diagrams - Kumar Waibhav Akshat (RA2212704010027)</title>
+<link rel="stylesheet" href="diagram_base.css">
+<style>
+.col{display:flex;flex-direction:column}
+.host{width:262px;margin-bottom:12px;border-left:6px solid var(--blue)}
+.host.bad{border-left-color:var(--red);background:var(--redF)}
+.host h4{font-size:17px}.host p{font-size:15px}
+.ip{font-family:"JetBrains Mono",monospace;font-size:15px;color:var(--ink3)}
+.band{width:190px;border:1.5px dashed #9aa3ad;border-radius:14px;background:var(--soft);padding:14px;display:flex;flex-direction:column;justify-content:center;gap:16px}
+.band .card{background:#fff}
+.agent{border:2px solid var(--blue);border-radius:16px;background:var(--blueF);padding:14px;width:600px;display:flex;flex-direction:column;justify-content:space-between}
+.agent>.k{color:var(--blue);margin-bottom:8px}
+.inner{background:#fff;border:1.5px solid #b9cbe6;border-radius:12px;padding:10px 12px}
+.inner h4{font-size:17px;margin-bottom:3px}.inner p{font-size:15px;color:var(--ink2);line-height:1.35}
+.down{display:flex;gap:10px;color:#636369;font-size:15px;line-height:26px}.down span{flex:1;text-align:center}.down i{font-style:normal;font-size:20px;color:#8E8E93;margin-right:4px}
+.side{display:flex;gap:10px}
+.side .inner{flex:1}
+.harrow{display:flex;align-items:center;color:#8E8E93;font-size:24px;padding:0 4px}
+/* pipeline */
+.stage{width:340px;border:1.5px solid var(--line);border-radius:14px;background:#fff;padding:12px 12px 10px}
+.stage .st{font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.cp{border:1.2px solid #d5dbe3;border-radius:10px;padding:7px 10px;background:#fbfcfe;margin-bottom:6px}
+.cp:last-child{margin-bottom:0}
+.cp .id{display:inline-block;font-family:"JetBrains Mono",monospace;font-weight:700;font-size:15px;color:#fff;background:var(--blue);border-radius:5px;padding:1px 6px;margin-right:8px}
+.cp .id.l0{background:#636369}
+.cp b{font-size:17px}
+.cp .rj{font-family:"JetBrains Mono",monospace;font-size:15px;color:var(--red);margin-top:4px}
+.cp .rj:before{content:"\2715  ";font-family:Inter,Arial;font-weight:700}
+.harr{font-size:26px;color:#8E8E93;padding:0 10px;align-self:center}
+.fail{border:1.5px solid #ecaab0;background:var(--redF);border-radius:12px;padding:12px 14px;font-size:16px;color:var(--ink);line-height:1.4}
+.ok{border:1.5px solid #9fd0ab;background:var(--greenF);border-radius:12px;padding:12px 14px;font-size:16px;color:var(--ink);line-height:1.4}
+/* integrity */
+.lane{display:flex;align-items:stretch;margin-bottom:14px}
+.lane .lbl{width:150px;font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);display:flex;align-items:center}
+.box{border:1.5px solid var(--line);border-radius:12px;padding:9px 11px;background:#fff;width:218px}
+.box h4{font-size:16px;margin-bottom:3px}.box p{font-size:15px;color:var(--ink2);line-height:1.3}
+.box.g{border-color:#9fd0ab;background:var(--greenF)}.box.r{border-color:#ecaab0;background:var(--redF)}.box.b{border-color:#b9cbe6;background:var(--blueF)}
+</style></head><body>
+
+<!-- ============ 1. Trust architecture ============ -->
+<div class="d" id="arch" style="width:1160px">
+  <div class="t">CipherMesh 5.1 trust architecture: who may command the agent</div>
+  <div class="row" style="align-items:stretch">
+    <div class="col">
+      <div class="card host"><h4>Security console</h4><p>role <b>security-admin</b>: lockdown, release, patterns</p><div class="ip">sec-console-01 · 127.0.0.8/29 · local</div></div>
+      <div class="card host"><h4>Observer</h4><p>role <b>observer</b>: telemetry and ping only</p><div class="ip">observer-01 · 127.0.0.20/32</div></div>
+      <div class="card host"><h4>Peer gateway</h4><p>role <b>peer-gateway</b>: state sync, inspect</p><div class="ip">peer-gateway-01 · 127.0.0.30/32</div></div>
+      <div class="card host bad" style="margin-bottom:0"><h4 style="color:var(--red)">Attacker / untrusted input</h4><p>own key, stolen key, replays, tampered code</p><div class="ip">127.0.0.66–.72, .99 · foothold .9–.15</div></div>
+    </div>
+    <div class="harrow">&#8594;</div>
+    <div class="band">
+      <div class="k" style="color:var(--ink3)">Channels</div>
+      <div class="card"><h4 style="font-size:16px">TCP network loop</h4><p style="font-size:15px">4-byte length + JSON frame; peer IP from <span class="mono">accept()</span></p></div>
+      <div class="card"><h4 style="font-size:16px">System-command spool</h4><p style="font-size:15px">signed file; owner uid and mode checked</p></div>
+    </div>
+    <div class="harrow">&#8594;</div>
+    <div class="agent">
+      <div class="k">CipherMesh agent node · ciphermesh-node-01</div>
+      <div class="inner" style="border-color:var(--blue)"><h4>CommandVerifier (L0 + C1–C13)</h4><p>ordered, fail-closed checkpoints; lockout per (address, claimed host)</p></div>
+      <div class="down"><span><i>&#8593;</i>keys, roles, digests</span><span><i>&#8595;</i>accepted commands only</span></div>
+      <div class="side">
+        <div class="inner"><h4>Trust store</h4><p><span class="mono">trusted_hosts.json</span>: public keys, CIDRs, roles, revocations</p></div>
+        <div class="inner"><h4>Executor</h4><p>maps command to engine action; signs every reply</p></div>
+      </div>
+      <div class="down"><span><i>&#8593;</i>hash sealed in</span><span><i>&#8595;</i>engine action</span></div>
+      <div class="side">
+        <div class="inner"><h4>Release manifest</h4><p>SHA-256 of all sources, signed by release key; self-attestation at start</p></div>
+        <div class="inner"><h4>Engine (Units 1–3)</h4><p><span class="mono">AgentState</span> + <span class="mono">policy.inspect_text</span>, detector, routing</p></div>
+      </div>
+      <div class="inner" style="margin-top:10px;background:var(--soft)"><p><b>Security audit</b> <span class="mono">security_events.jsonl</span>: every ACCEPTED / REJECTED decision, checkpoint, reason, state fingerprint; never payload values</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 2. Checkpoint pipeline ============ -->
+<div class="d" id="pipe" style="width:1150px">
+  <div class="t">Verification pipeline: fixed order, first failure stops the request</div>
+  <div class="row" style="align-items:flex-start">
+    <div class="stage"><div class="st">1 · Frame and syntax</div>
+      <div class="cp"><span class="id l0">L0</span><b>Lockout (addr, host)</b><div class="rj">SOURCE_LOCKED_OUT</div></div>
+      <div class="cp"><span class="id">C1</span><b>Frame size</b><div class="rj">FRAME_TOO_LARGE</div></div>
+      <div class="cp"><span class="id">C2</span><b>Strict JSON + schema</b><div class="rj">SCHEMA_VIOLATION</div></div>
+      <div class="cp"><span class="id">C3</span><b>Version</b><div class="rj">UNSUPPORTED_VERSION</div></div>
+    </div>
+    <div class="harr">&#8594;</div>
+    <div class="stage"><div class="st">2 · Identity and place</div>
+      <div class="cp"><span class="id">C4</span><b>Recipient</b><div class="rj">WRONG_RECIPIENT</div></div>
+      <div class="cp"><span class="id">C5</span><b>Host trusted</b><div class="rj">UNKNOWN_HOST</div></div>
+      <div class="cp"><span class="id">C6</span><b>Key bound to host</b><div class="rj">KEY_NOT_BOUND</div></div>
+      <div class="cp"><span class="id">C7</span><b>Network origin</b><div class="rj">ORIGIN_NOT_ALLOWED</div></div>
+    </div>
+    <div class="harr">&#8594;</div>
+    <div class="stage"><div class="st">3 · Cryptography</div>
+      <div class="cp"><span class="id">C8</span><b>Ed25519 signature</b><div class="rj">BAD_SIGNATURE</div></div>
+      <div class="cp"><span class="id">C9</span><b>Payload hash</b><div class="rj">PAYLOAD_HASH_MISMATCH</div></div>
+    </div>
+  </div>
+  <div class="row" style="justify-content:flex-end"><div style="width:340px;text-align:center;font-size:26px;color:#8E8E93;line-height:34px">&#8595;</div></div>
+  <div class="row" style="align-items:stretch">
+    <div class="col" style="width:340px;gap:10px">
+      <div class="ok"><b style="color:var(--green)">All pass &#8594; ACCEPTED.</b> Only now does the payload become an engine action; the reply is signed by the agent.</div>
+    </div>
+    <div class="harr">&#8592;</div>
+    <div class="stage"><div class="st">5 · Trust and authority</div>
+      <div class="cp"><span class="id">C12</span><b>Host integrity</b><div class="rj">ATTESTATION_MISMATCH</div></div>
+      <div class="cp"><span class="id">C13</span><b>Roles + sync fields</b><div class="rj">STATE_FIELD_NOT_PERMITTED</div></div>
+    </div>
+    <div class="harr">&#8592;</div>
+    <div class="stage"><div class="st">4 · Time and replay</div>
+      <div class="cp"><span class="id">C10</span><b>Freshness</b><div class="rj">STALE_MESSAGE</div></div>
+      <div class="cp"><span class="id">C11</span><b>Replay cache</b><div class="rj">REPLAY_MSG_ID</div></div>
+    </div>
+  </div>
+  <div class="fail" style="margin-top:14px"><b style="color:var(--red)">Any failure &#8594; fail closed:</b> REJECTED verdict with checkpoint and reason code, generic signed reply, audit event, failure counted for L0. Engine state is never touched.</div>
+</div>
+
+<!-- ============ 3. Sequence ============ -->
+<div class="d" id="seq" style="width:1140px">
+  <div class="t">Signed command accepted vs forged command rejected</div>
+  <svg width="1080" height="640" viewBox="0 0 1080 640" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Arial" font-size="16">
+    <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#48484D"/></marker>
+      <marker id="ar" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#B0101A"/></marker>
+      <marker id="ag" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#176A2E"/></marker></defs>
+    <g font-weight="700" font-size="16" text-anchor="middle">
+      <rect x="40" y="8" width="200" height="50" rx="10" fill="#F5F5F7" stroke="#8E8E93"/><text x="140" y="29">Sender host</text>
+      <text x="140" y="49" font-weight="400" font-size="15" fill="#48484D">console (A) / attacker (B)</text>
+      <rect x="330" y="8" width="180" height="50" rx="10" fill="#F5F5F7" stroke="#8E8E93"/><text x="420" y="39">TCP server</text>
+      <rect x="610" y="8" width="190" height="50" rx="10" fill="#E8F1FB" stroke="#0058B0"/><text x="705" y="39">CommandVerifier</text>
+      <rect x="880" y="8" width="170" height="50" rx="10" fill="#E7F4EA" stroke="#176A2E"/><text x="965" y="39">Engine state</text>
+    </g>
+    <g stroke="#C7C7CC" stroke-dasharray="5 5" stroke-width="1.5">
+      <line x1="140" y1="58" x2="140" y2="630"/><line x1="420" y1="58" x2="420" y2="630"/>
+      <line x1="705" y1="58" x2="705" y2="630"/><line x1="965" y1="58" x2="965" y2="630"/>
+    </g>
+    <rect x="8" y="70" width="1064" height="28" rx="6" fill="#E7F4EA"/><text x="20" y="89" font-weight="700" fill="#176A2E" font-size="15" letter-spacing="0.6">A · LEGITIMATE: CONSOLE SIGNS A LOCKDOWN WITH ITS OWN Ed25519 KEY, FROM 127.0.0.10</text>
+    <text x="280" y="126" text-anchor="middle">SignedCommand {header, payload, signature}</text>
+    <line x1="140" y1="138" x2="416" y2="138" stroke="#48484D" stroke-width="2" marker-end="url(#ah)"/>
+    <text x="562" y="166" text-anchor="middle">verify(raw, peer 127.0.0.10)</text>
+    <line x1="420" y1="178" x2="701" y2="178" stroke="#48484D" stroke-width="2" marker-end="url(#ah)"/>
+    <rect x="625" y="192" width="160" height="34" rx="8" fill="#fff" stroke="#176A2E"/><text x="705" y="215" text-anchor="middle" fill="#176A2E" font-weight="700">C1 … C13 pass</text>
+    <text x="835" y="250" text-anchor="middle">execute lockdown</text>
+    <line x1="705" y1="262" x2="961" y2="262" stroke="#176A2E" stroke-width="2" marker-end="url(#ag)"/>
+    <rect x="868" y="276" width="194" height="34" rx="8" fill="#E7F4EA" stroke="#176A2E"/><text x="965" y="298" text-anchor="middle" font-size="15" font-family="JetBrains Mono, monospace">force_block_all=True</text>
+    <text x="280" y="330" text-anchor="middle">REPLY ACCEPTED (agent-signed, verified)</text>
+    <line x1="420" y1="342" x2="144" y2="342" stroke="#176A2E" stroke-width="2" marker-end="url(#ag)"/>
+    <rect x="8" y="366" width="1064" height="28" rx="6" fill="#FBE8E9"/><text x="20" y="385" font-weight="700" fill="#B0101A" font-size="15" letter-spacing="0.6">B · FORGED: SAME LOCKDOWN, ADMIN key_id, SIGNED WITH ATTACKER KEY, FROM 127.0.0.12</text>
+    <text x="280" y="422" text-anchor="middle">forged SignedCommand</text>
+    <line x1="140" y1="434" x2="416" y2="434" stroke="#B0101A" stroke-width="2" marker-end="url(#ar)"/>
+    <text x="562" y="462" text-anchor="middle">verify(raw, peer 127.0.0.12)</text>
+    <line x1="420" y1="474" x2="701" y2="474" stroke="#48484D" stroke-width="2" marker-end="url(#ah)"/>
+    <rect x="612" y="488" width="186" height="54" rx="8" fill="#FBE8E9" stroke="#B0101A"/>
+    <text x="705" y="510" text-anchor="middle" fill="#B0101A" font-weight="700">C1–C7 pass, C8 fails</text><text x="705" y="531" text-anchor="middle" fill="#B0101A" font-size="15" font-family="JetBrains Mono, monospace">BAD_SIGNATURE</text>
+    <rect x="868" y="488" width="194" height="54" rx="8" fill="#F5F5F7" stroke="#C7C7CC"/><text x="965" y="510" text-anchor="middle" font-size="15">engine never called</text><text x="965" y="531" text-anchor="middle" font-size="15" font-weight="700">STATE UNCHANGED</text>
+    <text x="562" y="568" text-anchor="middle">Verdict REJECTED + audit event</text>
+    <line x1="701" y1="580" x2="424" y2="580" stroke="#B0101A" stroke-width="2" marker-end="url(#ar)"/>
+    <text x="280" y="606" text-anchor="middle">signed generic REJECTED reply</text>
+    <line x1="420" y1="618" x2="144" y2="618" stroke="#B0101A" stroke-width="2" marker-end="url(#ar)"/>
+  </svg>
+</div>
+
+<!-- ============ 4. Integrity ============ -->
+<div class="d" id="integ" style="width:1180px">
+  <div class="t">Host integrity: release manifest, self-attestation and peer evidence</div>
+  <div class="lane"><div class="lbl">Build time<br>(provision)</div>
+    <div class="box"><h4>Source tree</h4><p>44 <span class="mono">*.py</span> files in <span class="mono">ciphermesh/</span></p></div><div class="arrow">&#8594;</div>
+    <div class="box"><h4>Measure</h4><p>SHA-256 per file + Python 3.13</p></div><div class="arrow">&#8594;</div>
+    <div class="box"><h4>Manifest</h4><p>files, attestation digest, trust store hash</p></div><div class="arrow">&#8594;</div>
+    <div class="box b"><h4>Sign</h4><p>release key (Ed25519), pinned public key</p></div>
+  </div>
+  <div class="lane"><div class="lbl">Agent<br>start-up</div>
+    <div class="box"><h4>Verify manifest</h4><p>signature + signer key_id</p></div><div class="arrow">&#8594;</div>
+    <div class="box"><h4>Re-hash own code</h4><p>and trust store; any <span class="mono">.pyc</span> or <span class="mono">.so</span> fails</p></div><div class="arrow">&#8594;</div>
+    <div class="box g"><h4>All match</h4><p>NORMAL mode, all roles served</p></div><div class="arrow" style="font-size:15px;color:#636369">or</div>
+    <div class="box r"><h4>Any mismatch</h4><p>SAFE MODE (telemetry only); strict mode or changed trust store: no start</p></div>
+  </div>
+  <div class="lane" style="margin-bottom:0"><div class="lbl">Every<br>command</div>
+    <div class="box"><h4>Sender evidence</h4><p>its digest in signed <span class="mono">header.integrity</span></p></div><div class="arrow">&#8594;</div>
+    <div class="box"><h4>C12 compare</h4><p>against host's trusted release digests</p></div><div class="arrow">&#8594;</div>
+    <div class="box g"><h4>Match</h4><p>continue to C13</p></div><div class="arrow" style="font-size:15px;color:#636369">or</div>
+    <div class="box r"><h4>No match</h4><p><span class="mono">ATTESTATION_MISMATCH</span><br>+ security alert</p></div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,15 @@
+{
+ "feed": "aws_health",
+ "url": "https://health.aws.amazon.com/public/currentevents",
+ "final_url": "https://health.aws.amazon.com/public/currentevents",
+ "http_status": 200,
+ "original_bytes": 231276,
+ "original_sha256": "ead64c82685dba23d0f7224cd5a4ce3d11c6900f34ed594c76c832749ab11d90",
+ "fetched_at": "2026-11-02T21:42:16.063+00:00",
+ "content_type": "application/json;charset=utf-16",
+ "raw_redistributed": false,
+ "note": "raw payload not redistributed (third-party content); re-fetch to reproduce",
+ "file": "aws_health.derived.json",
+ "sha256": "3cb78e707e16b81868d5243607c802f0846c49bb787c51be005386594af71efc",
+ "bytes": 3038
+}

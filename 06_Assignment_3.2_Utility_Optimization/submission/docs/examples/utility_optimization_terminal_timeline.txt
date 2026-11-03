@@ -1,0 +1,32 @@
+CIPHERMESH | SELF-INTERESTED E-COMMERCE UTILITY OPTIMIZATION
+================================================================================================================
+Scenario: choose a supplier for a 100-unit order; illustrative values, deterministic run.
+Constraints: landed <= $145.00 | quality >= 4.0/5 | delivery <= 5d | reliability >= 95.0% | return rate <= 6.0% | quantity = 100
+Weights: quality 0.30 | cost 0.25 | delivery 0.20 | reliability 0.15 | return-rate score 0.10
+----------------------------------------------------------------------------------------------------------------
+OPTION    SELLER                 LANDED   UTILITY STATUS       REASON / ELIGIBILITY
+----------------------------------------------------------------------------------------------------------------
+ECO-01    Meridian Value        $121.00     53.74 FEASIBLE     All hard constraints passed
+ECO-02    PrimeCart             $130.00     69.09 FEASIBLE     All hard constraints passed
+ECO-03    BudgetBee             $108.00     61.78 INFEASIBLE   QUALITY_BELOW_MINIMUM: 3.70 < 4.00; REGION_UNSUPPORTED: seller d...
+ECO-04    SwiftSupply           $145.00     73.33 INFEASIBLE   INSUFFICIENT_STOCK: 80 < required 100 units
+ECO-05    SolidMart             $122.00     63.12 FEASIBLE     All hard constraints passed
+ECO-06    LuxuryLane            $148.00     73.25 INFEASIBLE   OVER_BUDGET: landed cost 148.00 exceeds 145.00
+ECO-07    RapidHub              $117.00     66.53 INFEASIBLE   RELIABILITY_BELOW_MINIMUM: 94.00% < 95.00%
+ECO-08    NorthPeak             $131.00     71.24 FEASIBLE     All hard constraints passed
+ECO-09    TrustCart             $127.00     61.35 FEASIBLE     All hard constraints passed
+ECO-10    EconomyPlus           $111.00     48.11 FEASIBLE     All hard constraints passed
+----------------------------------------------------------------------------------------------------------------
+EVALUATED=10 | VALID=10 | FEASIBLE=6 | REJECTED=4
+FEASIBLE RANKING: ECO-08 > ECO-02 > ECO-05 > ECO-09 > ECO-01 > ECO-10
+
+OPTIMIZER DECISION
+  Selected seller  : NorthPeak (ECO-08)
+  Landed unit cost : $131.00
+  Utility score    : 71.2388 / 100
+  Component scores : quality=94.00; cost=9.66; delivery=100.00; reliability=97.50; returns=60.00
+  Oracle comparison: PASS (single-pass winner=ECO-08; exhaustive reference=ECO-08)
+
+Algorithm: single_pass_argmax_with_deterministic_tie_breaks
+Complexity: O(n) selection; O(k log k) optional feasible ranking
+Safety property: infeasible options are never eligible to win, even if their utility is high.

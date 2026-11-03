@@ -1,0 +1,43 @@
+{
+ "pinned_at": "2026-11-02T16:25:54+00:00",
+ "replay_as_of": "2026-02-27T13:00:00+00:00",
+ "files": {
+  "gcp_status.derived.json": {
+   "sha256": "ae9f37988620d718e2907a68f20408efca256d54b6db88ea5b5b2b8de6af2c9a",
+   "bytes": 10059,
+   "source": "https://status.cloud.google.com/incidents.json",
+   "source_fetched_at": "2026-10-31T05:07:39.159+00:00",
+   "source_original_sha256": "5e979a2555c2cf1adacb3da57cf2e35ee54bc7ff72ea6b436dba8db507c43f9d",
+   "kind": "text-free derivative of a real live payload"
+  },
+  "aws_health.derived.json": {
+   "sha256": "3cb78e707e16b81868d5243607c802f0846c49bb787c51be005386594af71efc",
+   "bytes": 3038,
+   "source": "https://health.aws.amazon.com/public/currentevents",
+   "source_fetched_at": "2026-10-31T05:07:39.780+00:00",
+   "source_original_sha256": "ead64c82685dba23d0f7224cd5a4ce3d11c6900f34ed594c76c832749ab11d90",
+   "kind": "text-free derivative of a real live payload"
+  },
+  "cisa_kev.derived.json": {
+   "sha256": "3d8305008d016d93f72421713ec47461c7f1524a85996b8253a3fc25ca8532cf",
+   "bytes": 358670,
+   "source": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json",
+   "source_fetched_at": "2026-10-31T05:07:40.298+00:00",
+   "source_original_sha256": "3aa9cf3c01f116362a29d111702979175453c425e3733bde80fc4f6f8e2294e5",
+   "kind": "text-free derivative of a real live payload"
+  },
+  "aiid_rss.derived.xml": {
+   "sha256": "3c95a8e48e96e8253db66293571418109716d65cba89fd669ae06767e3a4e542",
+   "bytes": 11304,
+   "source": "https://incidentdatabase.ai/rss.xml",
+   "source_fetched_at": "2026-10-31T05:07:40.628+00:00",
+   "source_original_sha256": "c447adb986159a63bf80c420532ef46532d45bdf85078e24f7638b0ec7f203c7",
+   "kind": "text-free derivative of a real live payload"
+  },
+  "whatif_azure_status.xml": {
+   "sha256": "d8c3bfa8bad5076ccb2354eed47399db9bfd899c988b7c536c30aacbc17b34d6",
+   "bytes": 1683,
+   "kind": "hand-written what-if fixture (not real Microsoft data)"
+  }
+ }
+}

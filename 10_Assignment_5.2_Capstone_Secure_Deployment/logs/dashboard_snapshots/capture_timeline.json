@@ -1,0 +1,90 @@
+[
+ {
+  "t": 0.0,
+  "event": "page_loaded"
+ },
+ {
+  "t": 1.38,
+  "event": "phase",
+  "name": "P0"
+ },
+ {
+  "t": 2.15,
+  "event": "mark",
+  "name": "p0_boot"
+ },
+ {
+  "t": 5.68,
+  "event": "phase",
+  "name": "P1"
+ },
+ {
+  "t": 10.68,
+  "event": "mark",
+  "name": "p1_knowledge"
+ },
+ {
+  "t": 13.6,
+  "event": "phase",
+  "name": "P2"
+ },
+ {
+  "t": 42.29,
+  "event": "mark",
+  "name": "p2_processing"
+ },
+ {
+  "t": 45.82,
+  "event": "phase",
+  "name": "P3"
+ },
+ {
+  "t": 49.61,
+  "event": "mark",
+  "name": "p3_load_sharing"
+ },
+ {
+  "t": 53.14,
+  "event": "phase",
+  "name": "P4"
+ },
+ {
+  "t": 55.15,
+  "event": "mark",
+  "name": "p4_intention_shift"
+ },
+ {
+  "t": 58.85,
+  "event": "mark",
+  "name": "p4_outage_routing"
+ },
+ {
+  "t": 67.22,
+  "event": "phase",
+  "name": "P5"
+ },
+ {
+  "t": 84.94,
+  "event": "mark",
+  "name": "p5_attacks_blocked"
+ },
+ {
+  "t": 87.87,
+  "event": "phase",
+  "name": "P6"
+ },
+ {
+  "t": 94.71,
+  "event": "mark",
+  "name": "p6_lockdown"
+ },
+ {
+  "t": 103.24,
+  "event": "mark",
+  "name": "p6_complete"
+ },
+ {
+  "t": 107.65,
+  "event": "end"
+ }
+]

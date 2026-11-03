@@ -1,0 +1,188 @@
+[
+ {
+  "date": "1772369485",
+  "arn": "arn:aws:health:me-central-1::event/MULTIPLE_SERVICES/AWS_MULTIPLE_SERVICES_OPERATIONAL_ISSUE/AWS_MULTIPLE_SERVICES_OPERATIONAL_ISSUE_5E6B8_EF2498889B5",
+  "region_name": "UAE",
+  "status": "3",
+  "service": "multipleservices-me-central-1",
+  "service_name": "Multiple services",
+  "event_log": [
+   {
+    "status": 1,
+    "timestamp": 1772369485
+   },
+   {
+    "status": 1,
+    "timestamp": 1772371152
+   },
+   {
+    "status": 1,
+    "timestamp": 1772374140
+   },
+   {
+    "status": 2,
+    "timestamp": 1772377753
+   },
+   {
+    "status": 2,
+    "timestamp": 1772384340
+   },
+   {
+    "status": 3,
+    "timestamp": 1772386871
+   },
+   {
+    "status": 3,
+    "timestamp": 1772396043
+   },
+   {
+    "status": 3,
+    "timestamp": 1772404099
+   },
+   {
+    "status": 3,
+    "timestamp": 1772411201
+   },
+   {
+    "status": 3,
+    "timestamp": 1772416907
+   },
+   {
+    "status": 3,
+    "timestamp": 1772431169
+   },
+   {
+    "status": 3,
+    "timestamp": 1772433960
+   },
+   {
+    "status": 3,
+    "timestamp": 1772441520
+   },
+   {
+    "status": 3,
+    "timestamp": 1772448800
+   },
+   {
+    "status": 3,
+    "timestamp": 1772461323
+   },
+   {
+    "status": 3,
+    "timestamp": 1772474389
+   },
+   {
+    "status": 3,
+    "timestamp": 1772487370
+   },
+   {
+    "status": 3,
+    "timestamp": 1772497188
+   },
+   {
+    "status": 3,
+    "timestamp": 1772514818
+   },
+   {
+    "status": 3,
+    "timestamp": 1772528640
+   },
+   {
+    "status": 3,
+    "timestamp": 1772542694
+   },
+   {
+    "status": 3,
+    "timestamp": 1772554485
+   },
+   {
+    "status": 3,
+    "timestamp": 1777533954
+   },
+   {
+    "status": 3,
+    "timestamp": 1789468030
+   }
+  ],
+  "derived_text": {
+   "impact_class": "resolved",
+   "regions": [
+    "me-central-1"
+   ],
+   "providers": []
+  }
+ },
+ {
+  "date": "1772430987",
+  "arn": "arn:aws:health:me-south-1::event/MULTIPLE_SERVICES/AWS_MULTIPLE_SERVICES_OPERATIONAL_ISSUE/AWS_MULTIPLE_SERVICES_OPERATIONAL_ISSUE_E6426_01AD72B4E1E",
+  "region_name": "Bahrain",
+  "status": "3",
+  "service": "multipleservices-me-south-1",
+  "service_name": "Multiple services",
+  "event_log": [
+   {
+    "status": 1,
+    "timestamp": 1772430987
+   },
+   {
+    "status": 1,
+    "timestamp": 1772435343
+   },
+   {
+    "status": 1,
+    "timestamp": 1772442207
+   },
+   {
+    "status": 1,
+    "timestamp": 1772448060
+   },
+   {
+    "status": 1,
+    "timestamp": 1772461399
+   },
+   {
+    "status": 1,
+    "timestamp": 1772477520
+   },
+   {
+    "status": 1,
+    "timestamp": 1772490547
+   },
+   {
+    "status": 1,
+    "timestamp": 1772497351
+   },
+   {
+    "status": 1,
+    "timestamp": 1772519220
+   },
+   {
+    "status": 1,
+    "timestamp": 1772536238
+   },
+   {
+    "status": 1,
+    "timestamp": 1772546577
+   },
+   {
+    "status": 1,
+    "timestamp": 1772556000
+   },
+   {
+    "status": 3,
+    "timestamp": 1777532831
+   },
+   {
+    "status": 3,
+    "timestamp": 1789467748
+   }
+  ],
+  "derived_text": {
+   "impact_class": "outage",
+   "regions": [
+    "me-south-1"
+   ],
+   "providers": []
+  }
+ }
+]

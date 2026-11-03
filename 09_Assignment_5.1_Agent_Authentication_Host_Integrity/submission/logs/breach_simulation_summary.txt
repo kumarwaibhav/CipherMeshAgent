@@ -1,0 +1,57 @@
+CipherMesh 5.1 breach simulation summary - generated 2026-11-02T16:27:12Z
+
+ID      Scenario                                             Expected  Actual  Reason                     State      Result
+---------------------------------------------------------------------------------------------------------------------------
+S01     Security console triggers emergency lockdown         ACCEPT    ACCEPT  ACCEPTED                   changed    PASS  
+S02     Security console releases lockdown                   ACCEPT    ACCEPT  ACCEPTED                   changed    PASS  
+S03     Observer requests telemetry dump                     ACCEPT    ACCEPT  ACCEPTED                   unchanged  PASS  
+S04     Security console adds a redaction pattern            ACCEPT    ACCEPT  ACCEPTED                   changed    PASS  
+S05     Peer gateway synchronises policy revision 2          ACCEPT    ACCEPT  ACCEPTED                   changed    PASS  
+S06     Peer gateway asks for a prompt inspection            ACCEPT    ACCEPT  ACCEPTED                   unchanged  PASS  
+S07     Admin pattern update via local system-command spool  ACCEPT    ACCEPT  ACCEPTED                   changed    PASS  
+A01     Unsigned command                                     C2        C2      SCHEMA_VIOLATION           unchanged  PASS  
+A02     Malformed JSON frame                                 C2        C2      JSON_MALFORMED             unchanged  PASS  
+A03     Unknown-field injection (role_override)              C2        C2      SCHEMA_VIOLATION           unchanged  PASS  
+A04     Duplicate-key smuggling                              C2        C2      JSON_DUPLICATE_KEY         unchanged  PASS  
+A05     Oversized frame (declares 1 MiB)                     C1        C1      FRAME_TOO_LARGE            unchanged  PASS  
+A06     Protocol downgrade (cm-sig/0)                        C3        C3      UNSUPPORTED_VERSION        unchanged  PASS  
+A07     Wrong recipient (message for node-02)                C4        C4      WRONG_RECIPIENT            unchanged  PASS  
+A08     Unknown host (rogue-console-99)                      C5        C5      UNKNOWN_HOST               unchanged  PASS  
+A09     Decommissioned host (legacy-console-02)              C5        C5      HOST_REVOKED               unchanged  PASS  
+A10     Spoofed host_id with attacker key                    C6        C6      KEY_NOT_BOUND              unchanged  PASS  
+A11     Revoked (rotated-out) admin key                      C6        C6      KEY_REVOKED                unchanged  PASS  
+A12     Stolen admin key used from untrusted network         C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+A13     Forged signature (attacker key, admin key_id)        C8        C8      BAD_SIGNATURE              unchanged  PASS  
+A14     Payload tampered after signing                       C8        C8      BAD_SIGNATURE              unchanged  PASS  
+A15     Payload tampered and digest recomputed               C8        C8      BAD_SIGNATURE              unchanged  PASS  
+A16     Header digest does not match payload                 C9        C9      PAYLOAD_HASH_MISMATCH      unchanged  PASS  
+A17     Stale command (issued 10 minutes ago)                C10       C10     STALE_MESSAGE              unchanged  PASS  
+A18     Expired command (ttl 5 s, sent after 20 s)           C10       C10     EXPIRED_MESSAGE            unchanged  PASS  
+A19     Future-dated command (+5 minutes)                    C10       C10     FUTURE_MESSAGE             unchanged  PASS  
+A20     Replay of the captured S01 lockdown                  C11       C11     REPLAY_MSG_ID              unchanged  PASS  
+A21     Compromised console (tampered host code)             C12       C12     ATTESTATION_MISMATCH       unchanged  PASS  
+A22     Observer privilege escalation (lockdown)             C13       C13     COMMAND_NOT_PERMITTED      unchanged  PASS  
+A23     World-writable command file in spool                 C7        C7      LOCAL_SOURCE_UNTRUSTED     unchanged  PASS  
+A24     Forged command file in spool                         C8        C8      BAD_SIGNATURE              unchanged  PASS  
+A25.1   Brute-force attempt 1/8                              C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+A25.2   Brute-force attempt 2/8                              C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+A25.3   Brute-force attempt 3/8                              C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+A25.4   Brute-force attempt 4/8                              C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+A25.5   Brute-force attempt 5/8                              C7        C7      ORIGIN_NOT_ALLOWED         unchanged  PASS  
+A25.6   Brute-force attempt 6/8                              L0        L0      SOURCE_LOCKED_OUT          unchanged  PASS  
+A25.7   Brute-force attempt 7/8                              L0        L0      SOURCE_LOCKED_OUT          unchanged  PASS  
+A25.8   Brute-force attempt 8/8                              L0        L0      SOURCE_LOCKED_OUT          unchanged  PASS  
+A26     Peer gateway STATE_SYNC weakens policy               C13       C13     STATE_FIELD_NOT_PERMITTED  unchanged  PASS  
+A27.1   Forged burst to lock out the console 1/5             C8        C8      BAD_SIGNATURE              unchanged  PASS  
+A27.2   Forged burst to lock out the console 2/5             C8        C8      BAD_SIGNATURE              unchanged  PASS  
+A27.3   Forged burst to lock out the console 3/5             C8        C8      BAD_SIGNATURE              unchanged  PASS  
+A27.4   Forged burst to lock out the console 4/5             C8        C8      BAD_SIGNATURE              unchanged  PASS  
+A27.5   Forged burst to lock out the console 5/5             C8        C8      BAD_SIGNATURE              unchanged  PASS  
+S09     Real console from the locked address 127.0.0.8       ACCEPT    ACCEPT  ACCEPTED                   unchanged  PASS  
+A28.1   Slow-drip connections hit frame deadline             L0        L0      FRAME_TIMEOUT              unchanged  PASS  
+A28.2   5th connection from same IP refused                  L0        L0      CONNECTION_LIMIT           unchanged  PASS  
+S08     Peer gateway inspection after the attacks            ACCEPT    ACCEPT  ACCEPTED                   unchanged  PASS  
+I02a    SAFE MODE agent receives a valid admin lockdown      C13       C13     SAFE_MODE_RESTRICTED       unchanged  PASS  
+I02b    SAFE MODE agent still serves read-only telemetry     ACCEPT    ACCEPT  ACCEPTED                   unchanged  PASS  
+---------------------------------------------------------------------------------------------------------------------------
+legitimate accepted 10/10; attacks blocked 41/41; state unchanged by every rejection: True; overall PASS

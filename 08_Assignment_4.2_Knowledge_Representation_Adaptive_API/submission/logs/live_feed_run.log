@@ -1,0 +1,250 @@
+2026-11-02 21:42:14.272Z | INFO  | ================================================================================================
+2026-11-02 21:42:14.272Z | INFO  | PHASE A - load the formal knowledge base and plan with ontology defaults
+2026-11-02 21:42:14.272Z | INFO  | ================================================================================================
+2026-11-02 21:42:14.652Z | INFO  | ontology.json validated against ontology.schema.json: 0 schema errors; loaded + inferred in 379.8 ms
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  version            4.2.0
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  triples            1170
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  by_asserted        1027
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  by_inferred        143
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  classes            29
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  providers          4
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  regions            4
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  jurisdictions      4
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  data_categories    25
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  detector_families  12
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  legal_instruments  4
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  policy_rules       6
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  threat_classes     6
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  live_sources       6
+2026-11-02 21:42:14.653Z | INFO  |   knowledge  watched_vendors    14
+2026-11-02 21:42:14.654Z | INFO  |   residency rule derived from graph : ['aadhaar', 'pan', 'phone_in'] -> ['IN', 'LOCAL']
+2026-11-02 21:42:14.654Z | INFO  |   engine hard-coded INDIA_PERSONAL_DATA: ['aadhaar', 'pan', 'phone_in'] -> ['IN', 'LOCAL']  EQUAL=True
+2026-11-02 21:42:14.654Z | INFO  |   inference chain: cm:cat/aadhaar (via family cm:family/D10) --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']
+2026-11-02 21:42:14.654Z | INFO  |   inference chain: cm:cat/phone_in --governedBy--> cm:policy/india-residency --requiresResidency--> ['IN', 'LOCAL']
+2026-11-02 21:42:14.654Z | INFO  | Phase A plans  (plan version 1, posture LOW)
+2026-11-02 21:42:14.654Z | INFO  |   prompt        decision route         utility  budget USD  residency            R5 bytes
+2026-11-02 21:42:14.655Z | INFO  |   P1 clean      ALLOW    gcp-vertex      76.22      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:14.655Z | INFO  |   P2 email      REDACT   gcp-vertex      76.22      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:14.655Z | INFO  |   P3 Aadhaar    REDACT   aws-bedrock     75.12      6.0000  IN,LOCAL                65536
+2026-11-02 21:42:14.655Z | INFO  |   P4 cloud ARN  ALLOW    gcp-vertex      76.22      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:14.674Z | INFO  |   P5 40 KB log  ALLOW    gcp-vertex      76.22      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:14.674Z | INFO  | ================================================================================================
+2026-11-02 21:42:14.674Z | INFO  | PHASE B - LIVE: connect to public REST/RSS endpoints, parse, update graph and properties
+2026-11-02 21:42:14.674Z | INFO  | ================================================================================================
+2026-11-02 21:42:15.120Z | INFO  |   [gcp_status] LIVE url=https://status.cloud.google.com/incidents.json
+2026-11-02 21:42:15.120Z | INFO  |       http=200 bytes=251117 fetch=426.8ms parse=5.63ms sha256=5e979a2555c2cf1a... fetched_at=2026-11-02T21:42:15.104+00:00
+2026-11-02 21:42:15.120Z | INFO  |       items=8 relevant=0 facts=1 triples_added=0 replaced=0 plan v1->v3
+2026-11-02 21:42:15.120Z | INFO  |       extracted: gcp-vertex=operational (conf 0.8); active incidents in feed=0, recent=2, regions=europe-west2,us-central1
+2026-11-02 21:42:15.120Z | INFO  |       property provider.gcp-vertex.status: None -> 'operational'  (src=gcp_status:live, conf=0.8, at=2026-11-02T21:42:15.119+00:00)
+2026-11-02 21:42:15.120Z | INFO  |       property provider.gcp-vertex.recent_incidents: None -> 0  (src=gcp_status:live, conf=0.9, at=2026-11-02T21:42:15.120+00:00)
+2026-11-02 21:42:15.121Z | INFO  |       latency: fetch->parsed 433.416ms | parsed->property 9.354ms | property->plan 0.1754ms | end-to-end 443.368ms
+2026-11-02 21:42:15.402Z | INFO  |   [azure_status] LIVE url=https://azure.status.microsoft/en-us/status/feed/
+2026-11-02 21:42:15.402Z | INFO  |       http=200 bytes=577 fetch=275.1ms parse=0.31ms sha256=439d001adcddd9e4... fetched_at=2026-11-02T21:42:15.397+00:00
+2026-11-02 21:42:15.402Z | INFO  |       items=0 relevant=0 facts=1 triples_added=0 replaced=0 plan v3->v5
+2026-11-02 21:42:15.402Z | INFO  |       extracted: azure-ai=operational (conf 0.8); active incidents in feed=0, recent=0, regions=-
+2026-11-02 21:42:15.402Z | INFO  |       property provider.azure-ai.status: None -> 'operational'  (src=azure_status:live, conf=0.8, at=2026-11-02T21:42:15.401+00:00)
+2026-11-02 21:42:15.402Z | INFO  |       property provider.azure-ai.recent_incidents: None -> 0  (src=azure_status:live, conf=0.9, at=2026-11-02T21:42:15.401+00:00)
+2026-11-02 21:42:15.402Z | INFO  |       latency: fetch->parsed 276.202ms | parsed->property 3.766ms | property->plan 0.1769ms | end-to-end 280.615ms
+2026-11-02 21:42:16.077Z | INFO  |   [aws_health] LIVE url=https://health.aws.amazon.com/public/currentevents
+2026-11-02 21:42:16.077Z | INFO  |       http=200 bytes=231276 fetch=660.2ms parse=5.27ms sha256=ead64c82685dba23... fetched_at=2026-11-02T21:42:16.063+00:00
+2026-11-02 21:42:16.077Z | INFO  |       items=2 relevant=0 facts=11 triples_added=10 replaced=0 plan v5->v7
+2026-11-02 21:42:16.077Z | INFO  |       extracted: aws-bedrock=operational (conf 0.8); active incidents in feed=2, recent=0, regions=me-central-1,me-south-1
+2026-11-02 21:42:16.077Z | INFO  |       property provider.aws-bedrock.status: None -> 'operational'  (src=aws_health:live, conf=0.8, at=2026-11-02T21:42:16.076+00:00)
+2026-11-02 21:42:16.077Z | INFO  |       property provider.aws-bedrock.recent_incidents: None -> 0  (src=aws_health:live, conf=0.9, at=2026-11-02T21:42:16.077+00:00)
+2026-11-02 21:42:16.077Z | INFO  |       latency: fetch->parsed 666.189ms | parsed->property 7.536ms | property->plan 0.1089ms | end-to-end 674.124ms
+2026-11-02 21:42:16.722Z | INFO  |   [cisa_kev] LIVE url=https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json
+2026-11-02 21:42:16.722Z | INFO  |       http=200 bytes=1826755 fetch=589.1ms parse=11.37ms sha256=3aa9cf3c01f11636... fetched_at=2026-11-02T21:42:16.667+00:00
+2026-11-02 21:42:16.722Z | INFO  |       items=1766 relevant=3 facts=19 triples_added=19 replaced=0 plan v7->v18
+2026-11-02 21:42:16.722Z | INFO  |       extracted: KEV catalog 2026.10.30: 33 added in 30 d vs median 23.5 -> ratio 1.404; relevant=3 [Linux Kernel (CVE-2026-46300), Google Brotli (CVE-2026-111497), Microsoft Windows (CVE-2026-96951)]; ai_ml=0; ransomware=0
+2026-11-02 21:42:16.723Z | INFO  |       property threat.kev.ratio: None -> 1.404  (src=cisa_kev:live, conf=1.0, at=2026-11-02T21:42:16.721+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       property threat.kev.relevant_hits: None -> 3  (src=cisa_kev:live, conf=1.0, at=2026-11-02T21:42:16.721+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       property threat.kev.ai_ml_hits: None -> 0  (src=cisa_kev:live, conf=1.0, at=2026-11-02T21:42:16.721+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       property threat.kev.ransomware_hits: None -> 0  (src=cisa_kev:live, conf=1.0, at=2026-11-02T21:42:16.721+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       property threat.posture: None -> 'LOW'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:16.721+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       property threat.posture_reason: None -> 'no signal group meets an ELEVATED threshold'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:16.722+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       property threat.posture_signals: None -> '[0 items]'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:16.722+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       property policy.max_prompt_bytes: None -> 65536  (src=derived:cm:posture/LOW, conf=1.0, at=2026-11-02T21:42:16.722+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       property policy.custom_redaction_patterns: None -> '[0 items]'  (src=derived:cm:posture/LOW, conf=1.0, at=2026-11-02T21:42:16.722+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       property router.restrict_all_traffic_to: None -> '[0 items]'  (src=derived:cm:posture/LOW, conf=1.0, at=2026-11-02T21:42:16.722+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       property policy.lockdown_recommended: None -> False  (src=derived:cm:posture/LOW, conf=1.0, at=2026-11-02T21:42:16.722+00:00)
+2026-11-02 21:42:16.723Z | INFO  |       latency: fetch->parsed 603.403ms | parsed->property 39.847ms | property->plan 0.1419ms | end-to-end 644.803ms
+2026-11-02 21:42:16.895Z | INFO  |   [fx_usd_inr] LIVE url=https://api.frankfurter.dev/v1/latest?from=USD&to=INR
+2026-11-02 21:42:16.895Z | INFO  |       http=200 bytes=69 fetch=161.9ms parse=0.11ms sha256=750d255e986c5698... fetched_at=2026-11-02T21:42:16.885+00:00
+2026-11-02 21:42:16.895Z | INFO  |       items=1 relevant=1 facts=2 triples_added=2 replaced=0 plan v18->v21
+2026-11-02 21:42:16.895Z | INFO  |       extracted: USD/INR = 94.91 (ECB reference date 2026-11-02)
+2026-11-02 21:42:16.895Z | INFO  |       property fx.usd_inr: None -> 94.91  (src=fx_usd_inr:live, conf=1.0, at=2026-11-02T21:42:16.894+00:00)
+2026-11-02 21:42:16.895Z | INFO  |       property router.max_cost_per_1k_usd: None -> 3.1609  (src=derived:budget-rule, conf=1.0, at=2026-11-02T21:42:16.894+00:00)
+2026-11-02 21:42:16.895Z | INFO  |       property router.budget_inr_per_1k: None -> 300.0  (src=ontology:cm:agent/ciphermesh, conf=1.0, at=2026-11-02T21:42:16.894+00:00)
+2026-11-02 21:42:16.895Z | INFO  |       latency: fetch->parsed 162.485ms | parsed->property 7.921ms | property->plan 0.2869ms | end-to-end 171.602ms
+2026-11-02 21:42:17.220Z | INFO  |   [aiid_rss] LIVE url=https://incidentdatabase.ai/rss.xml
+2026-11-02 21:42:17.221Z | INFO  |       http=200 bytes=88482 fetch=298.3ms parse=10.01ms sha256=6e40f9f733b405cb... fetched_at=2026-11-02T21:42:17.195+00:00
+2026-11-02 21:42:17.221Z | INFO  |       items=100 relevant=18 facts=72 triples_added=72 replaced=0 plan v21->v28
+2026-11-02 21:42:17.221Z | INFO  |       extracted: 100 reports in 30 d; privacy=11, intrusion=10 (counts only; report text is not stored)
+2026-11-02 21:42:17.221Z | INFO  |       property threat.aiid.privacy_incidents: None -> 11  (src=aiid_rss:live, conf=0.7, at=2026-11-02T21:42:17.218+00:00)
+2026-11-02 21:42:17.221Z | INFO  |       property threat.aiid.privacy_per_day: None -> 0.5819  (src=aiid_rss:live, conf=0.7, at=2026-11-02T21:42:17.218+00:00)
+2026-11-02 21:42:17.221Z | INFO  |       property threat.posture: 'LOW' -> 'ELEVATED'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:17.219+00:00)
+2026-11-02 21:42:17.221Z | INFO  |       property threat.posture_reason: 'no signal group meets an ELEVATED threshold' -> 'ai_incidents: aiid.privacy_per_day=0.5819 >= 0.5'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:17.219+00:00)
+2026-11-02 21:42:17.221Z | INFO  |       property threat.posture_signals: '[0 items]' -> '[1 items]'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:17.219+00:00)
+2026-11-02 21:42:17.221Z | INFO  |       property policy.max_prompt_bytes: 65536 -> 32768  (src=derived:cm:posture/ELEVATED, conf=1.0, at=2026-11-02T21:42:17.219+00:00)
+2026-11-02 21:42:17.221Z | INFO  |       property policy.custom_redaction_patterns: '[0 items]' -> '[2 items]'  (src=derived:cm:posture/ELEVATED, conf=1.0, at=2026-11-02T21:42:17.219+00:00)
+2026-11-02 21:42:17.221Z | INFO  |       latency: fetch->parsed 309.046ms | parsed->property 13.035ms | property->plan 0.799ms | end-to-end 324.624ms
+2026-11-02 21:42:17.221Z | INFO  | graph grew from 1170 to 1273 triples; properties now: {"fx.usd_inr": 94.91, "policy.lockdown_recommended": false, "policy.max_prompt_bytes": 32768, "provider.aws-bedrock.recent_incidents": 0, "provider.aws-bedrock.status": "operational", "provider.azure-ai.recent_incidents": 0, "provider.azure-ai.status": "operational", "provider.gcp-vertex.recent_incidents": 0, "provider.gcp-vertex.status": "operational", "router.budget_inr_per_1k": 300.0, "router.max_cost_per_1k_usd": 3.1609, "router.restrict_all_traffic_to": [], "threat.aiid.privacy_incidents": 11, "threat.aiid.privacy_per_day": 0.5819, "threat.kev.ai_ml_hits": 0, "threat.kev.ransomware_hits": 0, "threat.kev.ratio": 1.404, "threat.kev.relevant_hits": 3, "threat.posture": "ELEVATED", "threat.posture_reason": "ai_incidents: aiid.privacy_per_day=0.5819 >= 0.5", "threat.posture_signals": ["ai_incidents"]}
+2026-11-02 21:42:17.222Z | INFO  | ================================================================================================
+2026-11-02 21:42:17.222Z | INFO  | PHASE C - re-plan the same prompts after the live update
+2026-11-02 21:42:17.222Z | INFO  | ================================================================================================
+2026-11-02 21:42:17.222Z | INFO  | Phase C plans  (plan version 28, posture ELEVATED)
+2026-11-02 21:42:17.222Z | INFO  |   prompt        decision route         utility  budget USD  residency            R5 bytes
+2026-11-02 21:42:17.222Z | INFO  |   P1 clean      ALLOW    local           69.74      3.1609  IN,US,EU,LOCAL          32768
+2026-11-02 21:42:17.223Z | INFO  |   P2 email      REDACT   local           69.74      3.1609  IN,US,EU,LOCAL          32768
+2026-11-02 21:42:17.223Z | INFO  |   P3 Aadhaar    REDACT   local           69.74      3.1609  IN,LOCAL                32768
+2026-11-02 21:42:17.223Z | INFO  |   P4 cloud ARN  REDACT   local           69.74      3.1609  IN,US,EU,LOCAL          32768
+2026-11-02 21:42:17.224Z | INFO  |   P5 40 KB log  BLOCK    NOT_ROUTED          -      3.1609  IN,US,EU,LOCAL          32768
+2026-11-02 21:42:17.224Z | INFO  |   context note: budget: INR 300.0 per 1k / 94.91 INR per USD = USD 3.1609 per 1k
+2026-11-02 21:42:17.224Z | INFO  | Phase A -> Phase C differences
+2026-11-02 21:42:17.224Z | INFO  |   prompt        before                    after                     why
+2026-11-02 21:42:17.224Z | INFO  |   P1 clean      ALLOW -> gcp-vertex       ALLOW -> local            CHANGED: budget USD 6.00->3.16; gcp-vertex utility 76.22->67.99; local now best (U=69.74)
+2026-11-02 21:42:17.224Z | INFO  |   P2 email      REDACT -> gcp-vertex      REDACT -> local           CHANGED: budget USD 6.00->3.16; gcp-vertex utility 76.22->67.99; local now best (U=69.74)
+2026-11-02 21:42:17.224Z | INFO  |   P3 Aadhaar    REDACT -> aws-bedrock     REDACT -> local           CHANGED: budget USD 6.00->3.16; aws-bedrock utility 75.12->64.64; local now best (U=69.74)
+2026-11-02 21:42:17.224Z | INFO  |   P4 cloud ARN  ALLOW -> gcp-vertex       REDACT -> local           CHANGED: policy ALLOW->REDACT (R2: PII or custom redaction pattern detected; sanitize before transmission); budget USD 6.00->3.16; gcp-vertex utility 76.22->67.99; local now best (U=69.74)
+2026-11-02 21:42:17.224Z | INFO  |   P5 40 KB log  ALLOW -> gcp-vertex       BLOCK -> NOT_ROUTED       CHANGED: policy ALLOW->BLOCK (R5: payload exceeds configured byte limit); budget USD 6.00->3.16
+2026-11-02 21:42:17.224Z | INFO  | Posture attribution (evidence of one feed removed / alone): all feeds -> ELEVATED; without cisa_kev -> ELEVATED; cisa_kev alone -> LOW; without aiid_rss -> LOW; aiid_rss alone -> ELEVATED
+2026-11-02 21:42:17.224Z | INFO  |   posture ELEVATED because ai_incidents: aiid.privacy_per_day=0.5819 >= 0.5
+2026-11-02 21:42:17.224Z | INFO  | Attribution (leave-one-feed-out re-runs on the same parsed data):
+2026-11-02 21:42:17.489Z | INFO  |   without gcp_status   -> posture ELEVATED | plan changes caused by gcp_status: none
+2026-11-02 21:42:18.013Z | INFO  |   without azure_status -> posture ELEVATED | plan changes caused by azure_status: none
+2026-11-02 21:42:18.566Z | INFO  |   without aws_health   -> posture ELEVATED | plan changes caused by aws_health: none
+2026-11-02 21:42:18.782Z | INFO  |   without cisa_kev     -> posture ELEVATED | plan changes caused by cisa_kev: none
+2026-11-02 21:42:18.974Z | INFO  |   without fx_usd_inr   -> posture ELEVATED | plan changes caused by fx_usd_inr: P1 ALLOW->ALLOW gcp-vertex->local, P2 REDACT->REDACT gcp-vertex->local, P3 REDACT->REDACT aws-bedrock->local, P4 REDACT->REDACT gcp-vertex->local
+2026-11-02 21:42:19.203Z | INFO  |   without aiid_rss     -> posture LOW      | plan changes caused by aiid_rss: P4 ALLOW->REDACT, P5 ALLOW->BLOCK local->-
+2026-11-02 21:42:19.215Z | INFO  | ================================================================================================
+2026-11-02 21:42:19.215Z | INFO  | PHASE D - REPLAY (deterministic what-if, as_of=2026-02-27T13:00:00+00:00); NOT live data
+2026-11-02 21:42:19.215Z | INFO  | ================================================================================================
+2026-11-02 21:42:19.215Z | INFO  |   inputs pinned in data/replay/ (MANIFEST.json, pinned 2026-11-02T16:25:54+00:00); every SHA-256 checked:
+2026-11-02 21:42:19.215Z | INFO  |     gcp_status.derived.json           10059 B  sha256=ae9f37988620d718...  text-free derivative of a real live payload
+2026-11-02 21:42:19.215Z | INFO  |     aws_health.derived.json            3038 B  sha256=3cb78e707e16b818...  text-free derivative of a real live payload
+2026-11-02 21:42:19.216Z | INFO  |     cisa_kev.derived.json            358670 B  sha256=3d8305008d016d93...  text-free derivative of a real live payload
+2026-11-02 21:42:19.216Z | INFO  |     aiid_rss.derived.xml              11304 B  sha256=3c95a8e48e96e825...  text-free derivative of a real live payload
+2026-11-02 21:42:19.216Z | INFO  |     whatif_azure_status.xml            1683 B  sha256=d8c3bfa8bad5076c...  hand-written what-if fixture (not real Microsoft data)
+2026-11-02 21:42:19.404Z | INFO  | Replay baseline (ontology defaults)  (plan version 1, posture LOW)
+2026-11-02 21:42:19.404Z | INFO  |   prompt        decision route         utility  budget USD  residency            R5 bytes
+2026-11-02 21:42:19.404Z | INFO  |   P1 clean      ALLOW    gcp-vertex      76.22      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.405Z | INFO  |   P2 email      REDACT   gcp-vertex      76.22      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.405Z | INFO  |   P3 Aadhaar    REDACT   aws-bedrock     75.12      6.0000  IN,LOCAL                65536
+2026-11-02 21:42:19.405Z | INFO  |   P4 cloud ARN  ALLOW    gcp-vertex      76.22      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.425Z | INFO  |   P5 40 KB log  ALLOW    gcp-vertex      76.22      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.426Z | INFO  | Step D.1 - provider incidents at as_of
+2026-11-02 21:42:19.429Z | INFO  |   [gcp_status] REPLAY-FILE url=file:gcp_status.derived.json
+2026-11-02 21:42:19.429Z | INFO  |       http=None bytes=10059 fetch=0.0ms parse=0.46ms sha256=ae9f37988620d718... fetched_at=2026-10-31T05:07:39.159+00:00
+2026-11-02 21:42:19.429Z | INFO  |       items=8 relevant=1 facts=8 triples_added=8 replaced=1 plan v1->v3
+2026-11-02 21:42:19.429Z | INFO  |       extracted: gcp-vertex=degraded (conf 0.9); active incidents in feed=1, recent=0, regions=global,northamerica-northeast1,southamerica-east1,us-central1,us-east1,us-east4
+2026-11-02 21:42:19.429Z | INFO  |       property provider.gcp-vertex.status: None -> 'degraded'  (src=gcp_status:replay-file:replay, conf=0.9, at=2026-11-02T21:42:19.428+00:00)
+2026-11-02 21:42:19.429Z | INFO  |       property provider.gcp-vertex.recent_incidents: None -> 0  (src=gcp_status:replay-file:replay, conf=0.9, at=2026-11-02T21:42:19.428+00:00)
+2026-11-02 21:42:19.429Z | INFO  |       latency: fetch->parsed 0.534ms | parsed->property 1.285ms | property->plan 0.1724ms | end-to-end 2.377ms
+2026-11-02 21:42:19.432Z | INFO  |   [azure_status] REPLAY-FILE url=file:whatif_azure_status.xml
+2026-11-02 21:42:19.432Z | INFO  |       http=None bytes=1683 fetch=0.0ms parse=0.75ms sha256=d8c3bfa8bad5076c... fetched_at=2026-11-02T16:25:54+00:00
+2026-11-02 21:42:19.433Z | INFO  |       items=2 relevant=1 facts=13 triples_added=13 replaced=1 plan v3->v5
+2026-11-02 21:42:19.433Z | INFO  |       extracted: azure-ai=outage (conf 0.85); active incidents in feed=2, recent=0, regions=centralindia,westeurope
+2026-11-02 21:42:19.433Z | INFO  |       property provider.azure-ai.status: None -> 'outage'  (src=azure_status:replay-file:replay, conf=0.85, at=2026-11-02T21:42:19.432+00:00)
+2026-11-02 21:42:19.433Z | INFO  |       property provider.azure-ai.recent_incidents: None -> 0  (src=azure_status:replay-file:replay, conf=0.9, at=2026-11-02T21:42:19.432+00:00)
+2026-11-02 21:42:19.433Z | INFO  |       latency: fetch->parsed 0.89ms | parsed->property 1.641ms | property->plan 0.2253ms | end-to-end 3.117ms
+2026-11-02 21:42:19.435Z | INFO  |   [aws_health] REPLAY-FILE url=file:aws_health.derived.json
+2026-11-02 21:42:19.435Z | INFO  |       http=None bytes=3038 fetch=0.0ms parse=0.1ms sha256=3cb78e707e16b818... fetched_at=2026-10-31T05:07:39.780+00:00
+2026-11-02 21:42:19.435Z | INFO  |       items=2 relevant=0 facts=1 triples_added=0 replaced=0 plan v5->v7
+2026-11-02 21:42:19.435Z | INFO  |       extracted: aws-bedrock=operational (conf 0.8); active incidents in feed=0, recent=0, regions=-
+2026-11-02 21:42:19.435Z | INFO  |       property provider.aws-bedrock.status: None -> 'operational'  (src=aws_health:replay-file:replay, conf=0.8, at=2026-11-02T21:42:19.434+00:00)
+2026-11-02 21:42:19.435Z | INFO  |       property provider.aws-bedrock.recent_incidents: None -> 0  (src=aws_health:replay-file:replay, conf=0.9, at=2026-11-02T21:42:19.434+00:00)
+2026-11-02 21:42:19.435Z | INFO  |       latency: fetch->parsed 0.237ms | parsed->property 1.139ms | property->plan 0.1593ms | end-to-end 1.849ms
+2026-11-02 21:42:19.435Z | INFO  | Replay plans after D.1  (plan version 7, posture LOW)
+2026-11-02 21:42:19.435Z | INFO  |   prompt        decision route         utility  budget USD  residency            R5 bytes
+2026-11-02 21:42:19.435Z | INFO  |   P1 clean      ALLOW    aws-bedrock     75.12      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.436Z | INFO  |   P2 email      REDACT   aws-bedrock     75.12      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.436Z | INFO  |   P3 Aadhaar    REDACT   aws-bedrock     75.12      6.0000  IN,LOCAL                65536
+2026-11-02 21:42:19.436Z | INFO  |   P4 cloud ARN  ALLOW    aws-bedrock     75.12      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.456Z | INFO  |   P5 40 KB log  ALLOW    aws-bedrock     75.12      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.456Z | INFO  |   context note: azure-ai: status 'outage' excludes the provider
+2026-11-02 21:42:19.457Z | INFO  |   context note: gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5
+2026-11-02 21:42:19.457Z | INFO  | Replay baseline -> D.1 differences
+2026-11-02 21:42:19.457Z | INFO  |   prompt        before                    after                     why
+2026-11-02 21:42:19.457Z | INFO  |   P1 clean      ALLOW -> gcp-vertex       ALLOW -> aws-bedrock      CHANGED: gcp-vertex utility 76.22->71.16; aws-bedrock now best (U=75.12)
+2026-11-02 21:42:19.457Z | INFO  |   P2 email      REDACT -> gcp-vertex      REDACT -> aws-bedrock     CHANGED: gcp-vertex utility 76.22->71.16; aws-bedrock now best (U=75.12)
+2026-11-02 21:42:19.457Z | INFO  |   P3 Aadhaar    REDACT -> aws-bedrock     REDACT -> aws-bedrock     unchanged
+2026-11-02 21:42:19.457Z | INFO  |   P4 cloud ARN  ALLOW -> gcp-vertex       ALLOW -> aws-bedrock      CHANGED: gcp-vertex utility 76.22->71.16; aws-bedrock now best (U=75.12)
+2026-11-02 21:42:19.457Z | INFO  |   P5 40 KB log  ALLOW -> gcp-vertex       ALLOW -> aws-bedrock      CHANGED: gcp-vertex utility 76.22->71.16; aws-bedrock now best (U=75.12)
+2026-11-02 21:42:19.457Z | INFO  | Step D.2 - threat posture at as_of
+2026-11-02 21:42:19.467Z | INFO  |   [cisa_kev] REPLAY-FILE url=file:cisa_kev.derived.json
+2026-11-02 21:42:19.467Z | INFO  |       http=None bytes=358670 fetch=0.0ms parse=4.8ms sha256=3d8305008d016d93... fetched_at=2026-10-31T05:07:40.298+00:00
+2026-11-02 21:42:19.467Z | INFO  |       items=1766 relevant=9 facts=55 triples_added=55 replaced=0 plan v7->v18
+2026-11-02 21:42:19.467Z | INFO  |       extracted: KEV catalog 2026.10.30: 29 added in 30 d vs median 18.0 -> ratio 1.611; relevant=9 [Google Chromium (CVE-2026-2441), Microsoft Windows (CVE-2008-0015), Microsoft Configuration Manager (CVE-2024-43468), Microsoft Windows (CVE-2026-21533)]; ai_ml=0; ransomware=0
+2026-11-02 21:42:19.467Z | INFO  |       property threat.kev.ratio: None -> 1.611  (src=cisa_kev:replay-file:replay, conf=1.0, at=2026-11-02T21:42:19.465+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       property threat.kev.relevant_hits: None -> 9  (src=cisa_kev:replay-file:replay, conf=1.0, at=2026-11-02T21:42:19.465+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       property threat.kev.ai_ml_hits: None -> 0  (src=cisa_kev:replay-file:replay, conf=1.0, at=2026-11-02T21:42:19.465+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       property threat.kev.ransomware_hits: None -> 0  (src=cisa_kev:replay-file:replay, conf=1.0, at=2026-11-02T21:42:19.465+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       property threat.posture: None -> 'LOW'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:19.465+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       property threat.posture_reason: None -> 'no signal group meets an ELEVATED threshold'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:19.466+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       property threat.posture_signals: None -> '[0 items]'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:19.466+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       property policy.max_prompt_bytes: None -> 65536  (src=derived:cm:posture/LOW, conf=1.0, at=2026-11-02T21:42:19.466+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       property policy.custom_redaction_patterns: None -> '[0 items]'  (src=derived:cm:posture/LOW, conf=1.0, at=2026-11-02T21:42:19.466+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       property router.restrict_all_traffic_to: None -> '[0 items]'  (src=derived:cm:posture/LOW, conf=1.0, at=2026-11-02T21:42:19.466+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       property policy.lockdown_recommended: None -> False  (src=derived:cm:posture/LOW, conf=1.0, at=2026-11-02T21:42:19.466+00:00)
+2026-11-02 21:42:19.467Z | INFO  |       latency: fetch->parsed 5.282ms | parsed->property 1.34ms | property->plan 0.165ms | end-to-end 8.422ms
+2026-11-02 21:42:19.470Z | INFO  |   [aiid_rss] REPLAY-FILE url=file:aiid_rss.derived.xml
+2026-11-02 21:42:19.470Z | INFO  |       http=None bytes=11304 fetch=0.0ms parse=0.79ms sha256=3c95a8e48e96e825... fetched_at=2026-10-31T05:07:40.628+00:00
+2026-11-02 21:42:19.470Z | INFO  |       items=100 relevant=0 facts=0 triples_added=0 replaced=0 plan v18->v20
+2026-11-02 21:42:19.470Z | INFO  |       extracted: 0 reports in 30 d; privacy=0, intrusion=0 (counts only; report text is not stored)
+2026-11-02 21:42:19.470Z | INFO  |       property threat.aiid.privacy_incidents: None -> 0  (src=aiid_rss:replay-file:replay, conf=0.7, at=2026-11-02T21:42:19.469+00:00)
+2026-11-02 21:42:19.471Z | INFO  |       property threat.aiid.privacy_per_day: None -> 0.0  (src=aiid_rss:replay-file:replay, conf=0.7, at=2026-11-02T21:42:19.470+00:00)
+2026-11-02 21:42:19.471Z | INFO  |       latency: fetch->parsed 1.001ms | parsed->property 1.263ms | property->plan 0.1895ms | end-to-end 3.003ms
+2026-11-02 21:42:19.471Z | INFO  | Replay plans after D.2  (plan version 20, posture LOW)
+2026-11-02 21:42:19.471Z | INFO  |   prompt        decision route         utility  budget USD  residency            R5 bytes
+2026-11-02 21:42:19.471Z | INFO  |   P1 clean      ALLOW    aws-bedrock     75.12      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.471Z | INFO  |   P2 email      REDACT   aws-bedrock     75.12      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.472Z | INFO  |   P3 Aadhaar    REDACT   aws-bedrock     75.12      6.0000  IN,LOCAL                65536
+2026-11-02 21:42:19.472Z | INFO  |   P4 cloud ARN  ALLOW    aws-bedrock     75.12      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.492Z | INFO  |   P5 40 KB log  ALLOW    aws-bedrock     75.12      6.0000  IN,US,EU,LOCAL          65536
+2026-11-02 21:42:19.492Z | INFO  |   context note: azure-ai: status 'outage' excludes the provider
+2026-11-02 21:42:19.492Z | INFO  |   context note: gcp-vertex: status 'degraded' -> availability -0.8 pts, p95 x1.5
+2026-11-02 21:42:19.492Z | INFO  | D.1 -> D.2 differences
+2026-11-02 21:42:19.492Z | INFO  |   prompt        before                    after                     why
+2026-11-02 21:42:19.492Z | INFO  |   P1 clean      ALLOW -> aws-bedrock      ALLOW -> aws-bedrock      unchanged
+2026-11-02 21:42:19.492Z | INFO  |   P2 email      REDACT -> aws-bedrock     REDACT -> aws-bedrock     unchanged
+2026-11-02 21:42:19.492Z | INFO  |   P3 Aadhaar    REDACT -> aws-bedrock     REDACT -> aws-bedrock     unchanged
+2026-11-02 21:42:19.492Z | INFO  |   P4 cloud ARN  ALLOW -> aws-bedrock      ALLOW -> aws-bedrock      unchanged
+2026-11-02 21:42:19.492Z | INFO  |   P5 40 KB log  ALLOW -> aws-bedrock      ALLOW -> aws-bedrock      unchanged
+2026-11-02 21:42:19.492Z | INFO  |   replay posture LOW because no signal group meets an ELEVATED threshold
+2026-11-02 21:42:19.492Z | INFO  | Step D.3 - threat posture at the KEV backtest peak, as_of=2026-09-24T12:00:00+00:00 (fresh agent, KEV evidence only)
+2026-11-02 21:42:19.677Z | INFO  |   [cisa_kev] REPLAY-FILE url=file:cisa_kev.derived.json
+2026-11-02 21:42:19.677Z | INFO  |       http=None bytes=358670 fetch=0.0ms parse=5.04ms sha256=3d8305008d016d93... fetched_at=2026-10-31T05:07:40.298+00:00
+2026-11-02 21:42:19.677Z | INFO  |       items=1766 relevant=12 facts=73 triples_added=73 replaced=0 plan v1->v12
+2026-11-02 21:42:19.677Z | INFO  |       extracted: KEV catalog 2026.10.30: 47 added in 30 d vs median 23.0 -> ratio 2.043; relevant=12 [F5 BIG-IP APM (CVE-2026-94127), Linux Kernel (CVE-2026-53266), Linux Kernel (CVE-2025-39964), Linux Kernel (CVE-2025-39682)]; ai_ml=0; ransomware=0
+2026-11-02 21:42:19.677Z | INFO  |       property threat.kev.ratio: None -> 2.043  (src=cisa_kev:replay-file:replay, conf=1.0, at=2026-11-02T21:42:19.674+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       property threat.kev.relevant_hits: None -> 12  (src=cisa_kev:replay-file:replay, conf=1.0, at=2026-11-02T21:42:19.674+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       property threat.kev.ai_ml_hits: None -> 0  (src=cisa_kev:replay-file:replay, conf=1.0, at=2026-11-02T21:42:19.675+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       property threat.kev.ransomware_hits: None -> 0  (src=cisa_kev:replay-file:replay, conf=1.0, at=2026-11-02T21:42:19.675+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       property threat.posture: None -> 'HIGH'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:19.675+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       property threat.posture_reason: None -> 'kev_stack: kev.relevant_hits=12 >= 12.0; kev_volume: kev.ratio=2.043 >= 1.89'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:19.675+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       property threat.posture_signals: None -> '[2 items]'  (src=derived:posture-rule, conf=1.0, at=2026-11-02T21:42:19.675+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       property policy.max_prompt_bytes: None -> 16384  (src=derived:cm:posture/HIGH, conf=1.0, at=2026-11-02T21:42:19.676+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       property policy.custom_redaction_patterns: None -> '[2 items]'  (src=derived:cm:posture/HIGH, conf=1.0, at=2026-11-02T21:42:19.676+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       property router.restrict_all_traffic_to: None -> '[2 items]'  (src=derived:cm:posture/HIGH, conf=1.0, at=2026-11-02T21:42:19.676+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       property policy.lockdown_recommended: None -> True  (src=derived:cm:posture/HIGH, conf=1.0, at=2026-11-02T21:42:19.676+00:00)
+2026-11-02 21:42:19.677Z | INFO  |       latency: fetch->parsed 5.468ms | parsed->property 1.572ms | property->plan 0.1726ms | end-to-end 9.59ms
+2026-11-02 21:42:19.677Z | INFO  | Replay plans after D.3  (plan version 12, posture HIGH)
+2026-11-02 21:42:19.678Z | INFO  |   prompt        decision route         utility  budget USD  residency            R5 bytes
+2026-11-02 21:42:19.678Z | INFO  |   P1 clean      ALLOW    aws-bedrock     75.12      6.0000  IN,LOCAL                16384
+2026-11-02 21:42:19.678Z | INFO  |   P2 email      REDACT   aws-bedrock     75.12      6.0000  IN,LOCAL                16384
+2026-11-02 21:42:19.679Z | INFO  |   P3 Aadhaar    REDACT   aws-bedrock     75.12      6.0000  IN,LOCAL                16384
+2026-11-02 21:42:19.679Z | INFO  |   P4 cloud ARN  REDACT   aws-bedrock     75.12      6.0000  IN,LOCAL                16384
+2026-11-02 21:42:19.679Z | INFO  |   P5 40 KB log  BLOCK    NOT_ROUTED          -      6.0000  IN,LOCAL                16384
+2026-11-02 21:42:19.679Z | INFO  |   context note: threat posture restricts all traffic to ['IN', 'LOCAL']
+2026-11-02 21:42:19.679Z | INFO  |   context note: lockdown RECOMMENDED to operator (not applied automatically)
+2026-11-02 21:42:19.679Z | INFO  | Replay baseline -> D.3 differences
+2026-11-02 21:42:19.679Z | INFO  |   prompt        before                    after                     why
+2026-11-02 21:42:19.679Z | INFO  |   P1 clean      ALLOW -> gcp-vertex       ALLOW -> aws-bedrock      CHANGED: residency IN,LOCAL; gcp-vertex: RESIDENCY_NOT_ALLOWED: US; aws-bedrock now best (U=75.12)
+2026-11-02 21:42:19.679Z | INFO  |   P2 email      REDACT -> gcp-vertex      REDACT -> aws-bedrock     CHANGED: residency IN,LOCAL; gcp-vertex: RESIDENCY_NOT_ALLOWED: US; aws-bedrock now best (U=75.12)
+2026-11-02 21:42:19.679Z | INFO  |   P3 Aadhaar    REDACT -> aws-bedrock     REDACT -> aws-bedrock     unchanged
+2026-11-02 21:42:19.679Z | INFO  |   P4 cloud ARN  ALLOW -> gcp-vertex       REDACT -> aws-bedrock     CHANGED: policy ALLOW->REDACT (R2: PII or custom redaction pattern detected; sanitize before transmission); residency IN,LOCAL; gcp-vertex: RESIDENCY_NOT_ALLOWED: US; aws-bedrock now best (U=75.12)
+2026-11-02 21:42:19.679Z | INFO  |   P5 40 KB log  ALLOW -> gcp-vertex       BLOCK -> NOT_ROUTED       CHANGED: policy ALLOW->BLOCK (R5: payload exceeds configured byte limit); residency IN,LOCAL
+2026-11-02 21:42:19.680Z | INFO  |   peak posture HIGH because kev_stack: kev.relevant_hits=12 >= 12.0; kev_volume: kev.ratio=2.043 >= 1.89
+2026-11-02 21:42:19.686Z | INFO  | ================================================================================================
+2026-11-02 21:42:19.686Z | INFO  | DONE - 6/6 endpoints live; 5 of 5 plans changed by live data; replay changed 4 (D.1), 0 (D.2) and 4 (D.3)
+2026-11-02 21:42:19.686Z | INFO  | ================================================================================================
